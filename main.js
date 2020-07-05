@@ -1,11 +1,28 @@
 console.log('main.js loaded');
 
-document.getElementById('topbar-fire-btn').addEventListener('click', function()
-{
-	console.log('fire button clicked');
-});
+import { Game } from './modules/game.js';
 
-// document.getElementsByTagName('body')[0].height = window.innerHeight;
-// let innerWindow = window.innerHeight;
-// let myFontSize = parseInt(window.getComputedStyle(document.body).getPropertyValue('font-size'));
-// document.getElementById('playfield').height = window.innerHeight;
+document.getElementById('topbar-fire-btn').addEventListener('click', fire);
+document.getElementById(`mainmenu-start-btn`).addEventListener('click', start);
+
+function fire()
+{
+	console.log(`fire pressed`);
+}
+
+function start()
+{
+	let playerOne = document.getElementById(`mainmenu-player-one`).value;
+	let playerTwo = document.getElementById(`mainmenu-player-two`).value;
+	
+	document.getElementById('mainmenu').style.display = 'none';
+	
+	console.log(`P1: ${playerOne}`);
+	console.log(`P2: ${playerTwo}`);
+	
+	document.getElementById('topbar-player-current').innerText = playerOne;
+	
+	let newGame = new Game(playerOne, playerTwo);
+	console.log(newGame.getCurrentPlayer());
+	console.log(newGame.currentPlayer);
+}
