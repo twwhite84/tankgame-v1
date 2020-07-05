@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Tank Game v1</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link href="./stylesheet.css" rel="stylesheet">
+		<script src="./main.js" defer></script>
+	</head>
+	
+	<body>
+		<nav id="topbar">
+			<div id="topbar-player-div">
+				<p id="topbar-player-current">Player</p>
+			</div>
+			
+			<div id="topbar-angle-div">
+				<label for="topbar-angle-input">ANG</label>
+				<input maxlength="3" size="1" name="topbar-angle-input"></input>
+			</div>
+			
+			<div id="topbar-power-div">
+				<label for="topbar-power-input">PWR</label>
+				<input maxlength="3" size="1" name="topbar-power-input"></input>
+			</div>
+			
+			<div id="topbar-fire-div">
+				<button id="topbar-fire-btn" name="topbar-fire-btn">FIRE</button>
+			</div>
+		</nav>
+		
+		<canvas id="playfield"></canvas>
+		
+		<div id="mainmenu">
+			<h1 id="mainmenu-title">Tank Game v1</h1>
+			
+			<div>
+				<label for="mainmenu-player-one">Player 1</label>
+				<input id="mainmenu-player-one" name="mainmenu-player-one">
+			</div>
+			
+			<div>
+				<label for="mainmenu-player-two">Player 2</label>
+				<input id="mainmenu-player-two" name="mainmenu-player-two">
+			</div>
+			
+			<button id="mainmenu-start-btn">Start Game</button>
+		</div>
+		
+	</body>
+</html>
