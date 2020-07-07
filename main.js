@@ -21,8 +21,19 @@ function start()
 	console.log(`P2: ${playerTwo}`);
 	
 	document.getElementById('topbar-player-current').innerText = playerOne;
+	document.getElementById(`sidebar-player-current`).innerText = playerOne;
 	
 	let newGame = new Game(playerOne, playerTwo);
 	console.log(newGame.getCurrentPlayer());
 	console.log(newGame.currentPlayer);
+	
+	gameLoop();
 }
+
+
+function gameLoop()
+{
+	let canvas = document.getElementById(`playfield`);
+	let ctx = canvas.getContext('2d');
+}
+
