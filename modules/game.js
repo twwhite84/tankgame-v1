@@ -1,3 +1,5 @@
+import { UI } from './ui.js';
+
 class Game
 {
 	#playerOne;
@@ -21,9 +23,13 @@ class Game
 		this.#currentPlayer = currentPlayer;
 	}
 	
-	test()
+	testLoop()
 	{
-		return `this is a test`;
+		//need to tell it where my UI is. maybe redo this and call from main?
+		for (let i = 0; i <= size; i++)
+		{
+			plotPixel(i, i);
+		}
 	}
 	
 }

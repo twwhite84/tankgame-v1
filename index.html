@@ -9,63 +9,62 @@
 	</head>
 	
 	<body>
-		<nav id="topbar">
-			<div id="topbar-player-div">
-				<p id="topbar-player-current">Player</p>
-			</div>
+			<nav id="topbar">
+				<div id="topbar-player-div">
+					<p id="topbar-player-current">Player</p>
+				</div>
+				
+				<div id="topbar-angle-div">
+					<label for="topbar-angle-input">ANG</label>
+					<input maxlength="3" size="1" name="topbar-angle-input"></input>
+				</div>
+				
+				<div id="topbar-power-div">
+					<label for="topbar-power-input">PWR</label>
+					<input maxlength="3" size="1" name="topbar-power-input"></input>
+				</div>
+				
+				<div id="topbar-fire-div">
+					<button id="topbar-fire-btn" class="fire-btn" name="topbar-fire-btn">FIRE</button>
+				</div>
+			</nav>
 			
-			<div id="topbar-angle-div">
-				<label for="topbar-angle-input">ANG</label>
-				<input maxlength="3" size="1" name="topbar-angle-input"></input>
-			</div>
+			<nav id="sidebar">
+				<div id="sidebar-player-div">
+					<p id="sidebar-player-current">Player</p>
+				</div>
+				
+				<div id="sidebar-angle-div">
+					<label id="sidebar-angle-label" for="sidebar-angle-input">Angle</label>
+					<input id="sidebar-angle-input" maxlength="3" size="5" name="sidebar-angle-input">
+				</div>
+				
+				<div id="sidebar-power-div">
+					<label id="sidebar-power-label" for="sidebar-power-input">Power</label>
+					<input id="sidebar-power-input" maxlength="3" size="5" name="sidebar-power-input">
+				</div>
+				
+				<div id="sidebar-fire-div">
+					<button id="sidebar-fire-btn" class="fire-btn" name="sidebar-fire-btn">FIRE</button>
+				</div>
+			</nav>
 			
-			<div id="topbar-power-div">
-				<label for="topbar-power-input">PWR</label>
-				<input maxlength="3" size="1" name="topbar-power-input"></input>
-			</div>
+			<canvas id="playfield"></canvas>
 			
-			<div id="topbar-fire-div">
-				<button id="topbar-fire-btn" name="topbar-fire-btn">FIRE</button>
-			</div>
-		</nav>
-		
-		<nav id="sidebar">
-			<div id="sidebar-player-div">
-				<p id="sidebar-player-current">Player</p>
-			</div>
-			
-			<div id="sidebar-angle-div">
-				<label for="sidebar-angle-input">Angle</label>
-				<input id="sidebar-angle-input" maxlength="3" size="3" name="sidebar-angle-input">
-			</div>
-			
-			<div id="sidebar-power-div">
-				<label for="sidebar-power-input">Power</label>
-				<input id="sidebar-power-input" maxlength="3" size="3" name="sidebar-power-input">
-			</div>
-			
-			<div id="sidebar-fire-div">
-				<button id="sidebar-fire-btn" name="sidebar-fire-btn">FIRE</button>
-			</div>
-		</nav>
-		
-		<canvas id="playfield"></canvas>
-		
-		<div id="mainmenu">
-			<h1 id="mainmenu-title">Tank Game v1</h1>
-			
-			<div>
-				<label for="mainmenu-player-one">Player 1</label>
-				<input id="mainmenu-player-one" name="mainmenu-player-one">
-			</div>
-			
-			<div>
-				<label for="mainmenu-player-two">Player 2</label>
-				<input id="mainmenu-player-two" name="mainmenu-player-two">
-			</div>
-			
-			<button id="mainmenu-start-btn">Start Game</button>
+			<div id="mainmenu">
+				<h1 id="mainmenu-title">Tank Game v1</h1>
+				
+				<div>
+					<label for="mainmenu-player-one">Player 1</label>
+					<input id="mainmenu-player-one" name="mainmenu-player-one">
+				</div>
+				
+				<div>
+					<label for="mainmenu-player-two">Player 2</label>
+					<input id="mainmenu-player-two" name="mainmenu-player-two">
+				</div>
+				
+				<button id="mainmenu-start-btn">Start Game</button>
 		</div>
-		
 	</body>
 </html>
