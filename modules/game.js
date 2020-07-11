@@ -23,9 +23,9 @@ class Game
 		this.#currentPlayer = currentPlayer;
 	}
 	
-	testLoop()
+	testLoop(size)
 	{
-		//need to tell it where my UI is. maybe redo this and call from main?
+		// need to tell it where my UI is. maybe redo this and call from main?
 		for (let i = 0; i <= size; i++)
 		{
 			plotPixel(i, i);

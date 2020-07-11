@@ -5,6 +5,7 @@ import { Game } from './game.js';
 class UI
 {
 	#DOMElements;
+	#playfieldSize;
 	
 	constructor()
 	{
@@ -12,13 +13,13 @@ class UI
 		{
 			canvas:		document.getElementById(`playfield`),
 			ctx:			document.getElementById(`playfield`).getContext(`2d`),
-			fireBtn:		document.querySelectorAll(`.fire-btn`).forEach(el => el.addEventListener(`click`, this.fireButton)),
+			fireBtn:	document.querySelectorAll(`.fire-btn`).forEach(el => el.addEventListener(`click`, this.fireButton)),
 			startBtn:	document.getElementById(`mainmenu-start-btn`).addEventListener(`click`, this.startButton)
 		}
 		
 		//value of 400 seems to work best across various screens, not too pixelly/blurry
-		this.#DOMElements.canvas.width = 400;
-		this.#DOMElements.canvas.height = 400;
+		this.#DOMElements.canvas.width = this.#playfieldSize;
+		this.#DOMElements.canvas.height = this.#playfieldSize;
 	}
 	
 	getDOMElements()
@@ -38,7 +39,7 @@ class UI
 		let p1 = document.getElementById('mainmenu-player-one').value;
 		let p2 = document.getElementById('mainmenu-player-two').value;
 		let currentGame = new Game(p1, p2);
-		currentGame.testLoop();
+		currentGame.testLoop(this.#playfieldSize);
 	}
 	
 	plotPixel(x, y)
