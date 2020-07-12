@@ -24,21 +24,44 @@
 		align-items: center;
 	}
 
-		#topbar-player-div
-		{
-			margin-left: 1rem;
-		}
+	#topbar-player-div
+	{
+		margin-left: 0.5rem;
+		width: 5rem;
+	}
+	
+	#topbar-angle-div
+	{
+		display: flex;
+		align-items: center;
+	}
+	
+	#topbar-angle-input
+	{
+		margin-left: 0.5rem;
+	}
+	
+	#topbar-power-div
+	{
+		display: flex;
+		align-items: center;
+	}
+	
+	#topbar-power-input
+	{
+		margin-left: 0.5rem;
+	}
+	
+	#topbar-fire-div
+	{
+		margin: 0 0.5rem;
+	}
 
-		#topbar-fire-div
-		{
-			margin-right: 1rem;
-		}
-
-		#topbar-fire-btn
-		{
-			background-color: red;
-			color: white;
-		}
+	#topbar-fire-btn
+	{
+		background-color: red;
+		color: white;
+	}
 		
 	#sidebar
 	{
@@ -73,6 +96,7 @@
 		text-align: center;
 	}
 }
+
 
 /* landscape version */
 @media (orientation: landscape)

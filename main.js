@@ -3,37 +3,15 @@
 import { UI } from './modules/UI.js';
 import { Game } from './modules/game.js';
 
-let dom =
+let domURL = './dom.json';
+let domOBJ = new XMLHttpRequest();
+domOBJ.open('GET', domURL);
+domOBJ.responseType = 'json';
+domOBJ.send();
+domOBJ.onload = function()
 {
-	playfield:			document.getElementById(`playfield`),
-	playfieldCtx:		document.getElementById(`playfield`).getContext(`2d`),
-	buttons:
-	{
-		fire:
-		{
-			fireTB: 		document.getElementById(`topbar-fire-btn`),
-			fireSB:			document.getElementById(`sidebar-fire-btn`)
-		},
-		
-		start:				document.getElementById(`mainmenu-start-btn`),
-	},
 	
-	inputs:
-	{
-		p1name:				document.getElementById(`mainmenu-pone-input`),
-		p2name: 			document.getElementById(`mainmenu-ptwo-input`)
-	},
-	
-	labels:
-	{
-		player:
-		{
-			currentTB:	document.getElementById(`topbar-player-current`),
-			currentSB:	document.getElementById(`sidebar-player-current`)
-		}
-	}
-	
-}
+	let dom = domOBJ.response;
 
 //set up listeners
 Object.keys(dom.buttons.fire).forEach(item => dom.buttons.fire[item].addEventListener(`click`, fire));
@@ -55,3 +33,5 @@ function fire()
 	console.log(`a fire button was clicked`);
 }
 
+
+}
