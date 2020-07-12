@@ -1,3 +1,4 @@
+//game.js -- MODEL CLASS
 import { UI } from './ui.js';
 
 class Game

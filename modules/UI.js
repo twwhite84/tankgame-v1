@@ -1,6 +1,6 @@
+//ui.js -- VIEW CLASS
 import { Dom } from './dom.js';
 
-//this module has to do with view updates
 class UI
 {
 	updateCurrentPlayer(currentPlayer)
