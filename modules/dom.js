@@ -25,6 +25,12 @@ export const Dom =
 		{
 			currentTB:	document.getElementById(`topbar-player-current`),
 			currentSB:	document.getElementById(`sidebar-player-current`)
+		},
+		
+		wind:
+		{
+			windTB:			document.getElementById(`topbar-wind-label`),
+			windSB:			document.getElementById(`sidebar-wind-label`)
 		}
 	}
 }

@@ -1,18 +1,14 @@
+import { Dom } from './dom.js';
+
 //this module has to do with view updates
 class UI
 {
-	#dom;
 	
-	constructor(dom)
+	static updateCurrentPlayer(cp)
 	{
-			this.#dom = dom;
-	}
-	
-	
-	updateCurrentPlayer(cp)
-	{
-		this.#dom.labels.player.currentTB.innerText = cp;
-		this.#dom.labels.player.currentSB.innerText = cp;
+		Dom.labels.player.currentTB.innerText = cp;
+		Dom.labels.player.currentSB.innerText = cp;
+		console.log(`test of static method`);
 	}
 	
 	

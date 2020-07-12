@@ -16,18 +16,25 @@
 
 	#topbar	
 	{
-		background: linear-gradient(grey, white);
-		width: 100%;
-		height: 8%;
 		display: flex;
+		width: 100%;
+		height: 6%;
 		justify-content: space-between;
 		align-items: center;
+		background: linear-gradient(grey, white);
 	}
-
+	
 	#topbar-player-div
 	{
-		margin-left: 0.5rem;
+		margin: 0 0 0 0.5rem;
 		width: 5rem;
+	}
+	
+	#topbar-player-current
+	{
+		margin: 0;
+		padding: 0;
+		overflow: hidden;
 	}
 	
 	#topbar-angle-div
@@ -38,7 +45,8 @@
 	
 	#topbar-angle-input
 	{
-		margin-left: 0.5rem;
+		margin: 0 0 0 0.25rem;
+		width: 2rem;
 	}
 	
 	#topbar-power-div
@@ -49,12 +57,24 @@
 	
 	#topbar-power-input
 	{
-		margin-left: 0.5rem;
+		margin: 0 0 0 0.25rem;
+		width: 2rem;
+	}
+	
+	#topbar-wind-div
+	{
+		display: flex;
+		align-items: center;
+	}
+	
+	#topbar-wind-label
+	{
+		margin: 0 0 0 0.25rem;
 	}
 	
 	#topbar-fire-div
 	{
-		margin: 0 0.5rem;
+		margin: 0 0.5rem 0 0;
 	}
 
 	#topbar-fire-btn
@@ -72,22 +92,22 @@
 	{
 		background-color: black;
 		width: 100%;
-		height: 92%;
+		height: 94%;
 		display: block;
 	}
 
 	#mainmenu
 	{
 		position: absolute;
+		display: grid;
+		justify-content: center;
+		align-items: center;
 		width: 80%;
 		height: 50%;
 		top: 50%;
 		left: 50%;
 		transform: translate(-50%, -50%);
 		background: linear-gradient(grey, white);
-		display: grid;
-		justify-content: center;
-		align-items: center;
 	}
 
 	#mainmenu-title
@@ -122,12 +142,18 @@
 	#sidebar
 	{
 		display: grid;
+		align-items: center;
+		justify-content: center;
+		text-align: center;
 		float: right;
 		background: linear-gradient(DimGray, LightGray);
-		width: 30%;	
+		width: 25%;	
 		height: 100%;
-		justify-content: center;
-		align-items: center;
+	}
+	
+	#sidebar-player-div
+	{
+		width: 8rem;
 	}
 	
 	#sidebar-player-current
@@ -135,20 +161,31 @@
 		text-align: center;
 		font-size: 1.5rem;
 		margin: 0;
+		overflow: hidden;
 	}
 	
-	#sidebar-angle-div > *
+	#sidebar-angle-label
 	{
 		display: block;
-		text-align: center;
-		margin: 0.5rem auto;
+		margin-bottom: 0.25rem;
 	}
 	
-	#sidebar-power-div > *
+	#sidebar-angle-input
 	{
 		display: block;
-		text-align: center;
-		margin: 0.5rem auto;
+		margin: 0 auto;
+	}
+	
+	#sidebar-power-label
+	{
+		display: block;
+		margin-bottom: 0.25rem;
+	}
+	
+	#sidebar-power-input
+	{
+		display: block;
+		margin: 0 auto;
 	}
 	
 	#sidebar-fire-btn
@@ -164,18 +201,17 @@
 		float: left;
 		background-color: black;
 		height: 100%;
-		width: 70%;
+		width: 75%;
 		display: block;
 	}
 	
 	#mainmenu
 	{
-		box-shadow: 5px 5px 5px black;
 		position: absolute;
-		width: 80%;
+		width: 50%;
 		height: 50%;
 		top: 50%;
-		left: 50%;
+		left: 37%;
 		transform: translate(-50%, -50%);
 		background: linear-gradient(grey, white);
 		display: grid;
@@ -186,5 +222,6 @@
 	#mainmenu-title
 	{
 		margin: 0;
+		text-align: center;
 	}
 }

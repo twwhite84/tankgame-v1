@@ -23,6 +23,11 @@ class Game
 		this.#currentPlayer = currentPlayer;
 	}
 	
+	newGame()
+	{
+		UI.updateCurrentPlayer(this.#currentPlayer);
+	}
+	
 	testLoop(size)
 	{
 		// need to tell it where my UI is. maybe redo this and call from main?
