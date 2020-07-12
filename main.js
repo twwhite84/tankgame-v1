@@ -12,7 +12,7 @@ function start()
 {
 	console.log(`start button was clicked`);
 	let game = new Game(Dom.inputs.p1name.value, Dom.inputs.p2name.value);
-	game.newGame();
+	
 }
 
 
