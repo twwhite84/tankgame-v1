@@ -5,39 +5,48 @@ import { Game } from './modules/game.js';
 
 let dom =
 {
-	canvas:			document.getElementById(`playfield`),
-	ctx:				document.getElementById(`playfield`).getContext(`2d`),
+	playfield:			document.getElementById(`playfield`),
+	playfieldCtx:		document.getElementById(`playfield`).getContext(`2d`),
 	buttons:
 	{
 		fire:
 		{
-			fireTB: document.getElementById(`topbar-fire-btn`),
-			fireSB:	document.getElementById(`sidebar-fire-btn`),
+			fireTB: 		document.getElementById(`topbar-fire-btn`),
+			fireSB:			document.getElementById(`sidebar-fire-btn`)
 		},
 		
-		start:		document.getElementById(`mainmenu-start-btn`),
+		start:				document.getElementById(`mainmenu-start-btn`),
 	},
 	
 	inputs:
 	{
-		p1name:		document.getElementById(`mainmenu-input-pone`),
-		p2name: 	document.getElementById(`mainmenu-input-ptwo`)
+		p1name:				document.getElementById(`mainmenu-pone-input`),
+		p2name: 			document.getElementById(`mainmenu-ptwo-input`)
+	},
+	
+	labels:
+	{
+		player:
+		{
+			currentTB:	document.getElementById(`topbar-player-current`),
+			currentSB:	document.getElementById(`sidebar-player-current`)
+		}
 	}
+	
 }
 
 //set up listeners
+Object.keys(dom.buttons.fire).forEach(item => dom.buttons.fire[item].addEventListener(`click`, fire));
+dom.buttons.start.addEventListener(`click`, start);
+
+//create a UI object to handle updates to view
 let ui = new UI(dom);
-
-let fireButtons = dom.buttons.fire;
-Object.keys(fireButtons).forEach(function(item) { console.log(fireButtons[item] }));
-// dom.buttons.fire.forEach(el=>el.addEventListener(`click`, fire));
-// dom.buttons.startBtn.addEventListener(`click`, start);
-
 
 function start()
 {
-	console.log(`a start button was clicked`);
-	// ui.updatePlayers(dom.inputs.pOneName, dom.inputs.pTwoName);
+	console.log(`start button was clicked`);
+	let game = new Game(dom.inputs.p1name.value, dom.inputs.p2name.value);
+	ui.updateCurrentPlayer(game.getCurrentPlayer());
 }
 
 

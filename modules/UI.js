@@ -1,9 +1,7 @@
-//this module has to do with GUI updates
+//this module has to do with view updates
 class UI
 {
 	#dom;
-	#p1;
-	#p2;
 	
 	constructor(dom)
 	{
@@ -11,10 +9,10 @@ class UI
 	}
 	
 	
-	updatePlayers(p1, p2)
+	updateCurrentPlayer(cp)
 	{
-		this.#p1 = p1;
-		this.#p2 = p2;
+		this.#dom.labels.player.currentTB.innerText = cp;
+		this.#dom.labels.player.currentSB.innerText = cp;
 	}
 	
 	
