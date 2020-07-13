@@ -3,10 +3,29 @@ import { Dom } from './dom.js';
 
 class UI
 {
+	#dom;
+	
+	constructor()
+	{
+		this.#dom = Dom;
+	}
+	
+	getDom()
+	{
+		return this.#dom;
+	}
+	
+	
 	updateCurrentPlayer(currentPlayer)
 	{
-		Dom.labels.player.currentTB.innerText = currentPlayer;
-		Dom.labels.player.currentSB.innerText = currentPlayer;
+		// Dom.labels.player.currentTB.innerText = currentPlayer;
+		// Dom.labels.player.currentSB.innerText = currentPlayer;
+	}
+	
+	
+	getPlayerNames()
+	{
+		return Dom.inpName;
 	}
 	
 	

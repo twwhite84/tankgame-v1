@@ -1,0 +1,9 @@
+monday 13-07-20
+---------------
+
+where do i want my main game loop? my game loop has to respond to user requests. does it belong in the game instance, or in main? if i put it in game instance, then game becomes more of a controller than a model as it has to deal with user input. i can instantiate a ui object inside of game or else pass one in, but then it seems to mess up roles of classes. i think for now i will keep gameloop in main.
+
+MVC:
+
+controller can update model and view
+model can update view

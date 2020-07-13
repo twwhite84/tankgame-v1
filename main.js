@@ -1,30 +1,31 @@
 //main.js -- CONTROLLER CLASS
-import { Dom } from './modules/dom.js';
 import { Game } from './modules/game.js';
 import { UI } from './modules/ui.js';
 
+let ui = new UI();
+
 //button listeners
-Dom.btnFire.forEach(el => el.addEventListener(`click`, fire));
-Dom.btnStart.forEach(el => el.addEventListener(`click`, start));
+ui.getDom().btnFire.forEach(el => el.addEventListener(`click`, fire));
+ui.getDom().btnStart.forEach(el => el.addEventListener(`click`, start));
 
 
 function start()
 {
 	//check if user has entered names
-	let p1 = Dom.inpP1Name[0].value;
+	let p1 = ui.Dom.inpP1Name[0].value;
 	let p2 = Dom.inpP2Name[0].value;
-	if (p1 == `` || p2 == ``)
-	{
-		alert(`Please enter names for both players`);
-	}
-	else
-	{
+	// if (p1 == `` || p2 == ``)
+	// {
+		// alert(`Please enter names for both players`);
+	// }
+	// else
+	// {
 		//add names to the game
-		let game = new Game(p1, p2);
+		// let game = new Game(p1, p2);
 		
 		//clear the menu
 
-	}
+	// }
 	
 	
 	
