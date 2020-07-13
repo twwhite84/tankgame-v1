@@ -10,22 +10,21 @@ class UI
 		this.#dom = Dom;
 	}
 	
+	
 	getDom()
 	{
 		return this.#dom;
 	}
 	
 	
-	updateCurrentPlayer(currentPlayer)
+	setCurrentPlayer(currentPlayer)
 	{
-		// Dom.labels.player.currentTB.innerText = currentPlayer;
-		// Dom.labels.player.currentSB.innerText = currentPlayer;
 	}
 	
 	
 	getPlayerNames()
 	{
-		return Dom.inpName;
+		return Array.from(Dom.inpName).map((el)=>el.value);
 	}
 	
 	

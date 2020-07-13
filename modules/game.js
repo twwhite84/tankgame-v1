@@ -1,18 +1,16 @@
 //game.js -- MODEL CLASS
-import { UI } from './ui.js';
-
 class Game
 {
 	#playerOne;
 	#playerTwo;
 	#currentPlayer;
+	#ui;
 	
-	constructor(p1, p2)
+	constructor(ui)
 	{
-		this.#playerOne = p1;
-		this.#playerTwo = p2;
-		this.#currentPlayer = p1;
+		this.#ui = ui;
 	}
+	
 	
 	getCurrentPlayer()
 	{
@@ -24,9 +22,16 @@ class Game
 		this.#currentPlayer = currentPlayer;
 	}
 	
-	newGame()
+	initGame()
 	{
-		UI.updateCurrentPlayer(this.#currentPlayer);
+		//check if user has entered names
+		console.log(this.#ui.getPlayerNames());
+	
+		//add names to the game
+		
+		//clear the menu
+
+		//just draw a random line across screen for now
 	}
 	
 	testLoop(size)
