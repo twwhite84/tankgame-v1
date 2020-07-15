@@ -3,16 +3,18 @@ import { Game } from './modules/game.js';
 import { UI } from './modules/ui.js';
 
 let ui = new UI();
+let dom = ui.getDom();
 let game = new Game(ui);
 
 //button listeners
-ui.getDom().btnStart.forEach(el => el.addEventListener(`click`, btnStart));
-ui.getDom().btnFire.forEach(el => el.addEventListener(`click`, btnFire));
+dom.btnStart.forEach(el => el.addEventListener(`click`, btnStart));
+dom.btnFire.forEach(el => el.addEventListener(`click`, btnFire));
 
 
 function btnStart()
 {
-	game.initGame();
+	try { game.initGame(ui.getPlayerNames()) }
+	catch(error) { alert(error) };
 }
 
 

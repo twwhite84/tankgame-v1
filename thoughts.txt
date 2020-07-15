@@ -7,3 +7,10 @@ MVC:
 
 controller can update model and view
 model can update view
+
+
+
+wednesday 15-07-20
+------------------
+
+do i really want to have only arrays put out from the dom class?

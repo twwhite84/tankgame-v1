@@ -22,27 +22,29 @@ class Game
 		this.#currentPlayer = currentPlayer;
 	}
 	
-	initGame()
+	
+	initGame(playerNames)
 	{
 		//check if user has entered names
-		console.log(this.#ui.getPlayerNames());
-	
+		playerNames.forEach(function(item) {
+			if (item.length == 0)
+			{
+				throw `Please fill all name fields.`;
+			}				
+		});
+		
 		//add names to the game
+		this.#playerOne = playerNames[0];
+		this.#playerTwo = playerNames[1];
+		this.#currentPlayer = this.#playerOne;
 		
 		//clear the menu
+		this.#ui.closeMenu();
 
 		//just draw a random line across screen for now
+		this.#ui.testCanvas();
+		
 	}
-	
-	testLoop(size)
-	{
-		// need to tell it where my UI is. maybe redo this and call from main?
-		for (let i = 0; i <= size; i++)
-		{
-			plotPixel(i, i);
-		}
-	}
-	
 }
 
 export { Game }
