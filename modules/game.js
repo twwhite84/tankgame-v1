@@ -1,4 +1,7 @@
 //game.js -- MODEL CLASS
+
+import { Landscape } from './landscape.js';
+
 class Game
 {
 	#playerOne;
@@ -43,6 +46,9 @@ class Game
 
 		//just draw a random line across screen for now
 		this.#ui.testCanvas();
+		
+		//generate a landscape
+		let landscape = new Landscape();
 		
 	}
 }
