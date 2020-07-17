@@ -4,9 +4,10 @@ import { Landscape } from './landscape.js';
 
 class Game
 {
+	#currentPlayer;
+	#landscape;
 	#playerOne;
 	#playerTwo;
-	#currentPlayer;
 	#ui;
 	
 	constructor(ui)
@@ -48,7 +49,15 @@ class Game
 		this.#ui.testCanvas();
 		
 		//generate a landscape
-		let landscape = new Landscape();
+		this.#landscape = new Landscape(this.#ui);
+		this.#landscape.generatePoints(5);
+		this.#landscape.getAllpoints().forEach(function(item)
+		{
+			// this.#ui.plotPixel(item.x, item.y);
+			console.log(item);
+		});
+		
+		
 		
 	}
 }

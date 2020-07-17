@@ -14,7 +14,7 @@ dom.btnFire.forEach(el => el.addEventListener(`click`, btnFire));
 function btnStart()
 {
 	try { game.initGame(ui.getPlayerNames()) }
-	catch(error) { alert(error) };
+	catch(error) { console.log(error) };
 }
 
 

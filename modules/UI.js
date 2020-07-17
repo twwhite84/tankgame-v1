@@ -3,29 +3,30 @@ import { Dom } from './dom.js';
 
 class UI
 {
-	#dom;
+	#uiDom;
 	#ctx;
 	
 	constructor()
 	{
-		this.#dom = Dom;
-		this.#dom.playfield[0].height = 400;
-		this.#dom.playfield[0].width = 400;
+		this.#uiDom = Dom;
+		this.#uiDom.playfield[0].height = 400;
+		this.#uiDom.playfield[0].width = 400;
 		
 		//context for canvas specific to instance of ui
-		this.#ctx = this.#dom.playfield[0].getContext(`2d`);
+		this.#ctx = this.#uiDom.playfield[0].getContext(`2d`);
 	}
 	
 	
 	closeMenu()
 	{
-		this.#dom.divMenu[0].style.display = 'none';
+		this.#uiDom.divMenu[0].style.display = 'none';
 	}
 	
 	
+	//probably will replace this with individual getters/setters
 	getDom()
 	{
-		return this.#dom;
+		return this.#uiDom;
 	}
 	
 	
@@ -42,7 +43,7 @@ class UI
 	
 	plotPixel(x, y)
 	{
-		y = this.#dom.playfield[0].height - y;
+		y = this.#uiDom.playfield[0].height - y;
 		let myImageData = this.#ctx.createImageData(1, 1);
 		for (let i = 0; i <=3; i++)
 		{
