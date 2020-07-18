@@ -16,6 +16,8 @@ class UI
 		this.#ctx = this.#uiDom.playfield[0].getContext(`2d`);
 	}
 	
+	//should i add separate getter/setter methods for everything?
+	
 	
 	closeMenu()
 	{
