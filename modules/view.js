@@ -1,9 +1,9 @@
 //ui.js -- VIEW CLASS
 import { Dom } from './dom.js';
 
-class UI
+class View
 {
-	#uiDom;
+	#dom;
 	#ctx;
 	
 	constructor()
@@ -21,7 +21,7 @@ class UI
 	
 	closeMenu()
 	{
-		this.#uiDom.divMenu[0].style.display = 'none';
+		this.#uiDom.frmMenu[0].style.display = 'none';
 	}
 	
 	
@@ -65,4 +65,4 @@ class UI
 	}
 }
 
-export { UI }
+export { View }
