@@ -10,13 +10,25 @@ class Controller
 	constructor()
 	{
 		this.#View = new View(this);
+		this.#View.initView();
 	}
 
 
 	startGame()
 	{
 		event.preventDefault();
-		console.log(`startGame not yet implemented`);
+		try
+		{
+			let players = this.#View.getPlayers();
+			console.log(players)
+			this.#Game = new Game();
+			this.#Game.setPlayers(players[0], players[1]);	
+		}
+		
+		catch(error)
+		{
+			this.#View.showMessage(error);
+		}
 	}
 
 
