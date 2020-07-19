@@ -6,58 +6,38 @@ class Game
 {
 	#currentPlayer;
 	#landscape;
-	#playerOne;
-	#playerTwo;
+	#players;
 	
 	
-	setPlayers(p1, p2)
+	setPlayers(players)
 	{
-		if (p1.length == 0 || p2.length == 0)
-		{
-			throw `Please enter player names`;
-		}
+		if (!players.every(player => player.length > 0))
+			throw `Please complete all player fields`
 		
 		else
 		{
-			this.#playerOne = p1;
-			this.#playerTwo = p2;
+			this.#players = players;
+			this.#currentPlayer = this.#players[0];
 		}
 	}
 	
 	
-	// initGame(playerNames)
-	// {
-		// check if user has entered names
-		// playerNames.forEach(function(item) {
-			// if (item.length == 0)
-			// {
-				// throw `Please fill all name fields.`;
-			// }				
-		// });
+	testPixelSet()
+	{
+		let pixelSet = [];
+		for (let i = 0; i < 500; i++)
+		{
+			pixelSet.push({x: i, y: i});
+		}
 		
-		// add names to the game
-		// this.#playerOne = playerNames[0];
-		// this.#playerTwo = playerNames[1];
-		// this.#currentPlayer = this.#playerOne;
-		
-		// clear the menu
-		// this.#ui.closeMenu();
-
-		// just draw a random line across screen for now
-		// this.#ui.testCanvas();
-		
-		// generate a landscape
-		// this.#landscape = new Landscape(this.#ui);
-		// this.#landscape.generatePoints(5);
-		// this.#landscape.getAllpoints().forEach(function(item)
-		// {
-			// this.#ui.plotPixel(item.x, item.y);
-			// console.log(item);
-		// });
-		
-		
-		
-	// }
+		return pixelSet;
+	}
+	
+	
+	getCurrentPlayer()
+	{
+		return this.#currentPlayer;
+	}
 }
 
 export { Game }

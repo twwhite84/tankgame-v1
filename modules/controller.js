@@ -19,10 +19,11 @@ class Controller
 		event.preventDefault();
 		try
 		{
-			let players = this.#View.getPlayers();
-			console.log(players)
 			this.#Game = new Game();
-			this.#Game.setPlayers(players[0], players[1]);	
+			this.#Game.setPlayers(this.#View.getPlayers());
+			this.#View.toggleMainmenu();
+			this.#View.showCurrentPlayer(this.#Game.getCurrentPlayer());
+			this.#View.plotSet(this.#Game.testPixelSet());
 		}
 		
 		catch(error)
