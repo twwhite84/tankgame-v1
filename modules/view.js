@@ -1,67 +1,20 @@
-//ui.js -- VIEW CLASS
+// view.js -- UI handler
 import { Dom } from './dom.js';
 
 class View
 {
-	#dom;
+	#controller
 	#ctx;
 	
-	constructor()
+	constructor(controller)
 	{
-		this.#uiDom = Dom;
-		this.#uiDom.playfield[0].height = 400;
-		this.#uiDom.playfield[0].width = 400;
+		this.#controller = controller;
+		Dom.playfield.height = 400;
+		Dom.playfield.width = 400;
+		this.#ctx = Dom.playfield.getContext(`2d`);
 		
-		//context for canvas specific to instance of ui
-		this.#ctx = this.#uiDom.playfield[0].getContext(`2d`);
-	}
-	
-	//should i add separate getter/setter methods for everything?
-	
-	
-	closeMenu()
-	{
-		this.#uiDom.frmMenu[0].style.display = 'none';
-	}
-	
-	
-	//probably will replace this with individual getters/setters
-	getDom()
-	{
-		return this.#uiDom;
-	}
-	
-	
-	setCurrentPlayer(currentPlayer)
-	{
-	}
-	
-	
-	getPlayerNames()
-	{
-		return Array.from(Dom.inpName).map((el)=>el.value);
-	}
-	
-	
-	plotPixel(x, y)
-	{
-		y = this.#uiDom.playfield[0].height - y;
-		let myImageData = this.#ctx.createImageData(1, 1);
-		for (let i = 0; i <=3; i++)
-		{
-			myImageData.data[i] = 255;
-		}
-		this.#ctx.putImageData(myImageData, Math.round(x), Math.round(y));
-	}
-	
-	
-	//test function to make sure context height/width is 1:1 with viewport
-	testCanvas()
-	{
-		for (let i = 0; i <= 400; i++)
-		{
-			this.plotPixel(i, i);
-		}
+		Dom.buttonsFire.forEach(el => el.addEventListener(`click`, this.#controller.fire));
+		Dom.formMain.addEventListener(`submit`, this.#controller.startGame);
 	}
 }
 

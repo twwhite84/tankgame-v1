@@ -1,12 +1,11 @@
-//Dom always returns arrays for element types
-
-export const DOM =
+// dom.js
+export const Dom =
 {
-	btnFire:			document.querySelectorAll(`.fire-button`),
-	btnStart:			document.querySelectorAll(`.start-button`),
-	inpName:			document.querySelectorAll(`.pname-input`),
-	frmMenu:			document.querySelectorAll(`.mainmenu-form`),
-	lblCrntPlr:		document.querySelectorAll(`.player-current`),
-	lblWind:			document.querySelectorAll(`.wind-label`),
-	playfield:		document.querySelectorAll(`.playfield`),
+	buttonsFire:					document.querySelectorAll(`.btn-fire`),
+	buttonsStart:					document.querySelectorAll(`.btn-start`),
+	formMain:							document.getElementById(`mainmenu-form`),
+	inputsName:						document.querySelectorAll(`.inp-player`),
+	labelsCurrentPlayer:	document.querySelectorAll(`.lbl-currentplayer`),
+	labelsWind:						document.querySelectorAll(`.lbl-wind`),
+	playfield:						document.getElementById(`playfield`)
 }

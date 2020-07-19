@@ -13,4 +13,11 @@ model can update view
 wednesday 15-07-20
 ------------------
 
-do i really want to have only arrays put out from the dom class?
+do i really want to have only arrays put out from the dom class? it's consistent, but it's weird. maybe update variable names to reflect type?
+
+
+
+saturday 18-07-20
+-----------------
+
+questions about direct of data flow. for example, should controller push its input to game, or should game instead pull its data from controller? i think i will push from controller instead of pull from controller.

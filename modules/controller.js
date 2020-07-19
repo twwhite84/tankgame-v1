@@ -1,29 +1,26 @@
-import { DOM } from './dom.js';
+// controller.js -- request handler, informs game and view
+import { View } from './view.js';
+import { Game } from './game.js';
 
 class Controller
 {
+	#Game;
+	#View;
+	
 	constructor()
 	{
-		
+		this.#View = new View(this);
 	}
-	
-	let ui = new UI();
-	let game = new Game(ui);
-
-	//button listeners
-	dom.frmMenu.forEach(el => el.addEventListener(`submit`, frmSubmit));
-	dom.btnFire.forEach(el => el.addEventListener(`click`, btnFire));
 
 
-	function frmSubmit(event)
+	startGame()
 	{
 		event.preventDefault();
-		try { game.initGame(ui.getPlayerNames()) }
-		catch(error) { console.log(error) };
+		console.log(`startGame not yet implemented`);
 	}
 
 
-	function btnFire()
+	fire()
 	{
 		console.log(`fire not yet implemented`);
 	}

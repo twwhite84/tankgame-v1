@@ -1,5 +1,4 @@
-//landscape.js
-
+// landscape.js
 class Landscape
 {
 	#allpoints = [];

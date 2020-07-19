@@ -96,7 +96,7 @@
 		display: block;
 	}
 
-	.mainmenu-form
+	#mainmenu-form
 	{
 		position: absolute;
 		display: grid;
@@ -205,7 +205,7 @@
 		display: block;
 	}
 	
-	.mainmenu-form
+	#mainmenu-form
 	{
 		position: absolute;
 		width: 50%;
