@@ -24,7 +24,7 @@ class View
 	}
 
 	
-	getPlayers()
+	getPlayerNames()
 	{
 		return Object.values(Dom.nameInputs).map(el => el.value);
 	}

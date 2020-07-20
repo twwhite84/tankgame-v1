@@ -20,10 +20,11 @@ class Controller
 		try
 		{
 			this.#Game = new Game();
-			this.#Game.setPlayers(this.#View.getPlayers());
-			this.#View.toggleMainmenu();
-			this.#View.showCurrentPlayer(this.#Game.getCurrentPlayer());
-			this.#View.plotSet(this.#Game.testPixelSet());
+			this.#View.getPlayerNames().forEach(playerName => this.#Game.addPlayer(playerName));
+			console.log(this.#Game.getPlayers());
+			// this.#View.toggleMainmenu();
+			// this.#View.showCurrentPlayer(this.#Game.getCurrentPlayer());
+			// this.#View.plotSet(this.#Game.testPixelSet());
 		}
 		
 		catch(error)

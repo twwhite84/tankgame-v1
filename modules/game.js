@@ -1,24 +1,38 @@
 // game.js -- game state/behaviour
 import { View } from './view.js';
 import { Landscape } from './landscape.js';
+import { Player } from './player.js';
 
 class Game
 {
 	#currentPlayer;
 	#landscape;
-	#players;
+	#players = [];
 	
 	
-	setPlayers(players)
+	addPlayer(playerName)
 	{
-		if (!players.every(player => player.length > 0))
-			throw `Please complete all player fields`
+		//need at least one player, entered for player one
+		if (playerName.length == 0 && this.#players.length == 0)
+			throw `Player One is required, additional players optional`;
+		
+		//and its ok if thats the only player for this game
+		else if (playerName.length == 0)
+			return
 		
 		else
 		{
-			this.#players = players;
-			this.#currentPlayer = this.#players[0];
+			let player = new Player();
+			player.setName(playerName);
+			player.setColour(this.#players.length);
+			this.#players.push(player);
 		}
+	}
+	
+	
+	getPlayers()
+	{
+		return this.#players;
 	}
 	
 	
