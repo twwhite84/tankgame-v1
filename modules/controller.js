@@ -10,7 +10,6 @@ class Controller
 	constructor()
 	{
 		this.#View = new View(this);
-		this.#View.initView();
 	}
 
 
@@ -21,16 +20,22 @@ class Controller
 		{
 			this.#Game = new Game();
 			this.#View.getPlayerNames().forEach(playerName => this.#Game.addPlayer(playerName));
-			console.log(this.#Game.getPlayers());
-			// this.#View.toggleMainmenu();
-			// this.#View.showCurrentPlayer(this.#Game.getCurrentPlayer());
-			// this.#View.plotSet(this.#Game.testPixelSet());
+			this.#View.toggleMainmenu();
+			this.#Game.setCurrentPlayer(1);
+			this.#View.showCurrentPlayer(this.#Game.getCurrentPlayer().getName());
+			this.#View.plotSet(this.#Game.testPixelSet());
 		}
 		
 		catch(error)
 		{
 			this.#View.showMessage(error);
 		}
+	}
+	
+	
+	messageboxOK()
+	{
+		this.#View.toggleMessagebox();
 	}
 
 

@@ -9,18 +9,17 @@ class View
 	constructor(controller)
 	{
 		this.#controller = controller;
-	}
-
-	
-	initView()
-	{
+		
+		//a few misc view elements...
 		this.#ctx = Dom.playfield.getContext(`2d`);
 		Dom.playfield.height = 500;
 		Dom.playfield.width = 500;
 		
+		
 		//set up button listeners
 		Dom.fireButtons.forEach(el => el.addEventListener(`click`, this.#controller.fire.bind(this.#controller)));
 		Dom.mainmenuForm.addEventListener(`submit`, this.#controller.startGame.bind(this.#controller));
+		Dom.messageboxOKButton.addEventListener(`click`, this.#controller.messageboxOK.bind(this.#controller));
 	}
 
 	
@@ -29,12 +28,6 @@ class View
 		return Object.values(Dom.nameInputs).map(el => el.value);
 	}
 
-	
-	showMessage(msg)
-	{
-		alert(msg);
-	}
-	
 	
 	toggleMainmenu()
 	{
@@ -45,6 +38,28 @@ class View
 			Dom.mainmenuForm.style.display = `grid`;
 	}
 	
+	
+	toggleMessagebox()
+	{
+		if (Dom.messagebox.style.display == `none` || Dom.messagebox.style.display == ``)
+			Dom.messagebox.style.display = `block`
+		
+		else Dom.messagebox.style.display = `none`;
+	}
+	
+	
+	updateMessagebox(message)
+	{
+		Dom.messageboxText.innerText = message;
+	}
+	
+	
+	showMessage(message)
+	{
+		this.updateMessagebox(message);
+		this.toggleMessagebox();
+	}
+
 	
 	plotPixel(x, y)
 	{

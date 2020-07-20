@@ -12,11 +12,11 @@ class Game
 	
 	addPlayer(playerName)
 	{
-		//need at least one player, entered for player one
+		//player one field must be filled
 		if (playerName.length == 0 && this.#players.length == 0)
-			throw `Player One is required, additional players optional`;
+			throw `Player 1 must be entered. Additional players optional.`
 		
-		//and its ok if thats the only player for this game
+		//skip subsequent unentered fields
 		else if (playerName.length == 0)
 			return
 		
@@ -51,6 +51,12 @@ class Game
 	getCurrentPlayer()
 	{
 		return this.#currentPlayer;
+	}
+	
+	
+	setCurrentPlayer(index)
+	{
+		this.#currentPlayer = this.#players[index-1];
 	}
 }
 

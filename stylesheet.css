@@ -115,6 +115,51 @@
 		margin: 0;
 		text-align: center;
 	}
+	
+	#mainmenu-p1-label
+	{
+		color: red;
+	}
+	
+	#mainmenu-p2-label
+	{
+		color: blue;
+	}
+	
+	#mainmenu-p3-label
+	{
+		color: green;
+	}
+	
+	#mainmenu-p4-label
+	{
+		color: magenta;
+	}
+	
+	#messagebox
+	{
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		background: linear-gradient(grey, white);
+		border: 1px solid black;
+		display: none;
+	}
+	
+	#messagebox-textarea
+	{
+		display: block;
+		margin: 0.5rem 0.5rem;
+		resize: none;
+	}
+	
+	#messagebox-ok
+	{
+		display: block;
+		margin: 0.5rem auto;
+		width: 50%;
+	}
 }
 
 
@@ -194,6 +239,7 @@
 		margin: 0 auto;
 		background-color: red;
 		color: white;
+		width: 75%;
 	}
 	
 	#playfield
@@ -223,5 +269,55 @@
 	{
 		margin: 0;
 		text-align: center;
+	}
+	
+	#mainmenu-start-btn
+	{
+		margin-bottom: 0.25rem;
+	}
+	
+	#mainmenu-p1-label
+	{
+		color: red;
+	}
+	
+	#mainmenu-p2-label
+	{
+		color: blue;
+	}
+	
+	#mainmenu-p3-label
+	{
+		color: green;
+	}
+	
+	#mainmenu-p4-label
+	{
+		color: magenta;
+	}
+	
+	#messagebox
+	{
+		position: absolute;
+		top: 50%;
+		left: 37%;
+		transform: translate(-50%, -50%);
+		background: linear-gradient(grey, white);
+		border: 1px solid black;
+		display: none;
+	}
+	
+	#messagebox-textarea
+	{
+		display: block;
+		margin: 0.5rem 0.5rem;
+		resize: none;
+	}
+	
+	#messagebox-ok
+	{
+		display: block;
+		margin: 0.5rem auto;
+		width: 50%;
 	}
 }
