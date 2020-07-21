@@ -22,7 +22,7 @@ class Controller
 			this.#View.getPlayerNames().forEach(playerName => this.#Game.addPlayer(playerName));
 			this.#View.toggleMainmenu();
 			this.#Game.setCurrentPlayer(1);
-			this.#View.showCurrentPlayer(this.#Game.getCurrentPlayer().getName());
+			this.#View.setCurrentPlayer(this.#Game.getCurrentPlayer());
 			this.#View.plotSet(this.#Game.testPixelSet());
 		}
 		

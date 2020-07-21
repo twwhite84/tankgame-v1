@@ -1,5 +1,6 @@
 // view.js -- UI handler
-import { Dom } from './dom.js';
+import { colourTable } from './colourtable.js';
+import { dom } from './dom.js';
 
 class View
 {
@@ -10,47 +11,51 @@ class View
 	{
 		this.#controller = controller;
 		
-		//a few misc view elements...
-		this.#ctx = Dom.playfield.getContext(`2d`);
-		Dom.playfield.height = 500;
-		Dom.playfield.width = 500;
-		
+		//a few visual appearance things to take care of
+		this.#ctx = dom.playfield.getContext(`2d`);
+		dom.playfield.height = 500;
+		dom.playfield.width = 500;
+		for (let i = 0; i < dom.playerLabels.length; i++)
+		{
+			dom.playerLabels[i].style.color = colourTable[i+1];
+			dom.playerLabels[i].style.visibility = `visible`;
+		}
 		
 		//set up button listeners
-		Dom.fireButtons.forEach(el => el.addEventListener(`click`, this.#controller.fire.bind(this.#controller)));
-		Dom.mainmenuForm.addEventListener(`submit`, this.#controller.startGame.bind(this.#controller));
-		Dom.messageboxOKButton.addEventListener(`click`, this.#controller.messageboxOK.bind(this.#controller));
+		dom.fireButtons.forEach(el => el.addEventListener(`click`, this.#controller.fire.bind(this.#controller)));
+		dom.mainmenuForm.addEventListener(`submit`, this.#controller.startGame.bind(this.#controller));
+		dom.messageboxOKButton.addEventListener(`click`, this.#controller.messageboxOK.bind(this.#controller));
 	}
 
 	
 	getPlayerNames()
 	{
-		return Object.values(Dom.nameInputs).map(el => el.value);
+		return Object.values(dom.nameInputs).map(el => el.value);
 	}
 
 	
 	toggleMainmenu()
 	{
-		if (Dom.mainmenuForm.style.display != `none`)
-			Dom.mainmenuForm.style.display = `none`
+		if (dom.mainmenuForm.style.display != `none`)
+			dom.mainmenuForm.style.display = `none`
 		
-		else if (Dom.mainmenuForm.style.display == `none`)
-			Dom.mainmenuForm.style.display = `grid`;
+		else if (dom.mainmenuForm.style.display == `none`)
+			dom.mainmenuForm.style.display = `grid`;
 	}
 	
 	
 	toggleMessagebox()
 	{
-		if (Dom.messagebox.style.display == `none` || Dom.messagebox.style.display == ``)
-			Dom.messagebox.style.display = `block`
+		if (dom.messagebox.style.display == `none` || dom.messagebox.style.display == ``)
+			dom.messagebox.style.display = `block`
 		
-		else Dom.messagebox.style.display = `none`;
+		else dom.messagebox.style.display = `none`;
 	}
 	
 	
 	updateMessagebox(message)
 	{
-		Dom.messageboxText.innerText = message;
+		dom.messageboxText.innerText = message;
 	}
 	
 	
@@ -63,7 +68,7 @@ class View
 	
 	plotPixel(x, y)
 	{
-		y = Dom.playfield.height - y;
+		y = dom.playfield.height - y;
 		let myImageData = this.#ctx.createImageData(1, 1);
 		for (let i = 0; i <=3; i++)
 		{
@@ -79,9 +84,17 @@ class View
 	}
 	
 	
-	showCurrentPlayer(currentPlayer)
+	setCurrentPlayer(currentPlayer)
 	{
-		Dom.currentPlayerLabels.forEach(el => el.innerText = currentPlayer);
+		dom.currentPlayerLabels.forEach(function(el) 
+		{
+			el.innerText = currentPlayer.getName();
+			el.style.color = colourTable[currentPlayer.getColour()];
+		});
+
+		let shadow = currentPlayer.getColour() + 4;
+		// console.log(shadow);
+		dom.currentPlayerLabels[1].style.textShadow = `1px 1px ${colourTable[currentPlayer.getColour()+4]}`;
 	}
 }
 

@@ -1,5 +1,5 @@
 // dom.js
-export const Dom =
+export const dom =
 {
 	fireButtons:					document.querySelectorAll(`.btn-fire`),
 	startButtons:					document.querySelectorAll(`.btn-start`),
@@ -10,5 +10,6 @@ export const Dom =
 	nameInputs:						document.querySelectorAll(`.inp-player`),
 	currentPlayerLabels:	document.querySelectorAll(`.lbl-currentplayer`),
 	windLabels:						document.querySelectorAll(`.lbl-wind`),
+	playerLabels:					document.querySelectorAll(`.lbl-player`),
 	playfield:						document.getElementById(`playfield`)
 }

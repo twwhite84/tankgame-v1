@@ -14,7 +14,7 @@ class Game
 	{
 		//player one field must be filled
 		if (playerName.length == 0 && this.#players.length == 0)
-			throw `Player 1 must be entered. Additional players optional.`
+			throw new Error(`Player 1 must be entered. Additional players optional.`)
 		
 		//skip subsequent unentered fields
 		else if (playerName.length == 0)
@@ -24,7 +24,7 @@ class Game
 		{
 			let player = new Player();
 			player.setName(playerName);
-			player.setColour(this.#players.length);
+			player.setColour(this.#players.length + 1);
 			this.#players.push(player);
 		}
 	}

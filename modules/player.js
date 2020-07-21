@@ -19,8 +19,7 @@ class Player
 	
 	setColour(colour)
 	{
-		let colourIndex = [`red`, `blue`];
-		this.#colour = colourIndex[colour];
+		this.#colour = colour;
 	}
 	
 

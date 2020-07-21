@@ -114,28 +114,15 @@
 	{
 		margin: 0;
 		text-align: center;
+		color: white;
+		text-shadow: 2px 2px 2px black;
 	}
 	
-	#mainmenu-p1-label
+	.lbl-player
 	{
-		color: red;
+		visibility: hidden;
 	}
-	
-	#mainmenu-p2-label
-	{
-		color: blue;
-	}
-	
-	#mainmenu-p3-label
-	{
-		color: green;
-	}
-	
-	#mainmenu-p4-label
-	{
-		color: magenta;
-	}
-	
+		
 	#messagebox
 	{
 		position: absolute;
@@ -144,6 +131,7 @@
 		transform: translate(-50%, -50%);
 		background: linear-gradient(grey, white);
 		border: 1px solid black;
+		box-shadow: 4px 4px 5px black;
 		display: none;
 	}
 	
@@ -269,6 +257,8 @@
 	{
 		margin: 0;
 		text-align: center;
+		color: white;
+		text-shadow: 2px 2px 2px black;
 	}
 	
 	#mainmenu-start-btn
@@ -276,24 +266,9 @@
 		margin-bottom: 0.25rem;
 	}
 	
-	#mainmenu-p1-label
+	.lbl-player
 	{
-		color: red;
-	}
-	
-	#mainmenu-p2-label
-	{
-		color: blue;
-	}
-	
-	#mainmenu-p3-label
-	{
-		color: green;
-	}
-	
-	#mainmenu-p4-label
-	{
-		color: magenta;
+		visibility: hidden;
 	}
 	
 	#messagebox
@@ -304,6 +279,7 @@
 		transform: translate(-50%, -50%);
 		background: linear-gradient(grey, white);
 		border: 1px solid black;
+		box-shadow: 4px 4px 5px black;
 		display: none;
 	}
 	
