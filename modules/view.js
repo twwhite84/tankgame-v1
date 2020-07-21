@@ -6,6 +6,8 @@ class View
 {
 	#controller
 	#ctx;
+	#ctxWidth = 500;
+	#ctxHeight = 500;
 	
 	constructor(controller)
 	{
@@ -13,8 +15,8 @@ class View
 		
 		//a few visual appearance things to take care of
 		this.#ctx = dom.playfield.getContext(`2d`);
-		dom.playfield.height = 500;
-		dom.playfield.width = 500;
+		dom.playfield.width = this.#ctxWidth;
+		dom.playfield.height = this.#ctxHeight;
 		for (let i = 0; i < dom.playerLabels.length; i++)
 		{
 			dom.playerLabels[i].style.color = colourTable[i+1];
@@ -83,6 +85,38 @@ class View
 		pixelSet.forEach(el => this.plotPixel(el.x, el.y));
 	}
 	
+
+	//this sucky method is too slow and crap, dont use it
+	setLandscape(allpoints)
+	{
+		allpoints.forEach(function(point) {
+			//for every x coordinate, we want to plot the y coordinates from 0 to y
+			for (let y=0; y <= point.y; y++)
+			{
+				this.plotPixel(point.x, y);
+			}
+		}.bind(this));
+	}
+	
+	
+	plotLandscape(landscape)
+	{
+		let keypoints = landscape.getKeypoints();
+		let landscapePath = new Path2D();
+		console.log(keypoints[0]);
+		landscapePath.moveTo(keypoints[0].x, keypoints[0].y);
+		keypoints.forEach(function(point)
+		{
+			landscapePath.lineTo(point.x, point.y);
+		});
+		landscapePath.closePath();
+		let gradient = this.#ctx.createLinearGradient(0,0,0,this.#ctxHeight);
+		gradient.addColorStop(0, `darkgreen`);
+		gradient.addColorStop(1, `white`);
+		this.#ctx.fillStyle = gradient;
+		this.#ctx.fill(landscapePath, 'nonzero');
+	}
+	
 	
 	setCurrentPlayer(currentPlayer)
 	{
@@ -92,9 +126,25 @@ class View
 			el.style.color = colourTable[currentPlayer.getColour()];
 		});
 
-		let shadow = currentPlayer.getColour() + 4;
-		// console.log(shadow);
 		dom.currentPlayerLabels[1].style.textShadow = `1px 1px ${colourTable[currentPlayer.getColour()+4]}`;
+	}
+	
+	
+	getCtxWidth()
+	{
+		return this.#ctxWidth;
+	}
+	
+	
+	getCtxHeight()
+	{
+		return this.#ctxHeight;
+	}
+	
+	
+	getCtx()
+	{
+		return this.#ctx;
 	}
 }
 

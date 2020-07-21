@@ -1,5 +1,4 @@
 // game.js -- game state/behaviour
-import { View } from './view.js';
 import { Landscape } from './landscape.js';
 import { Player } from './player.js';
 
@@ -36,6 +35,13 @@ class Game
 	}
 	
 	
+	setPlayers(players)
+	{
+		players.forEach(playerName => this.addPlayer(playerName));
+		this.setCurrentPlayer(1);
+	}
+	
+	
 	testPixelSet()
 	{
 		let pixelSet = [];
@@ -57,6 +63,19 @@ class Game
 	setCurrentPlayer(index)
 	{
 		this.#currentPlayer = this.#players[index-1];
+	}
+	
+	
+	makeLandscape(ctxWidth, ctxHeight)
+	{
+		this.#landscape = new Landscape(ctxWidth, ctxHeight);
+		this.#landscape.generatePoints(5);
+	}
+	
+	
+	getLandscape()
+	{
+		return this.#landscape;
 	}
 }
 

@@ -4,12 +4,12 @@ import { Game } from './game.js';
 
 class Controller
 {
-	#Game;
-	#View;
+	#view;
+	#game;
 	
 	constructor()
 	{
-		this.#View = new View(this);
+		this.#view = new View(this);
 	}
 
 
@@ -18,24 +18,27 @@ class Controller
 		event.preventDefault();
 		try
 		{
-			this.#Game = new Game();
-			this.#View.getPlayerNames().forEach(playerName => this.#Game.addPlayer(playerName));
-			this.#View.toggleMainmenu();
-			this.#Game.setCurrentPlayer(1);
-			this.#View.setCurrentPlayer(this.#Game.getCurrentPlayer());
-			this.#View.plotSet(this.#Game.testPixelSet());
+			this.#game = new Game();
+			this.#game.setPlayers(this.#view.getPlayerNames());
+			this.#view.toggleMainmenu();
+			this.#view.setCurrentPlayer(this.#game.getCurrentPlayer());
+			let ctxWidth = this.#view.getCtxWidth();
+			let ctxHeight = this.#view.getCtxHeight();
+			this.#game.makeLandscape(ctxWidth, ctxHeight);
+			this.#view.plotLandscape(this.#game.getLandscape());
 		}
 		
 		catch(error)
 		{
-			this.#View.showMessage(error);
+			this.#view.showMessage(error);
+			console.log(error);
 		}
 	}
 	
 	
 	messageboxOK()
 	{
-		this.#View.toggleMessagebox();
+		this.#view.toggleMessagebox();
 	}
 
 
