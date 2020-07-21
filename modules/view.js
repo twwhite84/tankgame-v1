@@ -86,29 +86,15 @@ class View
 	}
 	
 
-	//this sucky method is too slow and crap, dont use it
-	setLandscape(allpoints)
-	{
-		allpoints.forEach(function(point) {
-			//for every x coordinate, we want to plot the y coordinates from 0 to y
-			for (let y=0; y <= point.y; y++)
-			{
-				this.plotPixel(point.x, y);
-			}
-		}.bind(this));
-	}
-	
-	
 	plotLandscape(landscape)
 	{
 		let keypoints = landscape.getKeypoints();
 		let landscapePath = new Path2D();
-		console.log(keypoints[0]);
 		landscapePath.moveTo(keypoints[0].x, keypoints[0].y);
-		keypoints.forEach(function(point)
+		for (let i=1; i <= keypoints.length-1; i++)
 		{
-			landscapePath.lineTo(point.x, point.y);
-		});
+			landscapePath.lineTo(keypoints[i].x, keypoints[i].y);
+		}
 		landscapePath.closePath();
 		let gradient = this.#ctx.createLinearGradient(0,0,0,this.#ctxHeight);
 		gradient.addColorStop(0, `darkgreen`);
