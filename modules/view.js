@@ -6,8 +6,8 @@ class View
 {
 	#controller
 	#ctx;
-	#ctxWidth = 500;
-	#ctxHeight = 500;
+	#ctxWidth = 1000;
+	#ctxHeight = 1000;
 	
 	constructor(controller)
 	{
@@ -101,6 +101,14 @@ class View
 		gradient.addColorStop(1, `white`);
 		this.#ctx.fillStyle = gradient;
 		this.#ctx.fill(landscapePath, 'nonzero');
+	}
+	
+	
+	plotPlayer()
+	{
+		let tankSVG = dom.tankSVG;
+		console.log(tankSVG);
+		this.#ctx.drawImage(tankSVG, 100, 100, 50, 50);
 	}
 	
 	

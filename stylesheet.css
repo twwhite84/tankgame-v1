@@ -149,6 +149,11 @@
 		margin: 0.5rem auto;
 		width: 50%;
 	}
+	
+	#tankSVG
+	{
+		fill: white;
+	}
 }
 
 
@@ -297,5 +302,10 @@
 		display: block;
 		margin: 0.5rem auto;
 		width: 50%;
+	}
+	
+	#tankSVG
+	{
+		fill: white;
 	}
 }

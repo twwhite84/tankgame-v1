@@ -11,5 +11,6 @@ export const dom =
 	currentPlayerLabels:	document.querySelectorAll(`.lbl-currentplayer`),
 	windLabels:						document.querySelectorAll(`.lbl-wind`),
 	playerLabels:					document.querySelectorAll(`.lbl-player`),
-	playfield:						document.getElementById(`playfield`)
+	playfield:						document.getElementById(`playfield`),
+	tankSVG:							document.getElementById(`tankSVG`)
 }
