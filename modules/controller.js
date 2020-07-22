@@ -26,7 +26,8 @@ class Controller
 			let ctxHeight = this.#view.getCtxHeight();
 			this.#game.makeLandscape(ctxWidth, ctxHeight);
 			this.#view.plotLandscape(this.#game.getLandscape());
-			this.#view.plotPlayer();
+			let allpoints = this.#game.getLandscape().getAllpoints();
+			this.#view.plotPlayers(this.#game.getPlayers(), allpoints);
 		}
 		
 		catch(error)

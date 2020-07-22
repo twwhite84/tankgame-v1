@@ -104,11 +104,18 @@ class View
 	}
 	
 	
-	plotPlayer()
+	plotPlayers(players, allpoints)
 	{
-		let tankSVG = dom.tankSVG;
-		console.log(tankSVG);
-		this.#ctx.drawImage(tankSVG, 100, 100, 50, 50);
+		players.forEach(function(player)
+		{
+			let index = Math.round(Math.random() * this.#ctxWidth);
+			let coordinate = allpoints[index];
+			let x = Math.round(coordinate.x);
+			let y = Math.round(coordinate.y);
+			let icon = dom.tankImage[0];
+			console.log(icon);
+			this.#ctx.drawImage(icon, x, y, 50, 50);
+		}.bind(this));
 	}
 	
 	
