@@ -114,7 +114,7 @@ class View
 			let y = Math.round(coordinate.y);
 			let icon = dom.tankImage[0];
 			console.log(icon);
-			this.#ctx.drawImage(icon, x, y, 50, 50);
+			// this.#ctx.drawImage(icon, x, y, 50, 50);
 		}.bind(this));
 	}
 	

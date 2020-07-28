@@ -119,6 +119,17 @@
 		text-shadow: 2px 2px 2px black;
 	}
 	
+	#mainmenu-credits
+	{
+		text-align: center;
+		font-size: 0.7rem;
+	}
+	
+	#mainmenu-credits > p
+	{
+		margin: 0 0 0.5rem 0;
+	}
+	
 	.lbl-player
 	{
 		visibility: hidden;
@@ -245,7 +256,7 @@
 	{
 		position: absolute;
 		width: 50%;
-		height: 50%;
+		height: 60%;
 		top: 50%;
 		left: 37%;
 		transform: translate(-50%, -50%);
@@ -266,6 +277,17 @@
 	#mainmenu-start-btn
 	{
 		margin-bottom: 0.25rem;
+	}
+	
+	#mainmenu-credits
+	{
+		text-align: center;
+		font-size: 0.7rem;
+	}
+	
+	#mainmenu-credits > p
+	{
+		margin: 0 0 0.5rem 0;
 	}
 	
 	.lbl-player
