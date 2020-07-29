@@ -88,7 +88,6 @@ class View
 
 	plotLandscape(landscape)
 	{
-		console.log(landscape);
 		this.#ctx.save();
 		this.#ctx.translate(0,this.#ctxHeight);
 		this.#ctx.scale(1, -1);
@@ -111,29 +110,30 @@ class View
 	
 	plotPlayers(players)
 	{
+		let tankcuts = [{ right: 0, left: 64 }, { right: 128, left: 192 }, { right: 256, left: 320 }, { right: 384, left: 448 }];
 		let tanksprite = new Image();
 		tanksprite.src = `../assets/tank-sprite.png`;
 		tanksprite.onload = function()
 		{
 			players.forEach(function(player)
 			{
-				let colour = player.getColour();
-				let x = player.getPosition().x;
-				let y = player.getPosition().y;
+				console.log(player.getPosition());
+				let srcX = tankcuts[player.getColour() - 1]['right'];
+				let srcY = 0;
+				let srcW = 64;
+				let srcH = 64;
+				//greater offsets raise the tank off the ground or pull it further left
+				let offX = 16;
+				let offY = 26;	
+				let dstX = player.getPosition().x - offX;
+				let dstY = (this.#ctxHeight - offY) - player.getPosition().y;
+				let dstW = 35;
+				let dstH = 35;
+				
 				this.#ctx.save();
-
-				//translation point should be finetuned to center of tank
-				// this.#ctx.translate(0,1000-56);
-				// this.#ctx.rotate(Math.PI);
-				// this.#ctx.scale(-1,-1);
-				// this.#ctx.drawImage(tanksprite, 0, 0);
-				
-				this.#ctx.drawImage(tanksprite, 0, this.#ctxHeight - 56 + 28);
-				
+				this.#ctx.drawImage(tanksprite, srcX, srcY, srcW, srcH, dstX, dstY, dstW, dstH);
 				this.#ctx.restore();
 				
-				//now to match colour to position on sprite sheet
-				console.log(colour,x,y);
 			}.bind(this));
 		}.bind(this);
 	}
