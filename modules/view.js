@@ -112,8 +112,9 @@ class View
 			let coordinate = allpoints[index];
 			let x = Math.round(coordinate.x);
 			let y = Math.round(coordinate.y);
-			let icon = dom.tankImage[0];
-			console.log(icon);
+			console.log(x, y);
+			// let icon = dom.tankImage[0];
+			// console.log(icon);
 			// this.#ctx.drawImage(icon, x, y, 50, 50);
 		}.bind(this));
 	}

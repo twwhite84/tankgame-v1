@@ -33,7 +33,6 @@ class Controller
 		catch(error)
 		{
 			this.#view.showMessage(error);
-			console.log(error);
 		}
 	}
 	
