@@ -88,6 +88,10 @@ class View
 
 	plotLandscape(landscape)
 	{
+		console.log(landscape);
+		this.#ctx.save();
+		this.#ctx.translate(0,this.#ctxHeight);
+		this.#ctx.scale(1, -1);
 		let keypoints = landscape.getKeypoints();
 		let landscapePath = new Path2D();
 		landscapePath.moveTo(keypoints[0].x, keypoints[0].y);
@@ -101,22 +105,37 @@ class View
 		gradient.addColorStop(1, `white`);
 		this.#ctx.fillStyle = gradient;
 		this.#ctx.fill(landscapePath, 'nonzero');
+		this.#ctx.restore();
 	}
 	
 	
-	plotPlayers(players, allpoints)
+	plotPlayers(players)
 	{
-		players.forEach(function(player)
+		let tanksprite = new Image();
+		tanksprite.src = `../assets/tank-sprite.png`;
+		tanksprite.onload = function()
 		{
-			let index = Math.round(Math.random() * this.#ctxWidth);
-			let coordinate = allpoints[index];
-			let x = Math.round(coordinate.x);
-			let y = Math.round(coordinate.y);
-			console.log(x, y);
-			// let icon = dom.tankImage[0];
-			// console.log(icon);
-			// this.#ctx.drawImage(icon, x, y, 50, 50);
-		}.bind(this));
+			players.forEach(function(player)
+			{
+				let colour = player.getColour();
+				let x = player.getPosition().x;
+				let y = player.getPosition().y;
+				this.#ctx.save();
+
+				//translation point should be finetuned to center of tank
+				// this.#ctx.translate(0,1000-56);
+				// this.#ctx.rotate(Math.PI);
+				// this.#ctx.scale(-1,-1);
+				// this.#ctx.drawImage(tanksprite, 0, 0);
+				
+				this.#ctx.drawImage(tanksprite, 0, this.#ctxHeight - 56 + 28);
+				
+				this.#ctx.restore();
+				
+				//now to match colour to position on sprite sheet
+				console.log(colour,x,y);
+			}.bind(this));
+		}.bind(this);
 	}
 	
 	
@@ -147,6 +166,12 @@ class View
 	getCtx()
 	{
 		return this.#ctx;
+	}
+	
+	clearCanvas()
+	{
+		this.#ctx.fillStyle = `black`;
+		this.#ctx.fillRect(0,0,this.#ctxWidth,this.#ctxHeight);
 	}
 }
 

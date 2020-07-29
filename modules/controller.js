@@ -19,19 +19,25 @@ class Controller
 		try
 		{
 			this.#game = new Game();
-			this.#game.setPlayers(this.#view.getPlayerNames());
-			this.#view.toggleMainmenu();
-			this.#view.setCurrentPlayer(this.#game.getCurrentPlayer());
+			
+			//landscape setup and display
 			let ctxWidth = this.#view.getCtxWidth();
 			let ctxHeight = this.#view.getCtxHeight();
 			this.#game.makeLandscape(ctxWidth, ctxHeight);
 			this.#view.plotLandscape(this.#game.getLandscape());
-			let allpoints = this.#game.getLandscape().getAllpoints();
-			this.#view.plotPlayers(this.#game.getPlayers(), allpoints);
+			
+			//player setup and display
+			let playerNames = this.#view.getPlayerNames();
+			this.#game.setPlayers(playerNames);
+			this.#view.setCurrentPlayer(this.#game.getCurrentPlayer());
+			this.#view.plotPlayers(this.#game.getPlayers());
+			
+			this.#view.toggleMainmenu();
 		}
 		
 		catch(error)
 		{
+			this.#view.clearCanvas();
 			this.#view.showMessage(error);
 		}
 	}

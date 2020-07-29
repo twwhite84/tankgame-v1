@@ -24,6 +24,7 @@ class Game
 			let player = new Player();
 			player.setName(playerName);
 			player.setColour(this.#players.length + 1);
+			player.setRandomPosition(this.#landscape.getAllpoints());
 			this.#players.push(player);
 		}
 	}
