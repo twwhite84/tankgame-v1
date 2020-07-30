@@ -51,7 +51,12 @@ class Controller
 
 	fire()
 	{
-		console.log(`fire not yet implemented`);
+		console.log(`fire button click event`);
+		this.#view.getAngle();
+		// let myAngles = this.#view.getAngle();
+		// console.log(myAngles);
+		// console.log(myAngles[1]);
+		// console.log(myAngles[1].value);
 	}
 
 }

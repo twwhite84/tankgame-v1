@@ -4,7 +4,7 @@ import { dom } from './dom.js';
 
 class View
 {
-	#controller
+	#controller;
 	#ctx;
 	#ctxWidth = 1000;
 	#ctxHeight = 1000;
@@ -167,11 +167,23 @@ class View
 	{
 		return this.#ctx;
 	}
+
 	
 	clearCanvas()
 	{
 		this.#ctx.fillStyle = `black`;
 		this.#ctx.fillRect(0,0,this.#ctxWidth,this.#ctxHeight);
+	}
+	
+	
+	getAngle()
+	{
+		let topbarAngleInput = dom.angleInputs[0];
+		let sidebarAngleInput = dom.angleInputs[1];
+		console.log(topbarAngleInput.value);
+		console.log(sidebarAngleInput.value);
+		if (!topbarAngleInput.value) console.log(`no topbar input`);
+		if (!sidebarAngleInput.value) console.log(`no sidebar input`);
 	}
 }
 

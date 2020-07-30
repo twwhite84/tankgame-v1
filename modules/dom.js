@@ -12,5 +12,5 @@ export const dom =
 	windLabels:						document.querySelectorAll(`.lbl-wind`),
 	playerLabels:					document.querySelectorAll(`.lbl-player`),
 	playfield:						document.getElementById(`playfield`),
-	tankImage:						document.querySelectorAll(`.img-tank`)
+	angleInputs:					document.getElementsByClassName(`inp-angle`)
 }
