@@ -51,12 +51,18 @@ class Controller
 
 	fire()
 	{
-		console.log(`fire button click event`);
-		this.#view.getAngle();
-		// let myAngles = this.#view.getAngle();
-		// console.log(myAngles);
-		// console.log(myAngles[1]);
-		// console.log(myAngles[1].value);
+		try
+		{
+			console.log(`fire button click event`);
+			let angle = this.#view.getAngle();
+			console.log(`angle is ${angle}`);
+			
+		}
+		
+		catch (error)
+		{
+			this.#view.showMessage(error);
+		}
 	}
 
 }

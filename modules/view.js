@@ -180,10 +180,17 @@ class View
 	{
 		let topbarAngleInput = dom.angleInputs[0];
 		let sidebarAngleInput = dom.angleInputs[1];
-		console.log(topbarAngleInput.value);
-		console.log(sidebarAngleInput.value);
-		if (!topbarAngleInput.value) console.log(`no topbar input`);
-		if (!sidebarAngleInput.value) console.log(`no sidebar input`);
+		if (!sidebarAngleInput.value && !topbarAngleInput.value)
+			throw new Error(`You need to enter an angle.`);
+		
+		else if (sidebarAngleInput.value && topbarAngleInput.value)
+			throw new Error(`You have inputs in both view modes... I still have to fix this`);
+		
+		else if (sidebarAngleInput.value)
+			return sidebarAngleInput.value;
+		
+		else if (topbarAngleInput.value)
+			return topbarAngleInput.value;
 	}
 }
 
