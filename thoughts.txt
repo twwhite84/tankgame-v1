@@ -21,3 +21,11 @@ saturday 18-07-20
 -----------------
 
 questions about direct of data flow. for example, should controller push its input to game, or should game instead pull its data from controller? i think i will push from controller instead of pull from controller.
+
+
+friday 31-07-20
+-----------------
+
+do a test project canvas rotation to figure out how this works. will i need to create prerendered, rotated tank sprites? create a square bitmap with quadrants 1,2,3,4 marked and practice rotating around its center. i may need to create ImageBitmaps seperately from the sprite sheet and rotate those instead of just applying a rotation and then DrawImage routine.
+
+also: how to detect for media queries and page relayouts in order to check for duplicate angle/power entries?

@@ -74,7 +74,7 @@ class View
 		let myImageData = this.#ctx.createImageData(1, 1);
 		for (let i = 0; i <=3; i++)
 		{
-			myImageData.data[i] = 255;
+			myImageData.data[i] = 127;
 		}
 		this.#ctx.putImageData(myImageData, Math.round(x), Math.round(y));
 	}
@@ -176,21 +176,27 @@ class View
 	}
 	
 	
-	getAngle()
+	getAngles()
 	{
-		let topbarAngleInput = dom.angleInputs[0];
-		let sidebarAngleInput = dom.angleInputs[1];
-		if (!sidebarAngleInput.value && !topbarAngleInput.value)
-			throw new Error(`You need to enter an angle.`);
-		
-		else if (sidebarAngleInput.value && topbarAngleInput.value)
-			throw new Error(`You have inputs in both view modes... I still have to fix this`);
-		
-		else if (sidebarAngleInput.value)
-			return sidebarAngleInput.value;
-		
-		else if (topbarAngleInput.value)
-			return topbarAngleInput.value;
+		let myOutput = [];
+		let myInputs = dom.angleInputs;
+		for (let i =0; i < myInputs.length; i++)
+		{
+			myOutput.push(parseInt(myInputs[i].value));
+		}
+		return myOutput;
+	}
+	
+	
+	getPowers()
+	{
+		let myOutput = [];
+		let myInputs = dom.powerInputs;
+		for (let i =0; i < myInputs.length; i++)
+		{
+			myOutput.push(parseInt(myInputs[i].value));
+		}
+		return myOutput;
 	}
 }
 

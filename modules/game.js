@@ -78,6 +78,13 @@ class Game
 	{
 		return this.#landscape;
 	}
+	
+	
+	makeShot(shotDetails)
+	{
+		console.log(shotDetails);
+	}
+	
 }
 
 export { Game }
