@@ -8,6 +8,7 @@ class Shot
 	#rateGrav = -5;
 	#rateWind = -1.7;
 	#ctx;
+	#player;
 	
 	constructor(ctx)
 	{

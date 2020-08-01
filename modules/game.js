@@ -7,6 +7,7 @@ class Game
 	#currentPlayer;
 	#landscape;
 	#players = [];
+	#shot;
 	
 	
 	addPlayer(playerName)
@@ -82,7 +83,44 @@ class Game
 	
 	makeShot(shotDetails)
 	{
-		console.log(shotDetails);
+		//validation
+		let angleFail = true;
+		let powerFail = true;
+		let error = "";
+		let angle;
+		let power;
+		
+		for (let i = 0; i < shotDetails.angle.length; i++)
+		{
+			if (typeof shotDetails.angle[i] == "number" && !isNaN(shotDetails.angle[i]))
+			{
+				angleFail = false;
+				angle = shotDetails.angle[i];
+			}
+			
+			if (typeof shotDetails.power[i] == "number" && !isNaN(shotDetails.power[i]))
+			{
+				if (shotDetails.power[i] > 100) error += "Power cannot be over 100. ";
+				else
+				{
+					powerFail = false;
+					power = shotDetails.power[i];	
+				}
+			}
+		}
+		
+		if (angleFail || powerFail)
+		{
+			error += "Please check your input.";
+			throw Error(error);
+		}			
+		
+		else
+		{
+			console.log(shotDetails);
+			console.log(`player ${shotDetails.currentPlayer.getName()} is making a new shot.`);
+			console.log(`power and angle input seems ok.\nangle is ${angle}\npower is ${power}`);
+		}
 	}
 	
 }
