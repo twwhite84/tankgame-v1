@@ -1,13 +1,14 @@
 // game.js -- game state/behaviour
 import { Landscape } from './landscape.js';
 import { Player } from './player.js';
+import { Shot } from './shot.js';
 
 class Game
 {
 	#currentPlayer;
 	#landscape;
 	#players = [];
-	#shot;
+	#currentShot;
 	
 	
 	addPlayer(playerName)
@@ -115,11 +116,18 @@ class Game
 			throw Error(error);
 		}			
 		
+		//validation successful
 		else
 		{
-			console.log(shotDetails);
-			console.log(`player ${shotDetails.currentPlayer.getName()} is making a new shot.`);
-			console.log(`power and angle input seems ok.\nangle is ${angle}\npower is ${power}`);
+			let validated =
+			{
+				player: shotDetails.currentPlayer,
+				angle: angle,
+				power: power
+			}
+			
+			this.#currentShot = new Shot(validated);
+			console.log(this.#shot.getDetails());
 		}
 	}
 	

@@ -67,6 +67,7 @@ class Controller
 		
 		catch (error)
 		{
+			console.log(error);
 			this.#view.showMessage(error);
 		}
 	}

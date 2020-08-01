@@ -117,7 +117,6 @@ class View
 		{
 			players.forEach(function(player)
 			{
-				console.log(player.getPosition());
 				let srcX = tankcuts[player.getColour() - 1]['right'];
 				let srcY = 0;
 				let srcW = 64;
