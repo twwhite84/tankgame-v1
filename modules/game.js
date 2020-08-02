@@ -121,13 +121,16 @@ class Game
 		{
 			let validated =
 			{
-				player: shotDetails.currentPlayer,
 				angle: angle,
-				power: power
+				power: power,
+				player: this.#currentPlayer,
+				landscape: this.#landscape
 			}
 			
 			this.#currentShot = new Shot(validated);
-			console.log(this.#shot.getDetails());
+			
+			//report on the contents of the new shot
+			console.log(this.#currentShot.getDetails());
 		}
 	}
 	

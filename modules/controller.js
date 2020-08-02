@@ -58,7 +58,6 @@ class Controller
 			{
 				angle:					this.#view.getAngles(),
 				power:					this.#view.getPowers(),
-				currentPlayer:	this.#game.getCurrentPlayer()
 			}
 			
 			//tell game to create a new shot

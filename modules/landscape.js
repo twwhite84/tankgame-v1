@@ -102,6 +102,18 @@ class Landscape
 	{
 		return this.#keypoints;
 	}
+	
+	
+	getCtxWidth()
+	{
+		return this.#ctxWidth;
+	}
+	
+	
+	getCtxHeight()
+	{
+		return this.#ctxHeight;
+	}
 }
 
 export { Landscape }
