@@ -86,18 +86,45 @@ class Game
 	{
 		//input validation
 		let fail						= false;
-		let error 					= "";
+		let error						= "";
 		let validatedAngle	= 0;
 		let validatedPower	= 0;
 		
-		console.log(shotDetails);
-		
-		for (let i = 0; i <= shotDetails.angle.length; i++)
+		for (let i = 0; i < shotDetails.angle.length; i++)
 		{
-			if ( typeof shotDetails.angle[i] != "number" ) fail = true
-			else if ( shotDetails.angle[i] == "NaN" ) break
-			else if ( shotDetails.angle[i]
+			if ( typeof shotDetails.angle[i] != "number" )
+			{
+				error += "Input for angle must be numeric. ";
+				fail = true;
+			}
+
+			else if ( shotDetails.angle[i] == NaN )
+				break
+
+			else validatedAngle = shotDetails.angle[i];
 		}
+
+		for (let i = 0; i < shotDetails.power.length; i++)
+		{
+			if ( typeof shotDetails.power[i] != "number" )
+			{
+				error += "Input for power must be numeric. ";
+				fail = true;
+			}
+
+			else if ( shotDetails.power[i] > 100 || shotDetails.power[i] < 0 )
+			{
+				error += "Power must be between 0 and 100. ";
+				fail = true;
+			}
+
+			else if ( shotDetails.power[i] == NaN )
+				break;
+
+			else validatedPower = shotDetails.power[i];
+		}
+
+		
 		
 		if (fail)
 		{

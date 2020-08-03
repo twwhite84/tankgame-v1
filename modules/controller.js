@@ -55,8 +55,8 @@ class Controller
 		{
 			let shotDetails =
 			{
-				angle:					this.#view.getAngleInputs(),
-				power:					this.#view.getPowerInputs(),
+				angle: this.#view.getAngleInputs(),
+				power: this.#view.getPowerInputs(),
 			}
 			
 			this.#game.setCurrentShot(shotDetails);
