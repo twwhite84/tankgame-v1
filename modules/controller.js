@@ -53,15 +53,14 @@ class Controller
 	{
 		try
 		{
-			console.log(`fire button click event`);
 			let shotDetails =
 			{
-				angle:					this.#view.getAngles(),
-				power:					this.#view.getPowers(),
+				angle:					this.#view.getAngleInputs(),
+				power:					this.#view.getPowerInputs(),
 			}
 			
-			//tell game to create a new shot
-			this.#game.makeShot(shotDetails);
+			this.#game.setCurrentShot(shotDetails);
+			this.#view.plotSet(this.#game.getCurrentShot().getShotpath());
 		}
 		
 		catch (error)

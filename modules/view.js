@@ -68,15 +68,25 @@ class View
 	}
 
 	
-	plotPixel(x, y)
+	plotPixel(x, y, colour = 1)
 	{
 		y = dom.playfield.height - y;
-		let myImageData = this.#ctx.createImageData(1, 1);
-		for (let i = 0; i <=3; i++)
-		{
-			myImageData.data[i] = 127;
-		}
-		this.#ctx.putImageData(myImageData, Math.round(x), Math.round(y));
+		// let myImageData = this.#ctx.createImageData(1, 1);
+		
+		// for (let i = 0; i <=3; i++)
+		// {
+			// if (i == 0 || i == 3)
+			// {
+				// myImageData.data[i] = 255;
+			// }
+
+			// else myImageData.data[i] = 0;
+		// }
+
+		// this.#ctx.putImageData(myImageData, Math.round(x), Math.round(y));
+		
+		this.#ctx.fillStyle = `white`;
+		this.#ctx.fillRect(Math.round(x), Math.round(y), 3, 3);
 	}
 	
 	
@@ -175,7 +185,7 @@ class View
 	}
 	
 	
-	getAngles()
+	getAngleInputs()
 	{
 		let myOutput = [];
 		let myInputs = dom.angleInputs;
@@ -187,7 +197,7 @@ class View
 	}
 	
 	
-	getPowers()
+	getPowerInputs()
 	{
 		let myOutput = [];
 		let myInputs = dom.powerInputs;

@@ -5,95 +5,107 @@ class Shot
 	#landscape;
 	#player;
 	#power;
+	#shotpath;
 	#wind = 0;
 	
 	
 	constructor(shotDetails)
 	{
-		//instance fields replace shotData object literal
-		this.#angle			= shotDetails.angle;			//replaces initAngleDeg
-		this.#power			= shotDetails.power;			//replaces initVelocity
-		this.#player		= shotDetails.player;			//accessors replace launcherX and launcherY
-		this.#landscape	= shotDetails.landscape;	//not sure if this is necessary yet?
+		this.#angle			= this.degToRad(shotDetails.angle);
+		this.#power			= shotDetails.power;								
+		this.#player		= shotDetails.player;								
+		this.#landscape	= shotDetails.landscape;
+
+		this.makeShotpath();
 	}
 	
 	
-	//REWRITE ALL OF THE BELOW WITH NEW VARIABLE NAMES
-	getShotPoint(step, shotData)
+	//calculates the current position of the projectile for a given step
+	makeShotpoint(step)
 	{
-		let initAngleRad	= degToRad(shotData.initAngleDeg);
-		let initVelocityX	= Math.cos(initAngleRad) * shotData.initVelocity;
-		let initVelocityY	= Math.sin(initAngleRad) * shotData.initVelocity;
-		let velocityGrav	= shotData.rateGrav * step;
-		let velocityWind	= shotData.rateWind * step;
-		let finalVelocityX	= initVelocityX + velocityWind;
-		let finalVelocityY	= initVelocityY + velocityGrav;
-		let finalX			= shotData.launcherX + step * finalVelocityX;
-		let finalY			= shotData.launcherY + step * finalVelocityY;
+		let initVelX	= Math.cos(this.#angle) * this.#power;
+		let initVelY	= Math.sin(this.#angle) * this.#power;
+		let velGrav		= this.#gravity * step;
+		let velWind		= this.#wind * step;
+		let crntVelX	= initVelX + velWind;
+		let crntVelY	= initVelY + velGrav;
+		let x					= this.#player.getPosition().x + step * crntVelX;
+		let y					= this.#player.getPosition().y + step * crntVelY;
 
-		return
-		{
-			"x": Math.round(finalX),
-			"y": Math.round(finalY)
+		return {
+			x: Math.round(x),
+			y: Math.round(y)
 		}
 	}
 
 
-	getShotPath()	//initially this took above shotData as shotData
+	//creates an array of coordinates by caling makeShotpoint for successive steps
+	makeShotpath()
 	{
-		let step						= 0;
-		let shotPath				= [];
-		let collisionPoint;
+		let collisionPoint	= null;
 		let done						= false;
+		let step						= 0;
+		let landscapePoints = this.#landscape.getAllpoints();
+		let shotpath				= [];
 	
 		while(!done)
 		{
-			let shotPoint = getShotPoint(step, shotData);
-			shotPath.push(shotPoint);
-		let pointCheck = ctx.getImageData(shotPoint.x, canvas.height - shotPoint.y, 1, 1);
+			let shotpoint = this.makeShotpoint(step);
+			shotpath.push(shotpoint);
+			
+			//COLLISION CHECKS -- VS LANDSCAPE
+			
+			//compare our newly generated shotpoint against landscape for collision
+			// landscapePoints.forEach(function(landpoint)
+			// {
+				// if (shotpoint.y < landpoint.y)
+				// {
+					// console.log(`kaboom!`);
+					// done = true;
+				// }
+			// });
 
-		//goes below the floor
-		if (shotPoint.y < 0) {
-			done = true;
-		}
-		
-		//collision detection point
-		else {
-			let rgbaSum = 0;
-			
-			pointCheck.data.forEach(element => {
-				rgbaSum += element;
-			});
-			
-			if (rgbaSum > 0) {
-				collisionPoint = {
-					"x": shotPoint.x,
-					"y": shotPoint.y
-				};
+			//if our point goes beneath the playfield then that ends trajectory
+			if (shotpoint.y < 0)
+			{
 				done = true;
+				console.log(`trajectory end`);
 			}
-		}
+			
+			//collision detection point
+			else
+			{
+				// let rgbaSum = 0;
+				// pointCheck.data.forEach(element => rgbaSum += element);
+			
+				// if (rgbaSum > 0)
+				// {
+					// collisionPoint =
+					// {
+						// "x": shotPoint.x,
+						// "y": shotPoint.y
+					// };
+					// done = true;
+				// }
+			}
 		
-		step += 0.04;
-	}
+			//step can be adjusted to increase or decrease density
+			step += 0.04;
+		}
 	
-	return {
-		"shotPath": shotPath,
-		"collisionPoint": collisionPoint
+		this.#shotpath = shotpath;
 	}
 
-	}
 
-//testing method only
-	getDetails()
-	{
-		return [this.#player, this.#angle, this.#power, this.#landscape];
-	}
-	
-	
 	degToRad(deg)
 	{
 		return deg * Math.PI / 180;
+	}
+	
+	
+	getShotpath()
+	{
+		return this.#shotpath;
 	}
 	
 }

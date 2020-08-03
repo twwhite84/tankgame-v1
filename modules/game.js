@@ -5,22 +5,22 @@ import { Shot } from './shot.js';
 
 class Game
 {
-	#currentPlayer;
-	#landscape;
-	#players = [];
-	#currentShot;
+	#currentShot		= null;
+	#currentPlayer	= null;
+	#landscape			= null;
+	#players 				= [];
 	
 	
 	addPlayer(playerName)
 	{
-		//player one field must be filled
+		//validation
 		if (playerName.length == 0 && this.#players.length == 0)
 			throw new Error(`Player 1 must be entered. Additional players optional.`)
 		
-		//skip subsequent unentered fields
 		else if (playerName.length == 0)
 			return
 		
+		//successful
 		else
 		{
 			let player = new Player();
@@ -82,56 +82,48 @@ class Game
 	}
 	
 	
-	makeShot(shotDetails)
+	setCurrentShot(shotDetails)
 	{
-		//validation
-		let angleFail = true;
-		let powerFail = true;
-		let error = "";
-		let angle;
-		let power;
+		//input validation
+		let fail						= false;
+		let error 					= "";
+		let validatedAngle	= 0;
+		let validatedPower	= 0;
 		
-		for (let i = 0; i < shotDetails.angle.length; i++)
+		console.log(shotDetails);
+		
+		for (let i = 0; i <= shotDetails.angle.length; i++)
 		{
-			if (typeof shotDetails.angle[i] == "number" && !isNaN(shotDetails.angle[i]))
-			{
-				angleFail = false;
-				angle = shotDetails.angle[i];
-			}
-			
-			if (typeof shotDetails.power[i] == "number" && !isNaN(shotDetails.power[i]))
-			{
-				if (shotDetails.power[i] > 100) error += "Power cannot be over 100. ";
-				else
-				{
-					powerFail = false;
-					power = shotDetails.power[i];	
-				}
-			}
+			if ( typeof shotDetails.angle[i] != "number" ) fail = true
+			else if ( shotDetails.angle[i] == "NaN" ) break
+			else if ( shotDetails.angle[i]
 		}
 		
-		if (angleFail || powerFail)
+		if (fail)
 		{
 			error += "Please check your input.";
 			throw Error(error);
 		}			
 		
-		//validation successful
+		//following successful validation
 		else
 		{
+			console.log(`input has been validated`);
 			let validated =
 			{
-				angle: angle,
-				power: power,
+				angle: validatedAngle,
+				power: validatedPower,
 				player: this.#currentPlayer,
 				landscape: this.#landscape
 			}
 			
 			this.#currentShot = new Shot(validated);
-			
-			//report on the contents of the new shot
-			console.log(this.#currentShot.getDetails());
 		}
+	}
+	
+	getCurrentShot()
+	{
+		return this.#currentShot;
 	}
 	
 }
