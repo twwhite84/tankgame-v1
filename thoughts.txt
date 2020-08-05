@@ -35,3 +35,14 @@ sunday 02-08-20
 ---------------
 
 testing is taking too long, having to boot up the app and enter in data to test functions. i need to have a unit testing solution, jest seems to popular so look into that? also will switch to typescript for future projects, investigate a book called typescript design patterns as it also has information on testing. may also be time to switch to visual studio code so i can peek inside variables, see references, etc.
+
+
+wednesday 05-08-20
+------------------
+
+i need this for next project:
+
+- consistent variable name scheme
+- unit testing framework, because it takes too long to reboot the game all the time
+- brush up on design patterns probably
+- typescript so i can lock the data types, otherwise i cant remember what type of data a function returns

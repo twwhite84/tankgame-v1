@@ -5,10 +5,10 @@ import { Shot } from './shot.js';
 
 class Game 
 {
-  #currentPlayer  = null;
-  #landscape      = null;
-  #currentShot    = [];
-  #players        = [];
+  #currentPlayer = null;
+  #landscape = null;
+  #currentShot = [];
+  #players = [];
 
   addPlayer(playerName) 
   {
@@ -85,13 +85,14 @@ class Game
   setCurrentShot(shotDetails) 
   {
     //input validation
-    let angleFail       = true;
-    let powerFail       = true;
-    let error           = "";
-    let validatedAngle  = 0;
-    let validatedPower  = 0;
+    let angleFail = true;
+    let powerFail = true;
+    let error = "";
+    let validatedAngle = 0;
+    let validatedPower = 0;
 
-    shotDetails.angles.forEach(function(angle) {
+    shotDetails.angles.forEach(function (angle)
+    {
       if (typeof angle == "number" && isNaN(angle) == false)
       {
         angleFail = false;
@@ -99,7 +100,8 @@ class Game
       }
     });
 
-    shotDetails.powers.forEach(function(power) {
+    shotDetails.powers.forEach(function (power)
+    {
       if (typeof power == "number" && isNaN(power) == false)
       {
         if (power > 100 || power < 0)
@@ -139,13 +141,13 @@ class Game
     let currentPlayerNumber = players.indexOf(currentPlayer) + 1;
 
     //set currentplayer to the next player in players
-    if ((currentPlayerNumber+1) > players.length) 
+    if ((currentPlayerNumber + 1) > players.length)
       this.setCurrentPlayer(1);
 
     else this.setCurrentPlayer(currentPlayerNumber + 1);
   }
 
-  
+
   getCurrentShot() 
   {
     return this.#currentShot;
