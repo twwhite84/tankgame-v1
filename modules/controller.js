@@ -63,9 +63,7 @@ class Controller
 
       this.#game.setCurrentShot(shotDetails);
       let shotpath = this.#game.getCurrentShot().getShotpath();
-      let plotSet = this.#view.plotSet;
-
-      window.requestAnimationFrame(plotSet(shotpath));
+      this.#view.plotSet(shotpath);
 
       //---------------------------------------------------------------//
       //bunch of other stuff needs to happen here before cycling player//

@@ -76,10 +76,9 @@ class View
   }
 
 
-  plotSet(pointSet, index)
+  plotSet(pointset)
   {
-    plotPoint(pointSet[index].x, pointSet[index].y);
-    index += 1;
+    pointset.forEach(point => this.plotPoint(point.x, point.y));
   }
 
 

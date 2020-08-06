@@ -57,7 +57,7 @@ class Shot
       if (shotpoint.x > (landpoints.length - 1) || shotpoint.x < 0) done = true;
 
       //shot hits the dirt, let it sink into the dirt a little bit
-      else if (shotpoint.y < (landpoints[shotpoint.x - 1].y - 2)) done = true;
+      else if (shotpoint.y < (landpoints[shotpoint.x].y - 2)) done = true;
 
       //shot hits bottom of canvas
       else if (shotpoint.y < 0) done = true;
