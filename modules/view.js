@@ -8,6 +8,8 @@ class View
   #ctx;
   #ctxWidth = 1000;
   #ctxHeight = 1000;
+  #shotpath;
+  #shotpathIndex = 0;
 
   constructor(controller)
   {
@@ -76,9 +78,22 @@ class View
   }
 
 
-  plotSet(pointset)
+  plotShotpath()
   {
-    pointset.forEach(point => this.plotPoint(point.x, point.y));
+    if (this.#shotpathIndex < this.#shotpath.length)
+    {
+      this.plotPoint(this.#shotpath[this.#shotpathIndex].x, this.#shotpath[this.#shotpathIndex].y);
+      this.#shotpathIndex += 10;
+      window.requestAnimationFrame(this.plotShotpath.bind(this));
+    }
+
+    else this.#shotpathIndex = 0;
+  }
+
+
+  setShotpath(shotpath)
+  {
+    this.#shotpath = shotpath;
   }
 
 

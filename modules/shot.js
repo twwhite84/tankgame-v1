@@ -62,7 +62,9 @@ class Shot
       //shot hits bottom of canvas
       else if (shotpoint.y < 0) done = true;
 
-      //step can be adjusted to increase or decrease point density
+      //step can be lowered to increase resolution and vice-versa.
+      //this is independent of how accurately this gets rendered to canvas though.
+      //to adjust number of these points that get rendered, see plotShotpath in View
       else step += 0.01;
     }
 
