@@ -4,6 +4,12 @@ class Player
   #colour = 0;
   #hitpoints = 100;
   #position = { x: 0, y: 0 };
+  #dimensions = { width: 35, height: 35 }
+
+  getDimensions()
+  {
+    return this.#dimensions;
+  }
 
   setName(name)
   {

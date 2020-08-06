@@ -9,6 +9,7 @@ class Game
   #landscape = null;
   #currentShot = [];
   #players = [];
+  #playerDimensions;
 
   addPlayer(playerName) 
   {

@@ -66,9 +66,9 @@ class Controller
       this.#view.setShotpath(shotpath);
       this.#view.plotShotpath();
 
-      //---------------------------------------------------------------//
-      //bunch of other stuff needs to happen here before cycling player//
-      //---------------------------------------------------------------//
+      // todo
+
+      // update wind randomly
 
       this.#game.cyclePlayer();
       this.#view.setCurrentPlayer(this.#game.getCurrentPlayer());

@@ -47,6 +47,7 @@ class Shot
     let step = 0;
     let landpoints = this.#landscape.getAllpoints();
     let shotpath = [];
+    let player = this.#player;
 
     while (!done)
     {
@@ -61,6 +62,28 @@ class Shot
 
       //shot hits bottom of canvas
       else if (shotpoint.y < 0) done = true;
+
+      //BELOW ROUTINE NOT WORKING, PROBABLY BECAUSE IT TRIPS AS SOON AS SHOT IS FIRED BECAUSE STARTS
+      //FROM INSIDE THE HITBOX
+      
+      //shot hits another player
+      // else if
+      // (
+      //   shotpoint.x < (player.getPosition().x + player.getDimensions().width)
+      //   &&
+      //   (
+      //     shotpoint.x > (player.getPosition().x - player.getDimensions().width)
+      //     &&
+      //     (
+      //       shotpoint.y < (player.getPosition().y + player.getDimensions().height)
+      //       && shotpoint.y > (player.getPosition().y - player.getDimensions().height)
+      //     )
+      //   )
+      // )
+      // {
+      //   console.log(`a player was hit`);
+      //   done = true;
+      // }
 
       //step can be lowered to increase resolution and vice-versa.
       //this is independent of how accurately that gets rendered to canvas though.

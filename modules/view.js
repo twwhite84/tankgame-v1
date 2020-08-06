@@ -146,8 +146,8 @@ class View
         let offY = 26;
         let dstX = player.getPosition().x - offX;
         let dstY = (this.#ctxHeight - offY) - player.getPosition().y;
-        let dstW = 35;
-        let dstH = 35;
+        let dstW = player.getDimensions().width;
+        let dstH = player.getDimensions().height;
 
         this.#ctx.save();
         this.#ctx.drawImage(tanksprite, srcX, srcY, srcW, srcH, dstX, dstY, dstW, dstH);
