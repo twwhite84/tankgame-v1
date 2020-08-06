@@ -6,7 +6,7 @@ class Shot
   #player;
   #power;
   #shotpath;
-  #wind = 0;
+  #wind = 0;      //positive values push right, etc. 10 is practical maximum.
 
 
   constructor(shotDetails)
@@ -62,8 +62,8 @@ class Shot
       //shot hits bottom of canvas
       else if (shotpoint.y < 0) done = true;
 
-      //step can be adjusted to increase or decrease density
-      else step += 0.04;
+      //step can be adjusted to increase or decrease point density
+      else step += 0.01;
     }
 
     this.#shotpath = shotpath;

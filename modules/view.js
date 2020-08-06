@@ -68,31 +68,18 @@ class View
   }
 
 
-  plotPixel(x, y, colour = 1)
+  plotPoint(x, y, colour = 0)
   {
     y = dom.playfield.height - y;
-    // let myImageData = this.#ctx.createImageData(1, 1);
-
-    // for (let i = 0; i <=3; i++)
-    // {
-    // if (i == 0 || i == 3)
-    // {
-    // myImageData.data[i] = 255;
-    // }
-
-    // else myImageData.data[i] = 0;
-    // }
-
-    // this.#ctx.putImageData(myImageData, Math.round(x), Math.round(y));
-
-    this.#ctx.fillStyle = `white`;
+    this.#ctx.fillStyle = colourTable[colour];
     this.#ctx.fillRect(Math.round(x), Math.round(y), 3, 3);
   }
 
 
-  plotSet(pixelSet)
+  plotSet(pointSet, index)
   {
-    pixelSet.forEach(el => this.plotPixel(el.x, el.y));
+    plotPoint(pointSet[index].x, pointSet[index].y);
+    index += 1;
   }
 
 
