@@ -91,6 +91,15 @@ class View
   }
 
 
+  // altPlotShotpath(shotpath, index)
+  // {
+  //   this.plotPoint(shotpath[index].x, shotpath[index].y);
+  //   index += 10;
+  //   if (index < shotpath.length) window.requestAnimationFrame(this.altPlotShotpath(shotpath, index));
+  //   else index = 0;
+  // }
+
+
   setShotpath(shotpath)
   {
     this.#shotpath = shotpath;

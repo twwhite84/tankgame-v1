@@ -63,8 +63,8 @@ class Shot
       else if (shotpoint.y < 0) done = true;
 
       //step can be lowered to increase resolution and vice-versa.
-      //this is independent of how accurately this gets rendered to canvas though.
-      //to adjust number of these points that get rendered, see plotShotpath in View
+      //this is independent of how accurately that gets rendered to canvas though.
+      //to adjust number of these points that get rendered, see plotShotpath in View.
       else step += 0.01;
     }
 
