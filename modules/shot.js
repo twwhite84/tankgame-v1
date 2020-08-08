@@ -49,14 +49,43 @@ class Shot
     let landpoints = this.#landscape.getAllpoints();
     let shotpath = [];
     let player = this.#player;
-    let shellArmed = false;
-    let initTime = Date.now();
+    let armed = false;
+    let launchboxWidth = player.getDimensions().width + 10;
+    let launchboxHeight = player.getDimensions().height + 10;
 
     while (!done)
     {
       let shotpoint = this.makeShotpoint(step);
       shotpath.push(shotpoint);
 
+      //shot is first fired
+      if (step == 0) console.log(`shot fired from ${shotpoint.x}, ${shotpoint.y}`);
+
+      //shot should arm itself after leaving launchbox
+      if
+      (
+        armed == false
+        &&
+        (
+          shotpoint.x > (player.getPosition().x + launchboxWidth)
+          &&
+          (
+            shotpoint.x < (player.getPosition().x - launchboxWidth)
+            &&
+            (
+              shotpoint.y > (player.getPosition().y + launchboxHeight)
+              && shotpoint.y < (player.getPosition().y - launchboxHeight)
+            )
+          )
+        )
+      )
+      {
+        armed = true;
+        console.log(`shot armed at ${shotpoint.x}, ${shotpoint.y}`);
+        step += stepsize;
+      }
+
+      //BRANCHING CONDITIONS
       //shot goes off side of screen -- maybe allow this at a later point
       if (shotpoint.x > (landpoints.length - 1) || shotpoint.x < 0) done = true;
 
@@ -66,54 +95,10 @@ class Shot
       //shot hits bottom of canvas
       else if (shotpoint.y < 0) done = true;
 
-      //shell is launched but still unarmed
-      //first check for shell leaving launch zone and arm when away from tank
-      //this doesnt work because we need to work with the distance of a line?
-      // else if
-      // (
-      //   step > 0.35
-      //   &&
-      //   (
-      //     shellArmed == false
-      //     &&
-      //     (
-      //       shotpoint.x < (player.getPosition().x + player.getDimensions().width)
-      //       &&
-      //       (
-      //         shotpoint.x > (player.getPosition().x - player.getDimensions().width)
-      //         &&
-      //         (
-      //           shotpoint.y < (player.getPosition().y + player.getDimensions().height)
-      //           && shotpoint.y > (player.getPosition().y - player.getDimensions().height)
-      //         )
-      //       )
-      //     )
-      //   )
-      // )
-      // {
-      //   shellArmed = true;
-      //   console.log(`shell is now armed? ${shellArmed}`);
-      // }
-
-      //THIS SECTION IS LOGICALLY OK? NO BECAUSE IT WILL NEVER TAKE THE COMPUTER THIS LONG TO COMPUTE THIS.
-      //SHOTS ARE NOT COMPUTED IN REAL TIME SO WE MUST USE AN INDEX OR SOME OTHER METHOD INSTEAD.
-      else if (shellArmed == false)
-      {
-        if (Date.now() == (initTime + 500)) {
-          shellArmed = true;
-          console.log(`shell has been armed`);
-        }
-        
-        step += stepsize;
-      }
-
       //step can be lowered to increase resolution and vice-versa.
       //this is independent of how accurately that gets rendered to canvas though.
       //to adjust number of these points that get rendered, see plotShotpath in View.
-      else
-      {
-        step += stepsize;
-      } 
+      else step += stepsize;
     }
 
     this.#shotpath = shotpath;
