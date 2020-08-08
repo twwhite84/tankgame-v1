@@ -46,3 +46,9 @@ i need this for next project:
 - unit testing framework, because it takes too long to reboot the game all the time
 - brush up on design patterns probably
 - typescript so i can lock the data types, otherwise i cant remember what type of data a function returns
+
+
+saturday 08-08-20
+-----------------
+
+i need to arm player projectiles with a delay so that there is no proximity detection when a tank fires it. otherwise i will end up detonating the projectile in both enemy hitboxes as well as player hitboxes. i could do this by finding the distance travelled, but i think it would be easier and sufficient to just use a time delay.

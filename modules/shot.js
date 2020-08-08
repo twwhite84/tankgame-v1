@@ -45,9 +45,12 @@ class Shot
     let collisionPoint = null;
     let done = false;
     let step = 0;
+    let stepsize = 0.01;
     let landpoints = this.#landscape.getAllpoints();
     let shotpath = [];
     let player = this.#player;
+    let shellArmed = false;
+    let initTime = Date.now();
 
     while (!done)
     {
@@ -63,32 +66,54 @@ class Shot
       //shot hits bottom of canvas
       else if (shotpoint.y < 0) done = true;
 
-      //BELOW ROUTINE NOT WORKING, PROBABLY BECAUSE IT TRIPS AS SOON AS SHOT IS FIRED BECAUSE STARTS
-      //FROM INSIDE THE HITBOX
-      
-      //shot hits another player
+      //shell is launched but still unarmed
+      //first check for shell leaving launch zone and arm when away from tank
+      //this doesnt work because we need to work with the distance of a line?
       // else if
       // (
-      //   shotpoint.x < (player.getPosition().x + player.getDimensions().width)
+      //   step > 0.35
       //   &&
       //   (
-      //     shotpoint.x > (player.getPosition().x - player.getDimensions().width)
+      //     shellArmed == false
       //     &&
       //     (
-      //       shotpoint.y < (player.getPosition().y + player.getDimensions().height)
-      //       && shotpoint.y > (player.getPosition().y - player.getDimensions().height)
+      //       shotpoint.x < (player.getPosition().x + player.getDimensions().width)
+      //       &&
+      //       (
+      //         shotpoint.x > (player.getPosition().x - player.getDimensions().width)
+      //         &&
+      //         (
+      //           shotpoint.y < (player.getPosition().y + player.getDimensions().height)
+      //           && shotpoint.y > (player.getPosition().y - player.getDimensions().height)
+      //         )
+      //       )
       //     )
       //   )
       // )
       // {
-      //   console.log(`a player was hit`);
-      //   done = true;
+      //   shellArmed = true;
+      //   console.log(`shell is now armed? ${shellArmed}`);
       // }
+
+      //THIS SECTION IS LOGICALLY OK? NO BECAUSE IT WILL NEVER TAKE THE COMPUTER THIS LONG TO COMPUTE THIS.
+      //SHOTS ARE NOT COMPUTED IN REAL TIME SO WE MUST USE AN INDEX OR SOME OTHER METHOD INSTEAD.
+      else if (shellArmed == false)
+      {
+        if (Date.now() == (initTime + 500)) {
+          shellArmed = true;
+          console.log(`shell has been armed`);
+        }
+        
+        step += stepsize;
+      }
 
       //step can be lowered to increase resolution and vice-versa.
       //this is independent of how accurately that gets rendered to canvas though.
       //to adjust number of these points that get rendered, see plotShotpath in View.
-      else step += 0.01;
+      else
+      {
+        step += stepsize;
+      } 
     }
 
     this.#shotpath = shotpath;
