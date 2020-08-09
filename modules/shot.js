@@ -93,9 +93,9 @@ class Shot
       else if (shotpoint.y < 0) done = true;
 
       //shot hits any player including self
-      else if (this.checkPlayerHit(shotpoint)) 
+      else if (this.checkPlayerHit(shotpoint) && armed == true) 
       {
-        console.log(`player hit`);
+        alert(`hit`);
         done = true;
       }
 
@@ -123,21 +123,22 @@ class Shot
 
   checkPlayerHit(shotpoint)
   {
-    let hit = 0;
+    let hitCriteria = 0;
+    let hit = false;
     this.#players.forEach(function (target)
     {
-      if (shotpoint.x < (target.getPosition().x + target.getDimensions().width)) hit += 1;
-      if (shotpoint.x > (target.getPosition().x - target.getDimensions().width)) hit += 1;
-      if (shotpoint.y < (target.getPosition().y + target.getDimensions().height)) hit += 1;
-      if (shotpoint.y > (target.getPosition().y - target.getDimensions().height)) hit += 1;
-      if (hit == 4) return true;
+      if (shotpoint.x < (target.getPosition().x + target.getDimensions().width)) hitCriteria += 1;
+      if (shotpoint.x > (target.getPosition().x - target.getDimensions().width)) hitCriteria += 1;
+      if (shotpoint.y < (target.getPosition().y + target.getDimensions().height)) hitCriteria += 1;
+      if (shotpoint.y > (target.getPosition().y - target.getDimensions().height)) hitCriteria += 1;
+      if (hitCriteria == 4) hit = true;
       else
       {
-        hit = 0;
+        hitCriteria = 0;
       }
     })
 
-    return false;
+    return hit;
   }
 
 }
