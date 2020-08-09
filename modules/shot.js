@@ -4,6 +4,7 @@ class Shot
   #gravity = -3;
   #landscape;
   #player;
+  #players;
   #power;
   #shotpath;
   #wind = 0;      //positive values push right, etc. 10 is practical maximum.
@@ -14,6 +15,7 @@ class Shot
     this.#angle = this.degToRad(shotDetails.angle);
     this.#power = shotDetails.power;
     this.#player = shotDetails.player;
+    this.#players = shotDetails.players;
     this.#landscape = shotDetails.landscape;
 
     this.makeShotpath();
@@ -42,7 +44,6 @@ class Shot
   //creates an array of coordinates by caling makeShotpoint for successive steps
   makeShotpath()
   {
-    let collisionPoint = null;
     let done = false;
     let step = 0;
     let stepsize = 0.01;
@@ -52,6 +53,18 @@ class Shot
     let armed = false;
     let launchboxWidth = player.getDimensions().width + 10;
     let launchboxHeight = player.getDimensions().height + 10;
+    let initX = player.getPosition().x;
+    let initY = player.getPosition().y;
+
+    function checkSafeToArm(shotpoint)
+    {
+      if (shotpoint.x > (initX + launchboxWidth)) return true;
+      if (shotpoint.x < (initX - launchboxWidth)) return true;
+      if (shotpoint.y > (initY + launchboxHeight)) return true;
+      if (shotpoint.y < (initY - launchboxHeight)) return true;
+      return false;
+    }
+
 
     while (!done)
     {
@@ -61,24 +74,8 @@ class Shot
       //shot is first fired
       if (step == 0) console.log(`shot fired from ${shotpoint.x}, ${shotpoint.y}`);
 
-      //shot should arm itself after leaving launchbox
-      if
-      (
-        armed == false
-        &&
-        (
-          shotpoint.x > (player.getPosition().x + launchboxWidth)
-          &&
-          (
-            shotpoint.x < (player.getPosition().x - launchboxWidth)
-            &&
-            (
-              shotpoint.y > (player.getPosition().y + launchboxHeight)
-              && shotpoint.y < (player.getPosition().y - launchboxHeight)
-            )
-          )
-        )
-      )
+      //shot only arms itself after leaving firing player's proximity
+      if (armed == false && checkSafeToArm(shotpoint))
       {
         armed = true;
         console.log(`shot armed at ${shotpoint.x}, ${shotpoint.y}`);
@@ -94,6 +91,13 @@ class Shot
 
       //shot hits bottom of canvas
       else if (shotpoint.y < 0) done = true;
+
+      //shot hits any player including self
+      else if (this.checkPlayerHit(shotpoint)) 
+      {
+        console.log(`player hit`);
+        done = true;
+      }
 
       //step can be lowered to increase resolution and vice-versa.
       //this is independent of how accurately that gets rendered to canvas though.
@@ -114,6 +118,26 @@ class Shot
   getShotpath()
   {
     return this.#shotpath;
+  }
+
+
+  checkPlayerHit(shotpoint)
+  {
+    let hit = 0;
+    this.#players.forEach(function (target)
+    {
+      if (shotpoint.x < (target.getPosition().x + target.getDimensions().width)) hit += 1;
+      if (shotpoint.x > (target.getPosition().x - target.getDimensions().width)) hit += 1;
+      if (shotpoint.y < (target.getPosition().y + target.getDimensions().height)) hit += 1;
+      if (shotpoint.y > (target.getPosition().y - target.getDimensions().height)) hit += 1;
+      if (hit == 4) return true;
+      else
+      {
+        hit = 0;
+      }
+    })
+
+    return false;
   }
 
 }

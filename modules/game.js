@@ -9,7 +9,6 @@ class Game
   #landscape = null;
   #currentShot = [];
   #players = [];
-  #playerDimensions;
 
   addPlayer(playerName) 
   {
@@ -128,6 +127,7 @@ class Game
         angle: validatedAngle,
         power: validatedPower,
         player: this.#currentPlayer,
+        players: this.#players,
         landscape: this.#landscape
       }
       this.#currentShot = new Shot(validated);
