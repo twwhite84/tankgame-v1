@@ -127,11 +127,21 @@ class Shot
     let hit = false;
     this.#players.forEach(function (target)
     {
-      if (shotpoint.x < (target.getPosition().x + target.getDimensions().width)) hitCriteria += 1;
-      if (shotpoint.x > (target.getPosition().x - target.getDimensions().width)) hitCriteria += 1;
-      if (shotpoint.y < (target.getPosition().y + target.getDimensions().height)) hitCriteria += 1;
-      if (shotpoint.y > (target.getPosition().y - target.getDimensions().height)) hitCriteria += 1;
-      if (hitCriteria == 4) hit = true;
+      // if ( shotpoint.x < (target.getPosition().x + target.getDimensions().width) ) hitCriteria += 1;
+      // if (shotpoint.x > (target.getPosition().x - target.getDimensions().width)) hitCriteria += 1;
+      // if (shotpoint.y < (target.getPosition().y + target.getDimensions().height)) hitCriteria += 1;
+      // if (shotpoint.y > (target.getPosition().y - target.getDimensions().height)) hitCriteria += 1;
+
+      if ( shotpoint.x < (target.getPosition().x + (target.getDimensions().width / 2)) 
+      && shotpoint.x > (target.getPosition().x - target.getDimensions().width) ) hitCriteria += 2;
+      
+      if ( shotpoint.y < (target.getPosition().y + (target.getDimensions().height / 2)) 
+      && shotpoint.y > (target.getPosition().y - target.getDimensions().height) ) hitCriteria += 2;
+
+      if (hitCriteria == 4)
+      {
+        hit = true;
+      }
       else
       {
         hitCriteria = 0;
