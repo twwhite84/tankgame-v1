@@ -55,13 +55,10 @@ class Controller
     {
       if (this.#game == null) throw Error(`No game in progress.`);
 
-      let shotDetails =
-      {
-        angles: this.#view.getAngleInputs(),
-        powers: this.#view.getPowerInputs(),
-      }
+      let angles = this.#view.getAngleInputs();
+      let powers = this.#view.getPowerInputs();
 
-      this.#game.setCurrentShot(shotDetails);
+      this.#game.setCurrentShot(angles, powers);
       let shotpath = this.#game.getCurrentShot().getShotpath();
       this.#view.setShotpath(shotpath);
       this.#view.plotShotpath();

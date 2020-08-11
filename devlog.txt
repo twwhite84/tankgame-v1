@@ -1,0 +1,62 @@
+monday 13-07-20
+---------------
+
+where do i want my main game loop? my game loop has to respond to user requests. does it belong in the game instance, or in main? if i put it in game instance, then game becomes more of a controller than a model as it has to deal with user input. i can instantiate a ui object inside of game or else pass one in, but then it seems to mess up roles of classes. i think for now i will keep gameloop in main.
+
+MVC:
+
+controller can update model and view
+model can update view
+
+
+
+wednesday 15-07-20
+------------------
+
+do i really want to have only arrays put out from the dom class? it's consistent, but it's weird. maybe update variable names to reflect type?
+
+
+
+saturday 18-07-20
+-----------------
+
+questions about direct of data flow. for example, should controller push its input to game, or should game instead pull its data from controller? i think i will push from controller instead of pull from controller.
+
+
+friday 31-07-20
+-----------------
+
+do a test project canvas rotation to figure out how this works. will i need to create prerendered, rotated tank sprites? create a square bitmap with quadrants 1,2,3,4 marked and practice rotating around its center. i may need to create ImageBitmaps seperately from the sprite sheet and rotate those instead of just applying a rotation and then DrawImage routine.
+
+also: how to detect for media queries and page relayouts in order to check for duplicate angle/power entries?
+
+
+sunday 02-08-20
+---------------
+
+testing is taking too long, having to boot up the app and enter in data to test functions. i need to have a unit testing solution, jest seems to popular so look into that? also will switch to typescript for future projects, investigate a book called typescript design patterns as it also has information on testing. may also be time to switch to visual studio code so i can peek inside variables, see references, etc.
+
+
+wednesday 05-08-20
+------------------
+
+i need this for next project:
+
+- consistent variable name scheme
+- unit testing framework, because it takes too long to reboot the game all the time
+- brush up on design patterns probably
+- typescript so i can lock the data types, otherwise i cant remember what type of data a function returns
+
+
+saturday 08-08-20
+-----------------
+
+i need to arm player projectiles with a delay so that there is no proximity detection when a tank fires it. otherwise i will end up detonating the projectile in both enemy hitboxes as well as player hitboxes. i could do this by finding the distance travelled, but i think it would be easier and sufficient to just use a time delay.
+
+
+tuesday 11-08-20
+----------------
+
+today i had an issue with using function binding and a boolean check. i have one function that returns true or false based on a condition, while another function calls and passes arguments to it to check. the issue is "if (checkPlayerHit.bind(this, shotpoint == true ...)" which does not work, and so i have used the workaround "if (checkPlayerHit(this.#[relative parameter], shotpoint == true ...)" instead. i am not sure why i have to do this.
+
+UPDATE: turns out i need to use call instead of bind. call executes another function with a provided 'this' immediately, with arguments supplied as individual parameters. there is also apply, which is similar but you can supply arguments in an array/array-like instead. bind by comparison appears to return a function definition for later execution, i guess for functions that want a callback this would be the appropriate method to use instead.

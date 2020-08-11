@@ -82,7 +82,7 @@ class Game
   }
 
 
-  setCurrentShot(shotDetails) 
+  setCurrentShot(angles, powers) 
   {
     //input validation
     let angleFail = true;
@@ -91,7 +91,7 @@ class Game
     let validatedAngle = 0;
     let validatedPower = 0;
 
-    shotDetails.angles.forEach(function (angle)
+    angles.forEach(function (angle)
     {
       if (typeof angle == "number" && isNaN(angle) == false)
       {
@@ -100,7 +100,7 @@ class Game
       }
     });
 
-    shotDetails.powers.forEach(function (power)
+    powers.forEach(function (power)
     {
       if (typeof power == "number" && isNaN(power) == false)
       {

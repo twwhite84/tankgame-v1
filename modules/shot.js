@@ -65,6 +65,26 @@ class Shot
       return false;
     }
 
+    function checkPlayerHit(players, shotpoint)
+    {
+      let hitCriteria = 0;
+      let hitDetected = false;
+      players.forEach(function (target)
+      {
+        if (shotpoint.x < (target.getPosition().x + target.getDimensions().width)
+          && shotpoint.x > (target.getPosition().x - target.getDimensions().width))
+          hitCriteria += 1;
+
+        if (shotpoint.y < (target.getPosition().y + target.getDimensions().height)
+          && shotpoint.y > (target.getPosition().y - target.getDimensions().height))
+          hitCriteria += 1;
+
+        if (hitCriteria == 2) hitDetected = true;
+        else hitCriteria = 0;
+      })
+
+      return hitDetected;
+    }
 
     while (!done)
     {
@@ -92,8 +112,8 @@ class Shot
       //shot hits bottom of canvas
       else if (shotpoint.y < 0) done = true;
 
-      //shot hits any player including self
-      else if (this.checkPlayerHit(shotpoint) && armed == true) 
+      //shot hits any player after arming, including self
+      else if (checkPlayerHit(this.#players, shotpoint) == true && armed == true) 
       {
         alert(`hit`);
         done = true;
@@ -119,38 +139,6 @@ class Shot
   {
     return this.#shotpath;
   }
-
-
-  checkPlayerHit(shotpoint)
-  {
-    let hitCriteria = 0;
-    let hit = false;
-    this.#players.forEach(function (target)
-    {
-      // if ( shotpoint.x < (target.getPosition().x + target.getDimensions().width) ) hitCriteria += 1;
-      // if (shotpoint.x > (target.getPosition().x - target.getDimensions().width)) hitCriteria += 1;
-      // if (shotpoint.y < (target.getPosition().y + target.getDimensions().height)) hitCriteria += 1;
-      // if (shotpoint.y > (target.getPosition().y - target.getDimensions().height)) hitCriteria += 1;
-
-      if ( shotpoint.x < (target.getPosition().x + (target.getDimensions().width / 2)) 
-      && shotpoint.x > (target.getPosition().x - target.getDimensions().width) ) hitCriteria += 2;
-      
-      if ( shotpoint.y < (target.getPosition().y + (target.getDimensions().height / 2)) 
-      && shotpoint.y > (target.getPosition().y - target.getDimensions().height) ) hitCriteria += 2;
-
-      if (hitCriteria == 4)
-      {
-        hit = true;
-      }
-      else
-      {
-        hitCriteria = 0;
-      }
-    })
-
-    return hit;
-  }
-
 }
 
 export { Shot };
