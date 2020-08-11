@@ -60,8 +60,8 @@ class Controller
 
       this.#game.setCurrentShot(angles, powers);
       let shotpath = this.#game.getCurrentShot().getShotpath();
-      this.#view.setShotpath(shotpath);
-      this.#view.plotShotpath();
+      console.log(shotpath.length);
+      this.#view.plotSet(shotpath);
 
       // todo
 

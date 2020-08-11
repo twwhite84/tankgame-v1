@@ -8,8 +8,6 @@ class View
   #ctx;
   #ctxWidth = 1000;
   #ctxHeight = 1000;
-  #shotpath;
-  #shotpathIndex = 0;
 
   constructor(controller)
   {
@@ -78,22 +76,26 @@ class View
   }
 
 
-  plotShotpath()
+  plotSet(shotpath, index = 0)
   {
-    if (this.#shotpathIndex < this.#shotpath.length)
+    function cb(timestamp)
     {
-      this.plotPoint(this.#shotpath[this.#shotpathIndex].x, this.#shotpath[this.#shotpathIndex].y);
-      this.#shotpathIndex += 10;
-      window.requestAnimationFrame(this.plotShotpath.bind(this));
+      if (index > (shotpath.length - 1)) window.cancelAnimationFrame(timestamp);
+      else
+      {
+
+      }
     }
 
-    else this.#shotpathIndex = 0;
-  }
-  
+    this.plotPoint(shotpath.x, shotpath.y);
+    index += 1;
+    window.requestAnimationFrame(cb);
 
-  setShotpath(shotpath)
-  {
-    this.#shotpath = shotpath;
+    if (index == 0) console.log(`length: ${shotpath.length}`);
+    index += 1;
+    console.log(`index: ${index}`);
+    if (index == (shotpath.length - 1)) console.log(`end`);
+    else window.requestAnimationFrame(this.plotSet(shotpath, index));
   }
 
 
