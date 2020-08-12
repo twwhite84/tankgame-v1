@@ -75,27 +75,24 @@ class View
     this.#ctx.fillRect(Math.round(x), Math.round(y), 3, 3);
   }
 
-
+  //can access dom and this.#ctx, but can i access the above method instead of repeating it?
   plotSet(shotpath, index = 0)
   {
-    function cb(timestamp)
+    function drawFrame(timeelapsed)
     {
-      if (index > (shotpath.length - 1)) window.cancelAnimationFrame(timestamp);
+      if (index > (shotpath.length - 1)) window.cancelAnimationFrame(frame);
       else
       {
-
+        let y = dom.playfield.height - shotpath[index].y;
+        let x = shotpath[index].x;
+        this.#ctx.fillStyle = `white`;
+        this.#ctx.fillRect(Math.round(x), Math.round(y), 3, 3);
+        index += 10;
       }
+      let frame = window.requestAnimationFrame(drawFrame.bind(this));
     }
 
-    this.plotPoint(shotpath.x, shotpath.y);
-    index += 1;
-    window.requestAnimationFrame(cb);
-
-    if (index == 0) console.log(`length: ${shotpath.length}`);
-    index += 1;
-    console.log(`index: ${index}`);
-    if (index == (shotpath.length - 1)) console.log(`end`);
-    else window.requestAnimationFrame(this.plotSet(shotpath, index));
+    window.requestAnimationFrame(drawFrame.bind(this));
   }
 
 
