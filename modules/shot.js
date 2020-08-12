@@ -51,8 +51,8 @@ class Shot
     let shotpath = [];
     let player = this.#player;
     let armed = false;
-    let launchboxWidth = player.getDimensions().width + 10;
-    let launchboxHeight = player.getDimensions().height + 10;
+    let launchboxWidth = player.getDimensions().width;
+    let launchboxHeight = player.getDimensions().height;
     let initX = player.getPosition().x;
     let initY = player.getPosition().y;
 
@@ -115,7 +115,7 @@ class Shot
       //shot hits any player after arming, including self
       else if (checkPlayerHit(this.#players, shotpoint) == true && armed == true) 
       {
-        alert(`hit`);
+        console.log(`hit`);
         done = true;
       }
 
