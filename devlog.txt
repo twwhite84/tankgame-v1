@@ -60,3 +60,9 @@ tuesday 11-08-20
 today i had an issue with using function binding and a boolean check. i have one function that returns true or false based on a condition, while another function calls and passes arguments to it to check. the issue is "if (checkPlayerHit.bind(this, shotpoint == true ...)" which does not work, and so i have used the workaround "if (checkPlayerHit(this.#[relative parameter], shotpoint == true ...)" instead. i am not sure why i have to do this.
 
 UPDATE: turns out i need to use call instead of bind. call executes another function with a provided 'this' immediately, with arguments supplied as individual parameters. there is also apply, which is similar but you can supply arguments in an array/array-like instead. bind by comparison appears to return a function definition for later execution, i guess for functions that want a callback this would be the appropriate method to use instead.
+
+
+thursday 13-08-20
+-----------------
+
+i need to know when an object should have data pushed into it from the outside via a setter, versus when it should pull data into itself via a link back to whichever other object instatiated it in the first place. maybe i can do both, so long as i have a consistent rule? eg any object which is instantiated by another object should have its contructor fed the relevant 'this' to store in a private field.

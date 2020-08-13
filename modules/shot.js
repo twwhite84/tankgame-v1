@@ -51,8 +51,8 @@ class Shot
     let shotpath = [];
     let player = this.#player;
     let armed = false;
-    let launchboxWidth = player.getDimensions().width;
-    let launchboxHeight = player.getDimensions().height;
+    let launchboxWidth = player.getWidth();
+    let launchboxHeight = player.getHeight();
     let initX = player.getPosition().x;
     let initY = player.getPosition().y;
 
@@ -71,12 +71,12 @@ class Shot
       let hitDetected = false;
       players.forEach(function (target)
       {
-        if (shotpoint.x < (target.getPosition().x + target.getDimensions().width)
-          && shotpoint.x > (target.getPosition().x - target.getDimensions().width))
+        if (shotpoint.x < (target.getPosition().x + ((target.getWidth() -1)/ 2))
+          && shotpoint.x > (target.getPosition().x - ((target.getWidth() -1)/ 2)))
           hitCriteria += 1;
 
-        if (shotpoint.y < (target.getPosition().y + target.getDimensions().height)
-          && shotpoint.y > (target.getPosition().y - target.getDimensions().height))
+        if (shotpoint.y < (target.getPosition().y + ((target.getHeight() -1)/ 2))
+          && shotpoint.y > (target.getPosition().y - ((target.getHeight() -1)/ 2)))
           hitCriteria += 1;
 
         if (hitCriteria == 2) hitDetected = true;

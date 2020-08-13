@@ -9,6 +9,14 @@ class Game
   #landscape = null;
   #currentShot = [];
   #players = [];
+  #playfieldWidth = 0;
+  #playfieldHeight = 0;
+
+  constructor(canvasDimensions)
+  {
+    this.#playfieldWidth = canvasDimensions.width;
+    this.#playfieldHeight = canvasDimensions.height;
+  }
 
   addPlayer(playerName) 
   {
@@ -22,10 +30,12 @@ class Game
     //successful
     else 
     {
-      let player = new Player();
+      let player = new Player(this);
       player.setName(playerName);
       player.setColour(this.#players.length + 1);
       player.setRandomPosition(this.#landscape.getAllpoints());
+      player.setWidth(this.#playfieldHeight / 25);
+      player.setHeight(this.#playfieldHeight / 25); //intentional -- i want a square tank
       this.#players.push(player);
     }
   }
@@ -69,10 +79,10 @@ class Game
   }
 
 
-  makeLandscape(ctxWidth, ctxHeight) 
+  makeLandscape(keypointQuantity = 1) 
   {
-    this.#landscape = new Landscape(ctxWidth, ctxHeight);
-    this.#landscape.generatePoints(5);
+    this.#landscape = new Landscape(this.#playfieldWidth, this.#playfieldHeight);
+    this.#landscape.generatePoints(keypointQuantity);
   }
 
 

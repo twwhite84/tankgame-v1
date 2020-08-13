@@ -18,16 +18,20 @@ class Controller
     event.preventDefault();
     try 
     {
-      this.#game = new Game();
+      let canvasDimensions = 
+      {
+        width: this.#view.getCanvas().width,
+        height: this.#view.getCanvas().height
+      }
 
-      //landscape setup and display
-      let ctxWidth = this.#view.getCtxWidth();
-      let ctxHeight = this.#view.getCtxHeight();
-      this.#game.makeLandscape(ctxWidth, ctxHeight);
+      this.#game = new Game(canvasDimensions);
+
+      this.#game.makeLandscape(5);
       this.#view.plotLandscape(this.#game.getLandscape());
 
       //player setup and display
       let playerNames = this.#view.getPlayerNames();
+      
       this.#game.setPlayers(playerNames);
       this.#view.setCurrentPlayer(this.#game.getCurrentPlayer());
       this.#view.plotPlayers(this.#game.getPlayers());

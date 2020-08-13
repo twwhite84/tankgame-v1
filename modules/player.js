@@ -1,50 +1,40 @@
 class Player
 {
-  #name = ``;
+  #rotation = 0;
   #colour = 0;
-  #hitpoints = 100;
+  #game;
+  #health = 100;
+  #height = 0;
+  #name = ``;
   #position = { x: 0, y: 0 };
-  #dimensions = { width: 35, height: 35 }
+  #width = 0;
 
-  getDimensions()
+  constructor(game)
   {
-    return this.#dimensions;
+    if (typeof game === undefined) throw Error;
+    else this.#game = game;
   }
 
-  setName(name)
-  {
-    this.#name = name;
-  }
+  getColour() { return this.#colour; }
+  setColour(colour) { this.#colour = colour; }
 
+  getHealth() { return this.#health; }
+  setHealth(health) { this.#health = health; }
 
-  getName()
-  {
-    return this.#name;
-  }
+  getHeight() { return this.#height; }
+  setHeight(height) { this.#height = height; }
 
+  getName() { return this.#name; }
+  setName(name) { this.#name = name; }
 
-  setColour(colour)
-  {
-    this.#colour = colour;
-  }
+  getPosition() { return this.#position; }
+  setPosition(x, y) { this.#position.x = x; this.#position.y = y; }
 
+  getRotation() { return this.#rotation; }
+  setRotation(rotation) { this.#rotation = rotation; }
 
-  getColour()
-  {
-    return this.#colour;
-  }
-
-
-  setHitpoints(hitpoints)
-  {
-    this.#hitpoints = hitpoints;
-  }
-
-
-  getHitpoints()
-  {
-    return this.#hitpoints;
-  }
+  getWidth() { return this.#width; }
+  setWidth(width) { this.#width = width; }
 
   setRandomPosition(allpoints)
   {
@@ -55,10 +45,21 @@ class Player
     this.#position = { x: x, y: y };
   }
 
-  getPosition()
+  updateRotation()
   {
-    return this.#position;
+    let allpoints = this.#game.getLandscape().getAllpoints();
+    let x = this.#position.x;
+    let y = this.#position.y;
+    let obj = { "x": x, "y": y };
+    let index = allpoints.findIndex(element => element.x === obj.x);
+    let prevPoint = allpoints[index - 1];
+    let nextPoint = allpoints[index + 1];
+    let deltaX = nextPoint.x - prevPoint.x;
+    let deltaY = nextPoint.y - prevPoint.y;
+    let rotRad = Math.atan(deltaY/deltaX);
+    this.#rotation = rotRad;
   }
+
 }
 
 export { Player };

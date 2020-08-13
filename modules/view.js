@@ -4,19 +4,18 @@ import { dom } from './dom.js';
 
 class View
 {
+  #canvas;
   #controller;
   #ctx;
-  #ctxWidth = 1000;
-  #ctxHeight = 1000;
 
   constructor(controller)
   {
     this.#controller = controller;
+    this.#canvas = dom.playfield;
+    this.#ctx = this.#canvas.getContext(`2d`);
+    this.#canvas.width = this.#canvas.clientWidth;    //'width' is like internal resolution
+    this.#canvas.height = this.#canvas.clientHeight;  //and client the container size on page
 
-    //a few visual appearance things to take care of
-    this.#ctx = dom.playfield.getContext(`2d`);
-    dom.playfield.width = this.#ctxWidth;
-    dom.playfield.height = this.#ctxHeight;
     for (let i = 0; i < dom.playerLabels.length; i++)
     {
       dom.playerLabels[i].style.color = colourTable[i + 1];
@@ -32,7 +31,7 @@ class View
 
   getPlayerNames()
   {
-    return Object.values(dom.nameInputs).map(el => el.value);
+    return Object.values(dom.nameInputs).map(nameInput => nameInput.value);
   }
 
 
@@ -101,7 +100,7 @@ class View
   plotLandscape(landscape)
   {
     this.#ctx.save();
-    this.#ctx.translate(0, this.#ctxHeight);
+    this.#ctx.translate(0, this.#canvas.height);
     this.#ctx.scale(1, -1);
     let keypoints = landscape.getKeypoints();
     let landscapePath = new Path2D();
@@ -111,7 +110,7 @@ class View
       landscapePath.lineTo(keypoints[i].x, keypoints[i].y);
     }
     landscapePath.closePath();
-    let gradient = this.#ctx.createLinearGradient(0, 0, 0, this.#ctxHeight);
+    let gradient = this.#ctx.createLinearGradient(0, 0, 0, this.#canvas.height);
     gradient.addColorStop(0, `darkgreen`);
     gradient.addColorStop(1, `white`);
     this.#ctx.fillStyle = gradient;
@@ -133,16 +132,21 @@ class View
         let srcY = 0;
         let srcW = 64;
         let srcH = 64;
-        //greater offsets raise the tank off the ground or pull it further left
-        let offX = 16;
-        let offY = 26;
-        let dstX = player.getPosition().x - offX;
-        let dstY = (this.#ctxHeight - offY) - player.getPosition().y;
-        let dstW = player.getDimensions().width;
-        let dstH = player.getDimensions().height;
+        let dstX = player.getPosition().x;
+        let dstY = (this.#canvas.height) - player.getPosition().y;
+        let dstW = player.getWidth();
+        let dstH = player.getHeight();
+        let offY = dstH/3;
+        
+        player.updateRotation();
+        let rotationRad = player.getRotation();
+        let rotationDeg = rotationRad * (180 / Math.PI);
 
         this.#ctx.save();
-        this.#ctx.drawImage(tanksprite, srcX, srcY, srcW, srcH, dstX, dstY, dstW, dstH);
+        this.#ctx.translate(dstX, dstY);              //move top-left corner (0,0) of canvas to player position
+        this.#ctx.rotate(-rotationRad);               //rotate canvas
+        this.#ctx.translate(-dstW/2, -dstH/2-offY);   //move rotated canvas to image center
+        this.#ctx.drawImage(tanksprite, srcX, srcY, srcW, srcH, 0, 0, dstW, dstH);
         this.#ctx.restore();
 
       }.bind(this));
@@ -152,38 +156,26 @@ class View
 
   setCurrentPlayer(currentPlayer)
   {
-    dom.currentPlayerLabels.forEach(function (el) 
+    dom.currentPlayerLabels.forEach(function (label) 
     {
-      el.innerText = currentPlayer.getName();
-      el.style.color = colourTable[currentPlayer.getColour()];
+      label.innerText = currentPlayer.getName();
+      label.style.color = colourTable[currentPlayer.getColour()];
     });
 
     dom.currentPlayerLabels[1].style.textShadow = `1px 1px ${colourTable[currentPlayer.getColour() + 4]}`;
   }
 
 
-  getCtxWidth()
+  getCanvas()
   {
-    return this.#ctxWidth;
-  }
-
-
-  getCtxHeight()
-  {
-    return this.#ctxHeight;
-  }
-
-
-  getCtx()
-  {
-    return this.#ctx;
+    return this.#canvas;
   }
 
 
   clearCanvas()
   {
     this.#ctx.fillStyle = `black`;
-    this.#ctx.fillRect(0, 0, this.#ctxWidth, this.#ctxHeight);
+    this.#ctx.fillRect(0, 0, this.#canvas.width, this.#canvas.height);
   }
 
 
