@@ -75,13 +75,18 @@ class View
   }
 
   //can access dom and this.#ctx, but can i access the above method instead of repeating it?
-  plotSet(shotpath, index = 0)
+  plotSet(shotpath, cb)
   {
+    let index = 0;
     let newFrame;
 
     function drawFrame()
     {
-      if (index > (shotpath.length - 1)) window.cancelAnimationFrame(newFrame);
+      if (index > (shotpath.length - 1)) 
+      {
+        window.cancelAnimationFrame(newFrame);
+        cb();
+      }
       else
       {
         let y = dom.playfield.height - shotpath[index].y;
@@ -89,8 +94,9 @@ class View
         this.#ctx.fillStyle = `white`;
         this.#ctx.fillRect(Math.round(x), Math.round(y), 3, 3);
         index += 10;
+        newFrame = window.requestAnimationFrame(drawFrame.bind(this));
       }
-      newFrame = window.requestAnimationFrame(drawFrame.bind(this));
+      
     }
 
     window.requestAnimationFrame(drawFrame.bind(this));

@@ -55,6 +55,14 @@ class Controller
 
   fire() 
   {
+    //do this stuff after firing animation finishes
+    let cb = function()
+    {
+      console.log('done');
+      this.#game.cyclePlayer();
+      this.#view.setCurrentPlayer(this.#game.getCurrentPlayer());
+    }
+
     try 
     {
       if (this.#game == null) throw Error(`No game in progress.`);
@@ -65,14 +73,13 @@ class Controller
       this.#game.setCurrentShot(angles, powers);
       let shotpath = this.#game.getCurrentShot().getShotpath();
       console.log(shotpath.length);
-      this.#view.plotSet(shotpath);
+      this.#view.plotSet(shotpath, cb.bind(this));
 
       // todo
 
       // update wind randomly
 
-      this.#game.cyclePlayer();
-      this.#view.setCurrentPlayer(this.#game.getCurrentPlayer());
+      
     }
 
     catch (error) 
