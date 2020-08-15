@@ -63,11 +63,14 @@ class Controller
       let powers = this.#view.getPowerInputs();
 
       this.#game.setCurrentShot(angles, powers);
-      let shotpath = this.#game.getCurrentShot().getShotpath();
+      let shot = this.#game.getCurrentShot();
+      let shotpath = shot.getShotpath();
       this.#view.plotSet(shotpath, function ()
       {
         //do below after firing animation completes
-
+        let hitResult = shot.getHit();
+        if (hitResult == true) console.log(`HIT!!!`);
+        
         //todo: call explosion subroutine
         this.#game.cyclePlayer();
         this.#view.setCurrentPlayer(this.#game.getCurrentPlayer());

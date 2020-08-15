@@ -140,6 +140,11 @@ class Shot
   {
     return this.#shotpath;
   }
+
+  getHit()
+  {
+    return this.#hit;
+  }
 }
 
 export { Shot };
