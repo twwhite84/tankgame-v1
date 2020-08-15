@@ -2,6 +2,7 @@ class Shot
 {
   #angle;
   #gravity = -3;
+  #hit = false;
   #landscape;
   #player;
   #players;
@@ -115,7 +116,7 @@ class Shot
       //shot hits any player after arming, including self
       else if (checkPlayerHit(this.#players, shotpoint) == true && armed == true) 
       {
-        console.log(`hit`);
+        this.#hit = true;
         done = true;
       }
 

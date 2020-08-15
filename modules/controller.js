@@ -18,7 +18,7 @@ class Controller
     event.preventDefault();
     try 
     {
-      let canvasDimensions = 
+      let canvasDimensions =
       {
         width: this.#view.getCanvas().width,
         height: this.#view.getCanvas().height
@@ -31,7 +31,7 @@ class Controller
 
       //player setup and display
       let playerNames = this.#view.getPlayerNames();
-      
+
       this.#game.setPlayers(playerNames);
       this.#view.setCurrentPlayer(this.#game.getCurrentPlayer());
       this.#view.plotPlayers(this.#game.getPlayers());
@@ -55,14 +55,6 @@ class Controller
 
   fire() 
   {
-    //do this stuff after firing animation finishes
-    let cb = function()
-    {
-      console.log('done');
-      this.#game.cyclePlayer();
-      this.#view.setCurrentPlayer(this.#game.getCurrentPlayer());
-    }
-
     try 
     {
       if (this.#game == null) throw Error(`No game in progress.`);
@@ -72,20 +64,19 @@ class Controller
 
       this.#game.setCurrentShot(angles, powers);
       let shotpath = this.#game.getCurrentShot().getShotpath();
-      console.log(shotpath.length);
-      this.#view.plotSet(shotpath, cb.bind(this));
+      this.#view.plotSet(shotpath, function ()
+      {
+        //do below after firing animation completes
 
-      // todo
+        //todo: call explosion subroutine
+        this.#game.cyclePlayer();
+        this.#view.setCurrentPlayer(this.#game.getCurrentPlayer());
 
-      // update wind randomly
-
-      
+      }.bind(this));
     }
 
     catch (error) 
-    {
-      this.#view.showMessage(error);
-    }
+    { this.#view.showMessage(error); }
   }
 
 }
