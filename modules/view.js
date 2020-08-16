@@ -66,6 +66,19 @@ class View
     this.toggleMessagebox();
   }
 
+  plotExplosion(coordinates)
+  {
+    //get the last point in the shotpath array
+    console.log(coordinates.x, coordinates.y);
+
+    //draw a red circle for a half second
+    let ctx = this.#ctx;
+    ctx.beginPath();
+    ctx.arc(coordinates.x, dom.playfield.height - coordinates.y, 20, 0, 2*Math.PI, false);
+    ctx.fillStyle = `red`;
+    ctx.fill();
+  }
+
 
   plotPoint(x, y, colour = 0)
   {

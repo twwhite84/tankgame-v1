@@ -68,10 +68,10 @@ class Controller
       this.#view.plotSet(shotpath, function ()
       {
         //do below after firing animation completes
-        let hitResult = shot.getHit();
+        let hitResult = shot.getHitStatus();
         if (hitResult == true) console.log(`HIT!!!`);
         
-        //todo: call explosion subroutine
+        this.#view.plotExplosion(shotpath[shotpath.length-1]);
         this.#game.cyclePlayer();
         this.#view.setCurrentPlayer(this.#game.getCurrentPlayer());
 

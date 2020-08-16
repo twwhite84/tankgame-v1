@@ -141,7 +141,7 @@ class Shot
     return this.#shotpath;
   }
 
-  getHit()
+  getHitStatus()
   {
     return this.#hit;
   }
