@@ -66,3 +66,9 @@ thursday 13-08-20
 -----------------
 
 i need to know when an object should have data pushed into it from the outside via a setter, versus when it should pull data into itself via a link back to whichever other object instatiated it in the first place. maybe i can do both, so long as i have a consistent rule? eg any object which is instantiated by another object should have its contructor fed the relevant 'this' to store in a private field.
+
+
+tuesday 18-08-20
+----------------
+
+try combining plotting the shot and the explosion into one function as a workaround. i am having an issue of two different requestanimationframe calls stacking when they're part of the same function, which in my case i guess is a result of being called from the same controller method. maybe there is an alternative wrokaround but try this for now.

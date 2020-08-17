@@ -68,15 +68,19 @@ class View
 
   plotExplosion(coordinates)
   {
-    //get the last point in the shotpath array
-    console.log(coordinates.x, coordinates.y);
+    let x = coordinates.x;
+    let y = dom.playfield.height - coordinates.y;
+    let colours = [`red`, `yellow`, `white`];
+    let initTime = Date.now();
 
-    //draw a red circle for a half second
-    let ctx = this.#ctx;
-    ctx.beginPath();
-    ctx.arc(coordinates.x, dom.playfield.height - coordinates.y, 20, 0, 2*Math.PI, false);
-    ctx.fillStyle = `red`;
-    ctx.fill();
+    function drawFrame(timestamp)
+    {
+      let elapsed = initTime - timestamp;
+      console.log(timestamp);
+      frameID = window.requestAnimationFrame(drawFrame);
+    }
+
+    let frameID = window.requestAnimationFrame(drawFrame);
   }
 
 
@@ -97,6 +101,7 @@ class View
     {
       if (index > (shotpath.length - 1)) 
       {
+        console.log(`cancelling newFrame ID: ${newFrame}`);
         window.cancelAnimationFrame(newFrame);
         cb();
       }
@@ -109,7 +114,7 @@ class View
         index += 10;
         newFrame = window.requestAnimationFrame(drawFrame.bind(this));
       }
-      
+
     }
 
     window.requestAnimationFrame(drawFrame.bind(this));
@@ -155,8 +160,8 @@ class View
         let dstY = (this.#canvas.height) - player.getPosition().y;
         let dstW = player.getWidth();
         let dstH = player.getHeight();
-        let offY = dstH/3;
-        
+        let offY = dstH / 3;
+
         player.updateRotation();
         let rotationRad = player.getRotation();
         let rotationDeg = rotationRad * (180 / Math.PI);
@@ -164,7 +169,7 @@ class View
         this.#ctx.save();
         this.#ctx.translate(dstX, dstY);              //move top-left corner (0,0) of canvas to player position
         this.#ctx.rotate(-rotationRad);               //rotate canvas
-        this.#ctx.translate(-dstW/2, -dstH/2-offY);   //move rotated canvas to image center
+        this.#ctx.translate(-dstW / 2, -dstH / 2 - offY);   //move rotated canvas to image center
         this.#ctx.drawImage(tanksprite, srcX, srcY, srcW, srcH, 0, 0, dstW, dstH);
         this.#ctx.restore();
 
