@@ -75,7 +75,6 @@ class View
 
     function drawFrame(timestamp)
     {
-      let elapsed = initTime - timestamp;
       console.log(timestamp);
       frameID = window.requestAnimationFrame(drawFrame);
     }
@@ -103,6 +102,8 @@ class View
       {
         newFrame = window.cancelAnimationFrame(newFrame);
         console.log(`explosion routine should begin now`);
+        console.log(this);
+        this.#view.plotExplosion(shotpath[shotpath.length-1]);
         cb();
       }
       else
@@ -118,6 +119,7 @@ class View
     }
 
     newFrame = window.requestAnimationFrame(drawFrame.bind(this));
+
   }
 
 
