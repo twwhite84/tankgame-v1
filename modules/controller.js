@@ -71,7 +71,7 @@ class Controller
         let hitResult = shot.getHitStatus();
         if (hitResult == true) console.log(`HIT!!!`);
         
-        this.#view.plotExplosion(shotpath[shotpath.length-1]);
+        this.#view.plotExplosion(this.#game.getCurrentShot();
         this.#game.cyclePlayer();
         this.#view.setCurrentPlayer(this.#game.getCurrentPlayer());
 

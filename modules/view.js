@@ -101,8 +101,8 @@ class View
     {
       if (index > (shotpath.length - 1)) 
       {
-        console.log(`cancelling newFrame ID: ${newFrame}`);
-        window.cancelAnimationFrame(newFrame);
+        newFrame = window.cancelAnimationFrame(newFrame);
+        console.log(`explosion routine should begin now`);
         cb();
       }
       else
@@ -117,7 +117,7 @@ class View
 
     }
 
-    window.requestAnimationFrame(drawFrame.bind(this));
+    newFrame = window.requestAnimationFrame(drawFrame.bind(this));
   }
 
 
