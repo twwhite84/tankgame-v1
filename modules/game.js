@@ -54,18 +54,6 @@ class Game
   }
 
 
-  testPixelSet() 
-  {
-    let pixelSet = [];
-    for (let i = 0; i < 500; i++) 
-    {
-      pixelSet.push({ x: i, y: i });
-    }
-
-    return pixelSet;
-  }
-
-
   getCurrentPlayer() 
   {
     return this.#currentPlayer;

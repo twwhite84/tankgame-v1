@@ -64,21 +64,14 @@ class Controller
 
       this.#game.setCurrentShot(angles, powers);
       let shot = this.#game.getCurrentShot();
-      let shotpath = shot.getShotpath();
-      this.#view.plotSet(shotpath, function ()
-      {
-        //do below after firing animation completes
-        let hitResult = shot.getHitStatus();
-        if (hitResult == true) console.log(`HIT!!!`);
-        
-        // this.#view.plotExplosion(shotpath[shotpath.length-1]);
-        this.#game.cyclePlayer();
-        this.#view.setCurrentPlayer(this.#game.getCurrentPlayer());
+      this.#view.plotShot(shot);
 
-      }.bind(this));
+      this.#game.cyclePlayer();
+      this.#view.setCurrentPlayer(this.#game.getCurrentPlayer());
+
     }
 
-    catch (error) 
+    catch (error)
     { this.#view.showMessage(error); }
   }
 

@@ -1,5 +1,6 @@
 class Shot
 {
+  #armedPoint;
   #angle;
   #gravity = -3;
   #hit = false;
@@ -92,14 +93,11 @@ class Shot
       let shotpoint = this.makeShotpoint(step);
       shotpath.push(shotpoint);
 
-      //shot is first fired
-      if (step == 0) console.log(`shot fired from ${shotpoint.x}, ${shotpoint.y}`);
-
       //shot only arms itself after leaving firing player's proximity
       if (armed == false && checkSafeToArm(shotpoint))
       {
         armed = true;
-        console.log(`shot armed at ${shotpoint.x}, ${shotpoint.y}`);
+        this.#armedPoint = shotpoint;
         step += stepsize;
       }
 
@@ -144,6 +142,16 @@ class Shot
   getHitStatus()
   {
     return this.#hit;
+  }
+
+  getArmedPoint()
+  {
+    return this.#armedPoint;
+  }
+
+  getPlayer()
+  {
+    return this.#player;
   }
 }
 
