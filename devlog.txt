@@ -72,3 +72,8 @@ tuesday 18-08-20
 ----------------
 
 try combining plotting the shot and the explosion into one function as a workaround. i am having an issue of two different requestanimationframe calls stacking when they're part of the same function, which in my case i guess is a result of being called from the same controller method. maybe there is an alternative wrokaround but try this for now.
+
+
+wednesday 19-08-20
+
+need to make a colour picker function that saves the state of a coordinate on the canvas, then restores it after projectile no longer positioned there.

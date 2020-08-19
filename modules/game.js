@@ -11,6 +11,7 @@ class Game
   #players = [];
   #playfieldWidth = 0;
   #playfieldHeight = 0;
+  #wind = 0;
 
   constructor(canvasDimensions)
   {
@@ -126,7 +127,8 @@ class Game
         power: validatedPower,
         player: this.#currentPlayer,
         players: this.#players,
-        landscape: this.#landscape
+        landscape: this.#landscape,
+        wind: this.#wind
       }
       this.#currentShot = new Shot(validated);
     }
@@ -150,6 +152,16 @@ class Game
   getCurrentShot() 
   {
     return this.#currentShot;
+  }
+
+  setRandomWind()
+  {
+    this.#wind = Math.floor(Math.random() * 20) - 10;
+  }
+
+  getWind()
+  {
+    return this.#wind;
   }
 }
 

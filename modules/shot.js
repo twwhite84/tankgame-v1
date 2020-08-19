@@ -19,6 +19,7 @@ class Shot
     this.#player = shotDetails.player;
     this.#players = shotDetails.players;
     this.#landscape = shotDetails.landscape;
+    this.#wind = shotDetails.wind / 5;
 
     this.makeShotpath();
   }

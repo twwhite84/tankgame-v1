@@ -68,6 +68,8 @@ class Controller
 
       this.#game.cyclePlayer();
       this.#view.setCurrentPlayer(this.#game.getCurrentPlayer());
+      this.#game.setRandomWind();
+      this.#view.setWind(this.#game.getWind());
 
     }
 

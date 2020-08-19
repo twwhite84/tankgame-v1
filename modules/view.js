@@ -96,12 +96,12 @@ class View
     let shotpath = shot.getShotpath();
     let initX = shotpath[0].x;
     let initY = shotpath[0].y;
-    let armedPoint = shot.getArmedPoint();
     let plrWidth = shot.getPlayer().getWidth();
     let plrHeight = shot.getPlayer().getHeight();
     let pathIndex = 0;
-    let pathStepsize = 10;
-    let reqId;
+    let pathStep = 10;
+
+    let reqId = window.requestAnimationFrame(drawFrame.bind(this));
 
     function drawFrame()
     {
@@ -109,51 +109,50 @@ class View
       if (pathIndex > (shotpath.length - 1)) 
       {
         reqId = window.cancelAnimationFrame(reqId);
+        //black out final frame
+        let y = dom.playfield.height - shotpath[pathIndex - pathStep].y;
+        let x = shotpath[pathIndex - pathStep].x;
+        this.#ctx.fillStyle = `rgb(0,0,0)`;
+        this.#ctx.fillRect(x, y, 3, 3);
       }
 
       else
       {
-        let firingBoundaryCheck = false;
-
-        while (firingBoundaryCheck == false)
+        //dont render shot over tank when firing
+        let outsideBoundary = false;
+        while (outsideBoundary == false)
         {
-          let armedX = Math.round(armedPoint.x);
-          let armedY = Math.round(armedPoint.y);
-          let x = Math.round(shotpath[pathIndex].x);
-          let y = Math.round(shotpath[pathIndex].y);
-          let checkCount = 0;
+          let x = shotpath[pathIndex].x;
+          let y = shotpath[pathIndex].y;
 
-          // if (x > armedX + plrWidth || x < armedX - plrWidth) firingBoundaryCheck = true;
-          if (x > initX + Math.round(plrWidth / 2) || x < initX - Math.round(plrWidth / 2)) checkCount += 1;
-          // else if (y > armedY + plrHeight || y < armedY - plrHeight) firingBoundaryCheck = true;
-          if (y > initY + Math.round(plrHeight / 2) || y < initY - Math.round(plrHeight / 2)) checkCount += 1;
-
-          if (checkCount == 2) firingBoundaryCheck = true;
-          else if ((pathIndex + pathStepsize) > (shotpath.length - 1)) firingBoundaryCheck = true;
-          else pathIndex += pathStepsize;
+          if (x > (initX + (plrWidth / 2) + 10) || x < (initX - (plrWidth / 2) - 10)) outsideBoundary = true;
+          else if (y > (initY + (plrHeight / 2) + 10) || y < (initY - (plrHeight / 2) - 10)) outsideBoundary = true;
+          else if ((pathIndex + pathStep) > (shotpath.length - 1)) break;
+          else pathIndex += pathStep;
         }
 
+        //black out previous frame
+        if (pathIndex - pathStep > 0)
+        {
+          let y = dom.playfield.height - shotpath[pathIndex - pathStep].y;
+          let x = shotpath[pathIndex - pathStep].x;
+          this.#ctx.fillStyle = `rgb(0,0,0)`;
+          this.#ctx.fillRect(x, y, 3, 3);
+        }
+
+        //draw new frame
         let x = shotpath[pathIndex].x;
         let y = dom.playfield.height - shotpath[pathIndex].y;
-        this.#ctx.fillStyle = `rgba(255,255,255,1)`;
-        this.#ctx.fillRect(Math.round(x), Math.round(y), 3, 3);
+        this.#ctx.fillStyle = `rgb(255,255,255)`;
+        this.#ctx.fillRect(x, y, 3, 3);
 
-        //delete last frame
-        if (pathIndex - pathStepsize > 0)
-        {
-          let y = dom.playfield.height - shotpath[pathIndex - pathStepsize].y;
-          let x = shotpath[pathIndex - pathStepsize].x;
-          this.#ctx.fillStyle = `rgba(0,0,0,1)`;
-          this.#ctx.fillRect(Math.round(x), Math.round(y), 3, 3);
-        }
-
-        pathIndex += pathStepsize;
+        pathIndex += pathStep;
         reqId = window.requestAnimationFrame(drawFrame.bind(this));
       }
 
     }
 
-    reqId = window.requestAnimationFrame(drawFrame.bind(this));
+
 
   }
 
@@ -261,6 +260,12 @@ class View
       myOutput.push(parseInt(myInputs[i].value));
     }
     return myOutput;
+  }
+
+
+  setWind(wind)
+  {
+    dom.windLabels.forEach(value => value.innerHTML = `Wind: ${wind}`);
   }
 }
 
