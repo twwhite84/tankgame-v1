@@ -83,7 +83,7 @@ class View
       if (elapsed < 100)
       {
         this.#ctx.beginPath();
-        this.#ctx.arc(x, y, 20, 0, 2*Math.PI, false);
+        this.#ctx.arc(x, y, 20, 0, 2 * Math.PI, false);
         this.#ctx.fillStyle = colours[colourIndex];
         this.#ctx.fill();
         if ((colourIndex + 1) < colours.length) colourIndex += 1;
@@ -91,14 +91,7 @@ class View
         window.requestAnimationFrame(drawFrame.bind(this));
       }
 
-      else 
-      {
-        this.#ctx.beginPath();
-        this.#ctx.arc(x, y, 21, 0, 2*Math.PI, false);
-        this.#ctx.fillStyle = `black`;
-        this.#ctx.fill();
-        cb();
-      }
+      else cb();
     }
 
     window.requestAnimationFrame(drawFrame.bind(this));
@@ -241,7 +234,10 @@ class View
 
   clearCanvas()
   {
-    this.#ctx.fillStyle = `black`;
+    let gradient = this.#ctx.createLinearGradient(0, 0, 0, this.#canvas.height);
+    gradient.addColorStop(0, `black`);
+    gradient.addColorStop(1, `rgb(0,0,31)`);
+    this.#ctx.fillStyle = gradient;
     this.#ctx.fillRect(0, 0, this.#canvas.width, this.#canvas.height);
   }
 

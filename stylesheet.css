@@ -90,7 +90,7 @@
 
 	#playfield
 	{
-		background-color: black;
+		background: linear-gradient(black, rgb(0, 0, 31));
 		width: 100%;
 		height: 94%;
 		display: block;
@@ -244,7 +244,7 @@
 	#playfield
 	{
 		float: left;
-		background-color: black;
+		background: linear-gradient(black, rgb(0, 0, 31));
 		height: 100%;
 		width: 75%;
 		display: block;
