@@ -100,6 +100,7 @@ class View
     let plrHeight = shot.getPlayer().getHeight();
     let pathIndex = 0;
     let pathStep = 10;
+    let beforeBulletDrawn;
 
     let reqId = window.requestAnimationFrame(drawFrame.bind(this));
 
@@ -109,51 +110,35 @@ class View
       if (pathIndex > (shotpath.length - 1)) 
       {
         reqId = window.cancelAnimationFrame(reqId);
-        //black out final frame
         let y = dom.playfield.height - shotpath[pathIndex - pathStep].y;
         let x = shotpath[pathIndex - pathStep].x;
-        this.#ctx.fillStyle = `rgb(0,0,0)`;
-        this.#ctx.fillRect(x, y, 3, 3);
+        this.#ctx.putImageData(beforeBulletDrawn, x, y);
       }
 
       else
       {
-        //dont render shot over tank when firing
-        let outsideBoundary = false;
-        while (outsideBoundary == false)
-        {
-          let x = shotpath[pathIndex].x;
-          let y = shotpath[pathIndex].y;
-
-          if (x > (initX + (plrWidth / 2) + 10) || x < (initX - (plrWidth / 2) - 10)) outsideBoundary = true;
-          else if (y > (initY + (plrHeight / 2) + 10) || y < (initY - (plrHeight / 2) - 10)) outsideBoundary = true;
-          else if ((pathIndex + pathStep) > (shotpath.length - 1)) break;
-          else pathIndex += pathStep;
-        }
-
-        //black out previous frame
-        if (pathIndex - pathStep > 0)
+        //restore previous frame
+        if (pathIndex - pathStep >= 0)
         {
           let y = dom.playfield.height - shotpath[pathIndex - pathStep].y;
           let x = shotpath[pathIndex - pathStep].x;
-          this.#ctx.fillStyle = `rgb(0,0,0)`;
-          this.#ctx.fillRect(x, y, 3, 3);
+          this.#ctx.putImageData(beforeBulletDrawn, x, y);
         }
 
-        //draw new frame
         let x = shotpath[pathIndex].x;
         let y = dom.playfield.height - shotpath[pathIndex].y;
+
+        //backup the old point
+        beforeBulletDrawn = this.#ctx.getImageData(x, y, 3, 3);
+
+        //draw new point over the top
         this.#ctx.fillStyle = `rgb(255,255,255)`;
         this.#ctx.fillRect(x, y, 3, 3);
 
         pathIndex += pathStep;
         reqId = window.requestAnimationFrame(drawFrame.bind(this));
       }
-
     }
-
-
-
   }
 
 
