@@ -113,7 +113,13 @@ class Landscape
 	getCtxHeight()
 	{
 		return this.#ctxHeight;
-	}
+  }
+  
+
+  deformLandscape(matchPoint)
+  {
+    console.log(matchPoint);
+  }
 }
 
 export { Landscape }

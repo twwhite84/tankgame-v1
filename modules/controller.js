@@ -88,10 +88,13 @@ class Controller
         let shot = this.#game.getCurrentShot();
         let shotpath = shot.getShotpath();
         let explosionPoint = shotpath[shotpath.length-1];
-        console.log(`explosion point was at ${explosionPoint.x},${explosionPoint.y}`);
         let landscape = this.#game.getLandscape();
         let landPoints = landscape.getAllpoints();
         let matchPoint = landPoints.filter(point => point.x == explosionPoint.x);
+        if (!(matchPoint.length === 0 || matchPoint.y === 0))
+        {
+          landscape.deformLandscape(matchPoint);
+        }
 
         //my matchpoint is going to be the center of a circle
         //use trig to find out what the y points will be for a given radius
