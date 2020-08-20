@@ -64,13 +64,31 @@ class Controller
 
       this.#game.setCurrentShot(angles, powers);
       let shot = this.#game.getCurrentShot();
-      this.#view.plotShot(shot);
+      this.#view.plotShot(shot, playExplosion.bind(this));
 
-      this.#game.cyclePlayer();
-      this.#view.setCurrentPlayer(this.#game.getCurrentPlayer());
-      this.#game.setRandomWind();
-      this.#view.setWind(this.#game.getWind());
+      //after bullet animation, play explosion animation
+      function playExplosion()
+      {
+        let shotpath = shot.getShotpath();
+        let coordinates = shotpath[shotpath.length-1];
+        this.#view.plotExplosion(coordinates, roundOver.bind(this));
+      }
 
+      //after explosion, figure out what game does next
+      function roundOver()
+      {
+        this.#view.clearCanvas();
+        this.#view.plotPlayers(this.#game.getPlayers());
+        this.#view.plotLandscape(this.#game.getLandscape());
+        
+
+        let hitStatus = shot.getHitStatus();
+        console.log(`hit: ${hitStatus}`);
+        this.#game.cyclePlayer();
+        this.#view.setCurrentPlayer(this.#game.getCurrentPlayer());
+        this.#game.setRandomWind();
+        this.#view.setWind(this.#game.getWind());
+      }
     }
 
     catch (error)

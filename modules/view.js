@@ -66,20 +66,43 @@ class View
     this.toggleMessagebox();
   }
 
-  plotExplosion(coordinates)
+  plotExplosion(coordinates, cb)
   {
     let x = coordinates.x;
     let y = dom.playfield.height - coordinates.y;
     let colours = [`red`, `yellow`, `white`];
-    let initTime = Date.now();
+    let colourIndex = 0;
+    let elapsed;
+    let initTime;
 
     function drawFrame(timestamp)
     {
-      console.log(timestamp);
-      frameID = window.requestAnimationFrame(drawFrame);
+      if (initTime == undefined) initTime = timestamp;
+      elapsed = timestamp - initTime;
+
+      if (elapsed < 100)
+      {
+        this.#ctx.beginPath();
+        this.#ctx.arc(x, y, 20, 0, 2*Math.PI, false);
+        this.#ctx.fillStyle = colours[colourIndex];
+        this.#ctx.fill();
+        if ((colourIndex + 1) < colours.length) colourIndex += 1;
+        else colourIndex = 0;
+        console.log(colourIndex);
+        window.requestAnimationFrame(drawFrame.bind(this));
+      }
+
+      else 
+      {
+        this.#ctx.beginPath();
+        this.#ctx.arc(x, y, 21, 0, 2*Math.PI, false);
+        this.#ctx.fillStyle = `black`;
+        this.#ctx.fill();
+        cb();
+      }
     }
 
-    let frameID = window.requestAnimationFrame(drawFrame);
+    window.requestAnimationFrame(drawFrame.bind(this));
   }
 
 
@@ -91,13 +114,9 @@ class View
   }
 
   //can access dom and this.#ctx, but can i access the above method instead of repeating it?
-  plotShot(shot)
+  plotShot(shot, cb)
   {
     let shotpath = shot.getShotpath();
-    let initX = shotpath[0].x;
-    let initY = shotpath[0].y;
-    let plrWidth = shot.getPlayer().getWidth();
-    let plrHeight = shot.getPlayer().getHeight();
     let pathIndex = 0;
     let pathStep = 10;
     let beforeBulletDrawn;
@@ -113,6 +132,7 @@ class View
         let y = dom.playfield.height - shotpath[pathIndex - pathStep].y;
         let x = shotpath[pathIndex - pathStep].x;
         this.#ctx.putImageData(beforeBulletDrawn, x, y);
+        cb();
       }
 
       else
@@ -147,19 +167,22 @@ class View
     this.#ctx.save();
     this.#ctx.translate(0, this.#canvas.height);
     this.#ctx.scale(1, -1);
-    let keypoints = landscape.getKeypoints();
-    let landscapePath = new Path2D();
-    landscapePath.moveTo(keypoints[0].x, keypoints[0].y);
-    for (let i = 1; i <= keypoints.length - 1; i++)
+
+    let allpoints = landscape.getAllpoints();
+    allpoints.forEach(point => 
     {
-      landscapePath.lineTo(keypoints[i].x, keypoints[i].y);
-    }
-    landscapePath.closePath();
-    let gradient = this.#ctx.createLinearGradient(0, 0, 0, this.#canvas.height);
-    gradient.addColorStop(0, `darkgreen`);
-    gradient.addColorStop(1, `white`);
-    this.#ctx.fillStyle = gradient;
-    this.#ctx.fill(landscapePath, 'nonzero');
+      let x = point.x;
+      let y = point.y;
+      this.#ctx.beginPath();
+      this.#ctx.moveTo(x, 0);
+      this.#ctx.lineTo(x, y);
+      let gradient = this.#ctx.createLinearGradient(0, 0, 0, this.#canvas.height);
+      gradient.addColorStop(0, `darkgreen`);
+      gradient.addColorStop(1, `white`);
+      this.#ctx.strokeStyle = gradient;
+      this.#ctx.stroke();
+    });
+
     this.#ctx.restore();
   }
 
@@ -250,7 +273,11 @@ class View
 
   setWind(wind)
   {
-    dom.windLabels.forEach(value => value.innerHTML = `Wind: ${wind}`);
+    let prefix;
+    let absWind = Math.abs(wind);
+    if (wind < 0) prefix = `-`;
+    if (wind >= 0) prefix = `+`;
+    dom.windLabels.forEach(value => value.innerHTML = `${prefix}${absWind}`);
   }
 }
 
