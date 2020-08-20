@@ -80,6 +80,23 @@ class Controller
       {
         this.#view.clearCanvas();
         this.#view.plotPlayers(this.#game.getPlayers());
+
+        //landscape update should go here
+        
+        //get the last point in the shotpath
+        //THIS SHOULD ALL GO IN ANOTHER FUNCTION BTW!!!
+        let shot = this.#game.getCurrentShot();
+        let shotpath = shot.getShotpath();
+        let explosionPoint = shotpath[shotpath.length-1];
+        console.log(`explosion point was at ${explosionPoint.x},${explosionPoint.y}`);
+        let landscape = this.#game.getLandscape();
+        let landPoints = landscape.getAllpoints();
+        let matchPoint = landPoints.filter(point => point.x == explosionPoint.x);
+
+        //my matchpoint is going to be the center of a circle
+        //use trig to find out what the y points will be for a given radius
+        //and then carve that out of the landscape.
+
         this.#view.plotLandscape(this.#game.getLandscape());
         
 
