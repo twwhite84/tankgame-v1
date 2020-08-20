@@ -18,6 +18,7 @@ class Controller
     event.preventDefault();
     try 
     {
+      this.#view.clearCanvas();
       let canvasDimensions =
       {
         width: this.#view.getCanvas().width,

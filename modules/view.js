@@ -88,7 +88,6 @@ class View
         this.#ctx.fill();
         if ((colourIndex + 1) < colours.length) colourIndex += 1;
         else colourIndex = 0;
-        console.log(colourIndex);
         window.requestAnimationFrame(drawFrame.bind(this));
       }
 
