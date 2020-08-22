@@ -103,49 +103,42 @@ class Landscape
 
   deformLandscape(matchpoint)
   {
-    let quadrantIV = [];
     let radius = 20;
-
-    function degreesToRadians(degrees)
-    {
-      let radians = degrees * (Math.PI / 180);
-      return radians;
-    }
-
-    //quadrant IV
-    for (let i = 0; i <= 90; i++)
-    {
-      let coordinates = {};
-      coordinates.x = Math.cos(degreesToRadians(i)) * radius;
-      coordinates.y = Math.sin(degreesToRadians(i)) * radius;
-      quadrantIV.push(coordinates);
-    }
 
     //points i need to alter
     let start = matchpoint.x - 20;
-    let end = matchpoint.x + 20;
-    let mySlice = this.#allpoints.slice(start, end);
+    let end = matchpoint.x + 21;
+    let landslice = this.#allpoints.slice(start, end);
 
 
     //going positive along x, bottom-right half of circle
-    let circleQuadI = [];
-    let circleQuadII = [];
-    let circleQuadIV = [];
     let circleQuadIII = [];
+    let circleQuadIV = [];
     for (let i = 0; i < radius + 1; i++)
     {
-      // circleQuadI.push(Math.sin(Math.acos(i / radius)));
-      // circleQuadII.unshift(Math.sin(Math.acos(i / radius)));
-      circleQuadIV.push(-(Math.sin(Math.acos(i / radius))) * radius);
       circleQuadIII.unshift(-(Math.sin(Math.acos(i / radius))) * radius);
+      circleQuadIV.push(-(Math.sin(Math.acos(i / radius))) * radius);
     }
 
-    console.log(`matchpoint ${matchpoint}`);
-    console.log(mySlice);
-    console.log(circleQuadIII);
-    console.log(circleQuadIV);
+    let alteredPoints = [];
+    for (let i = 0; i < circleQuadIII.length; i++)
+    {
+      let x = landslice[i].x;
+      let y = landslice[i].y + circleQuadIII[i];
+      let newpoint = { "x": x, "y": y };
+      alteredPoints.push(newpoint);
+    }
 
+    for (let i = 1; i < circleQuadIII.length; i++)
+    {
+      let x = landslice[radius + i].x;
+      let y = landslice[radius + i].y + circleQuadIV[i];
+      let newpoint = { "x": x, "y": y };
+      alteredPoints.push(newpoint);
+    }
 
+    //write alterpoints back into allpoints
+    
   }
 }
 
