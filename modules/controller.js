@@ -87,13 +87,13 @@ class Controller
         //THIS SHOULD ALL GO IN ANOTHER FUNCTION BTW!!!
         let shot = this.#game.getCurrentShot();
         let shotpath = shot.getShotpath();
-        let explosionPoint = shotpath[shotpath.length-1];
+        let explosionpoint = shotpath[shotpath.length-1];
         let landscape = this.#game.getLandscape();
-        let landPoints = landscape.getAllpoints();
-        let matchPoint = landPoints.filter(point => point.x == explosionPoint.x);
-        if (!(matchPoint.length === 0 || matchPoint.y === 0))
+        let landpoints = landscape.getAllpoints();
+        let matchpoint = landpoints.filter(point => point.x == explosionpoint.x);
+        if (!(matchpoint.length === 0 || matchpoint.y === 0))
         {
-          landscape.deformLandscape(matchPoint);
+          landscape.deformLandscape(matchpoint[0]);
         }
 
         //my matchpoint is going to be the center of a circle

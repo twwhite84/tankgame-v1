@@ -92,33 +92,19 @@ class Landscape
   }
 
 
-  getAllpoints()
+  getAllpoints() { return this.#allpoints; }
+
+  getKeypoints() { return this.#keypoints; }
+
+  getCtxWidth() { return this.#ctxWidth; }
+
+  getCtxHeight() { return this.#ctxHeight; }
+
+
+  deformLandscape(matchpoint)
   {
-    return this.#allpoints;
-  }
-
-
-  getKeypoints()
-  {
-    return this.#keypoints;
-  }
-
-
-  getCtxWidth()
-  {
-    return this.#ctxWidth;
-  }
-
-
-  getCtxHeight()
-  {
-    return this.#ctxHeight;
-  }
-
-
-  deformLandscape(matchPoint)
-  {
-    let quadrantI = [];
+    let quadrantIV = [];
+    let radius = 20;
 
     function degreesToRadians(degrees)
     {
@@ -126,27 +112,23 @@ class Landscape
       return radians;
     }
 
-    //quadrant I
+    //quadrant IV
     for (let i = 0; i <= 90; i++)
     {
       let coordinates = {};
-      coordinates.x = Math.round((Math.cos(degreesToRadians(i))) * 20);
-      coordinates.y = Math.round((Math.sin(degreesToRadians(i))) * 20);
+      coordinates.x = Math.cos(degreesToRadians(i)) * radius;
+      coordinates.y = Math.sin(degreesToRadians(i)) * radius;
       quadrantI.push(coordinates);
     }
 
-    let rounded = quadrantI.map(function (element)
-    {
-      let x = Math.round(element.x);
-      let y = Math.round(element.y);
-      return [x,y];
-    });
+    //points i need to alter
+    let start = matchpoint.x - 20;
+    let end = matchpoint.x + 20;
+    let mySlice = this.#allpoints.slice(start, end);
 
-    let duplicatesRemoved = [];
-    rounded.forEach(function (element)
-    {
-      if (duplicatesRemoved[duplicatesRemoved.length-1] != element) duplicatesRemoved.push(element);
-    });
+    //
+    console.log(mySlice);
+
   }
 }
 
