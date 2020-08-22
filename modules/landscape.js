@@ -126,12 +126,6 @@ class Landscape
     let end = matchpoint.x + 20;
     let mySlice = this.#allpoints.slice(start, end);
 
-    //sine of inverted cosine
-    //inv cos gives me an angle for some position on x-axis
-    //we use ratios of the radius to determine between 0 and 1
-    //going positive
-
-    //0/20: sin(Math.ACos(0/20)) gives us max height difference of 1
 
     //going positive along x, bottom-right half of circle
     let circleQuadI = [];
@@ -140,17 +134,16 @@ class Landscape
     let circleQuadIII = [];
     for (let i = 0; i < radius + 1; i++)
     {
-      circleQuadI.push(Math.sin(Math.acos(i / radius)));
-      circleQuadII.unshift(Math.sin(Math.acos(i / radius)));
-      circleQuadIV.push(-(Math.sin(Math.acos(i / radius))));
-      circleQuadIII.unshift(-(Math.sin(Math.acos(i / radius))));
+      // circleQuadI.push(Math.sin(Math.acos(i / radius)));
+      // circleQuadII.unshift(Math.sin(Math.acos(i / radius)));
+      circleQuadIV.push(-(Math.sin(Math.acos(i / radius))) * radius);
+      circleQuadIII.unshift(-(Math.sin(Math.acos(i / radius))) * radius);
     }
 
-    console.log(circleQuadI);
-    console.log(circleQuadII);
-
-    console.log(circleQuadIV);
+    console.log(`matchpoint ${matchpoint}`);
+    console.log(mySlice);
     console.log(circleQuadIII);
+    console.log(circleQuadIV);
 
 
   }
