@@ -138,7 +138,14 @@ class Landscape
     }
 
     //write alterpoints back into allpoints
-    
+    let j = 0;
+    for (let i = start; i < end; i++)
+    {
+      this.#allpoints[i] = alteredPoints[i];
+      j++;
+    }
+
+    console.log(this.#allpoints.slice(start, end));
   }
 }
 
