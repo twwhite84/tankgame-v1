@@ -106,20 +106,27 @@ class Landscape
     let radius = 20;
 
     //points i need to alter
-    let start = matchpoint.x - 20;
-    let end = matchpoint.x + 21;
+    let start = matchpoint.x - radius;
+    let end = matchpoint.x + radius;
     let landslice = this.#allpoints.slice(start, end);
 
 
     //going positive along x, bottom-right half of circle
     let circleQuadIII = [];
     let circleQuadIV = [];
-    for (let i = 0; i < radius + 1; i++)
+
+    //acos gives us angle from position along x-axis
+    //sineing it then gives relative y position
+    for (let i = 0; i < radius; i++)
     {
       circleQuadIII.unshift(-(Math.sin(Math.acos(i / radius))) * radius);
       circleQuadIV.push(-(Math.sin(Math.acos(i / radius))) * radius);
     }
 
+
+    //maybe change this function to always dig perpendicular to slope?
+    //or else focus the digging along angle of projectile at the time?
+    //can i get the angle of the projectile at time of impact from shot?
     let alteredPoints = [];
     for (let i = 0; i < circleQuadIII.length; i++)
     {
@@ -129,7 +136,7 @@ class Landscape
       alteredPoints.push(newpoint);
     }
 
-    for (let i = 1; i < circleQuadIII.length; i++)
+    for (let i = 0; i < circleQuadIII.length; i++)
     {
       let x = landslice[radius + i].x;
       let y = landslice[radius + i].y + circleQuadIV[i];
@@ -138,7 +145,7 @@ class Landscape
     }
 
 
-    //write alterpoints back into allpoints
+    //write altered points back into allpoints
     let j = 0;
     for (let i = start; i < end; i++)
     {
@@ -146,7 +153,6 @@ class Landscape
       j++;
     }
 
-    console.log(this.#allpoints.slice(start, end));
   }
 }
 
