@@ -137,11 +137,12 @@ class Landscape
       alteredPoints.push(newpoint);
     }
 
+
     //write alterpoints back into allpoints
     let j = 0;
     for (let i = start; i < end; i++)
     {
-      this.#allpoints[i] = alteredPoints[i];
+      this.#allpoints[i] = alteredPoints[j];
       j++;
     }
 
