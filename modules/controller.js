@@ -79,7 +79,7 @@ class Controller
       function roundOver()
       {
         this.#view.clearCanvas();
-        this.#view.plotPlayers(this.#game.getPlayers());
+        
 
         //landscape update should go here
         
@@ -96,10 +96,9 @@ class Controller
           landscape.deformLandscape(matchpoint[0]);
         }
 
-        //my matchpoint is going to be the center of a circle
-        //use trig to find out what the y points will be for a given radius
-        //and then carve that out of the landscape.
+        //drop the player position to match new landscape
 
+        this.#view.plotPlayers(this.#game.getPlayers());
         this.#view.plotLandscape(this.#game.getLandscape());
         
 
