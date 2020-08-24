@@ -161,20 +161,24 @@ class View
     this.#ctx.scale(1, -1);
 
     let allpoints = landscape.getAllpoints();
+    this.#ctx.beginPath();
+    this.#ctx.moveTo(allpoints[0].x, allpoints[0].y);
     allpoints.forEach(point => 
     {
       let x = point.x;
       let y = point.y;
-      this.#ctx.beginPath();
-      this.#ctx.moveTo(x, 0);
       this.#ctx.lineTo(x, y);
-      let gradient = this.#ctx.createLinearGradient(0, 0, 0, this.#canvas.height);
-      gradient.addColorStop(0, `darkgreen`);
-      gradient.addColorStop(1, `white`);
-      this.#ctx.strokeStyle = gradient;
-      this.#ctx.stroke();
+
     });
 
+    this.#ctx.lineTo(this.#canvas.width, 0);
+    this.#ctx.closePath();
+
+    let gradient = this.#ctx.createLinearGradient(0, 0, 0, this.#canvas.height);
+    gradient.addColorStop(0, `darkgreen`);
+    gradient.addColorStop(1, `white`);
+    this.#ctx.fillStyle = gradient;
+    this.#ctx.fill();
     this.#ctx.restore();
   }
 
