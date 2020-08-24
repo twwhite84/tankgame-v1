@@ -171,7 +171,6 @@ class View
 
     });
 
-    this.#ctx.lineTo(this.#canvas.width, 0);
     this.#ctx.closePath();
 
     let gradient = this.#ctx.createLinearGradient(0, 0, 0, this.#canvas.height);

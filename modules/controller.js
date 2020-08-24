@@ -100,6 +100,10 @@ class Controller
 
         this.#view.plotPlayers(this.#game.getPlayers());
         this.#view.plotLandscape(this.#game.getLandscape());
+
+        //check the impact angle
+        let angleOfImpactRad = Math.atan((shotpath[shotpath.length-1].y - shotpath[shotpath.length-2].y)/(shotpath[shotpath.length-1].x - shotpath[shotpath.length-2].x));
+        console.log(angleOfImpactRad * (Math.PI/180));
         
 
         let hitStatus = shot.getHitStatus();

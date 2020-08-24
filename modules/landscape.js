@@ -88,6 +88,7 @@ class Landscape
         }
       }
     }
+    allpoints.push(keypoints[keypoints.length-1]);
     return allpoints;
   }
 
