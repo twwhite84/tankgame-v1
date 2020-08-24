@@ -102,8 +102,14 @@ class Landscape
   getCtxHeight() { return this.#ctxHeight; }
 
 
-  deformLandscape(matchpoint)
+  deformLandscape(matchpoint, angleOfImpact)
   {
+    //rewrite this function so angleOfImpact is perpendicular to
+    //the digging.
+
+    //doing this will require taking a slice of a full circle
+    //from 90 deg one side of angleOfImpact to 90 deg other side
+
     let radius = 20;
 
     //points i need to alter

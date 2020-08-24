@@ -91,19 +91,23 @@ class Controller
         let landscape = this.#game.getLandscape();
         let landpoints = landscape.getAllpoints();
         let matchpoint = landpoints.filter(point => point.x == explosionpoint.x);
+
+        //check the impact angle
+        let deltaY = shotpath[shotpath.length-1].y - shotpath[shotpath.length-10].y;
+        let deltaX = shotpath[shotpath.length-1].x - shotpath[shotpath.length-10].x;
+        let angleOfImpactRad = Math.atan(deltaY/deltaX);
+        let angleOfImpact = angleOfImpactRad * (180/Math.PI);
+
         if (!(matchpoint.length === 0 || matchpoint.y === 0))
         {
-          landscape.deformLandscape(matchpoint[0]);
+          landscape.deformLandscape(matchpoint[0], angleOfImpact);
         }
 
         //drop the player position to match new landscape
-
         this.#view.plotPlayers(this.#game.getPlayers());
         this.#view.plotLandscape(this.#game.getLandscape());
 
-        //check the impact angle
-        let angleOfImpactRad = Math.atan((shotpath[shotpath.length-1].y - shotpath[shotpath.length-2].y)/(shotpath[shotpath.length-1].x - shotpath[shotpath.length-2].x));
-        console.log(angleOfImpactRad * (Math.PI/180));
+        
         
 
         let hitStatus = shot.getHitStatus();
