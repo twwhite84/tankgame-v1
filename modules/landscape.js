@@ -119,37 +119,57 @@ class Landscape
 
 
     //going positive along x, bottom-right half of circle
-    let circleQuadIII = [];
-    let circleQuadIV = [];
+    let quadI = [];
+    let quadII = [];
+    let quadIII = [];
+    let quadIV = [];
 
     //acos gives us angle from position along x-axis
     //sineing it then gives relative y position
     for (let i = 0; i < radius; i++)
     {
-      circleQuadIII.unshift(-(Math.sin(Math.acos(i / radius))) * radius);
-      circleQuadIV.push(-(Math.sin(Math.acos(i / radius))) * radius);
+      quadI.unshift(+(Math.sin(Math.acos(i / radius))) * radius);
+      quadII.push(+(Math.sin(Math.acos(i / radius))) * radius);
+      quadIII.unshift(-(Math.sin(Math.acos(i / radius))) * radius);
+      quadIV.push(-(Math.sin(Math.acos(i / radius))) * radius);
     }
 
+    
 
     //maybe change this function to always dig perpendicular to slope?
     //or else focus the digging along angle of projectile at the time?
     //can i get the angle of the projectile at time of impact from shot?
     let alteredPoints = [];
-    for (let i = 0; i < circleQuadIII.length; i++)
+
+    for (let i = 0; i < quadIII.length; i++)
     {
       let x = landslice[i].x;
-      let y = landslice[i].y + circleQuadIII[i];
+      let y = landslice[i].y + quadIII[i];
       let newpoint = { "x": x, "y": y };
       alteredPoints.push(newpoint);
     }
 
-    for (let i = 0; i < circleQuadIII.length; i++)
+    for (let i = 0; i < quadIII.length; i++)
     {
       let x = landslice[radius + i].x;
-      let y = landslice[radius + i].y + circleQuadIV[i];
+      let y = landslice[radius + i].y + quadIV[i];
       let newpoint = { "x": x, "y": y };
       alteredPoints.push(newpoint);
     }
+
+    let angleRounded = Math.round(angleOfImpact);
+    let angleSliceStart = angleRounded - 90;
+    let angleSliceEnd = angleRounded + 90;
+    let entries = [];
+
+    for (let i = angleSliceStart; i < angleSliceEnd; i++)
+    {
+      let result = { "x": Math.cos(i), "y": Math.sin(i) };
+      entries.push(result);
+    }
+
+    console.log(entries);
+
 
 
     //write altered points back into allpoints
