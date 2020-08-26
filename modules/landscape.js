@@ -157,20 +157,27 @@ class Landscape
       alteredPoints.push(newpoint);
     }
 
+    /////////////////////////////////////////////////
+
     let angleRounded = Math.round(angleOfImpact);
     let angleSliceStart = angleRounded - 90;
     let angleSliceEnd = angleRounded + 90;
     let entries = [];
 
+
+
     for (let i = angleSliceStart; i < angleSliceEnd; i++)
     {
-      let result = { "x": Math.cos(i), "y": Math.sin(i) };
+      //need function to slide along radius possible math.atan
+
+      let result = { "x": Math.cos(i) * radius, "y": Math.sin(i) * radius };
+
       entries.push(result);
     }
 
     console.log(entries);
 
-
+    ////////////////////////////////////////////////////
 
     //write altered points back into allpoints
     let j = 0;
