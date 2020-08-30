@@ -88,7 +88,7 @@ class Landscape
         }
       }
     }
-    allpoints.push(keypoints[keypoints.length-1]);
+    allpoints.push(keypoints[keypoints.length - 1]);
     return allpoints;
   }
 
@@ -102,91 +102,55 @@ class Landscape
   getCtxHeight() { return this.#ctxHeight; }
 
 
-  deformLandscape(matchpoint, angleOfImpact)
+  deformLandscape(shotpath)
   {
-    //rewrite this function so angleOfImpact is perpendicular to
-    //the digging.
-
-    //doing this will require taking a slice of a full circle
-    //from 90 deg one side of angleOfImpact to 90 deg other side
-
+    //1. get explosion point
+    let landpoints = this.#allpoints;
+    let explosionpoint = shotpath[shotpath.length - 1];
     let radius = 20;
+    let circlepoints = [];
+    let interceptpoints = [];
 
-    //points i need to alter
-    let start = matchpoint.x - radius;
-    let end = matchpoint.x + radius;
-    let landslice = this.#allpoints.slice(start, end);
-
-
-    //going positive along x, bottom-right half of circle
-    let quadI = [];
-    let quadII = [];
-    let quadIII = [];
-    let quadIV = [];
-
-    //acos gives us angle from position along x-axis
-    //sineing it then gives relative y position
-    for (let i = 0; i < radius; i++)
+    //2. calculate points of circle about explosionpoint
+    for (let i = 0; i < 360; i ++)
     {
-      quadI.unshift(+(Math.sin(Math.acos(i / radius))) * radius);
-      quadII.push(+(Math.sin(Math.acos(i / radius))) * radius);
-      quadIII.unshift(-(Math.sin(Math.acos(i / radius))) * radius);
-      quadIV.push(-(Math.sin(Math.acos(i / radius))) * radius);
+      let x = explosionpoint.x + (Math.cos(i * (Math.PI / 180)) * radius);
+      let y = explosionpoint.y + (Math.sin(i * (Math.PI / 180)) * radius);
+      circlepoints.push({ "x": x, "y": y });
     }
 
-    
+    // let i = 0;
+    // for (let x = explosionpoint.x - radius; x < explosionpoint.x + radius; x++)
+    // {
+    //   let y = (Math.sin(Math.acos(i / x) * (Math.PI / 180)) * radius);
+    //   circlepoints.push({ "x": x, "ytop": y, "ybot": -y });
+    //   i++;
+    // }
 
-    //maybe change this function to always dig perpendicular to slope?
-    //or else focus the digging along angle of projectile at the time?
-    //can i get the angle of the projectile at time of impact from shot?
-    let alteredPoints = [];
+    // console.log(circlepoints);
 
-    for (let i = 0; i < quadIII.length; i++)
+    //3. find 2 points that intersect with landscape
+    circlepoints.forEach(circlepoint =>
     {
-      let x = landslice[i].x;
-      let y = landslice[i].y + quadIII[i];
-      let newpoint = { "x": x, "y": y };
-      alteredPoints.push(newpoint);
-    }
+      landpoints.forEach(landpoint =>
+      {
+        if (Math.round(circlepoint.x) == Math.round(landpoint.x))
+        {
+          if (Math.round(circlepoint.y) == Math.round(landpoint.y))
+          {
+            interceptpoints.push(landpoint);
+          }
+        }
+      })
+    });
 
-    for (let i = 0; i < quadIII.length; i++)
-    {
-      let x = landslice[radius + i].x;
-      let y = landslice[radius + i].y + quadIV[i];
-      let newpoint = { "x": x, "y": y };
-      alteredPoints.push(newpoint);
-    }
-
-    /////////////////////////////////////////////////
-
-    let angleRounded = Math.round(angleOfImpact);
-    let angleSliceStart = angleRounded - 90;
-    let angleSliceEnd = angleRounded + 90;
-    let entries = [];
+    console.log(interceptpoints);
 
 
 
-    for (let i = angleSliceStart; i < angleSliceEnd; i++)
-    {
-      //need function to slide along radius possible math.atan
+    //4. remove section of landscape between 2 points
 
-      let result = { "x": Math.cos(i) * radius, "y": Math.sin(i) * radius };
-
-      entries.push(result);
-    }
-
-    console.log(entries);
-
-    ////////////////////////////////////////////////////
-
-    //write altered points back into allpoints
-    let j = 0;
-    for (let i = start; i < end; i++)
-    {
-      this.#allpoints[i] = alteredPoints[j];
-      j++;
-    }
-
+    //5. write portion of circle back to landscape
   }
 }
 

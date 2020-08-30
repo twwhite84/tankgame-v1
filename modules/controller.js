@@ -1,6 +1,7 @@
 // controller.js -- request handler, informs game and view
 import { View } from './view.js';
 import { Game } from './game.js';
+import { Landscape } from './landscape.js';
 
 class Controller 
 {
@@ -56,71 +57,50 @@ class Controller
 
   fire() 
   {
+    let game = this.#game;
+    let view = this.#view;
+
     try 
     {
-      if (this.#game == null) throw Error(`No game in progress.`);
+      if (game == null) throw Error(`No game in progress.`);
 
-      let angles = this.#view.getAngleInputs();
-      let powers = this.#view.getPowerInputs();
+      let angles = view.getAngleInputs();
+      let powers = view.getPowerInputs();
+      game.setCurrentShot(angles, powers);
 
-      this.#game.setCurrentShot(angles, powers);
-      let shot = this.#game.getCurrentShot();
-      this.#view.plotShot(shot, playExplosion.bind(this));
+      let shot = game.getCurrentShot();
+      let shotpath = shot.getShotpath();
 
-      //after bullet animation, play explosion animation
-      function playExplosion()
+      //first callback
+      let playExplosion = () =>
       {
-        let shotpath = shot.getShotpath();
-        let coordinates = shotpath[shotpath.length-1];
-        this.#view.plotExplosion(coordinates, roundOver.bind(this));
+        let coordinates = shotpath[shotpath.length - 1];
+        view.plotExplosion(coordinates, roundOver);
       }
 
-      //after explosion, figure out what game does next
-      function roundOver()
+      //last callback
+      let roundOver = () =>
       {
-        this.#view.clearCanvas();
-        
-
-        //landscape update should go here
-        
-        //get the last point in the shotpath
-        //THIS SHOULD ALL GO IN ANOTHER FUNCTION BTW!!!
-        let shot = this.#game.getCurrentShot();
-        let shotpath = shot.getShotpath();
-        let explosionpoint = shotpath[shotpath.length-1];
-        let landscape = this.#game.getLandscape();
-        let landpoints = landscape.getAllpoints();
-        let matchpoint = landpoints.filter(point => point.x == explosionpoint.x);
-
-        //check the impact angle
-        let deltaY = shotpath[shotpath.length-1].y - shotpath[shotpath.length-10].y;
-        let deltaX = shotpath[shotpath.length-1].x - shotpath[shotpath.length-10].x;
-        let angleOfImpactRad = Math.atan(deltaY/deltaX);
-        let angleOfImpact = angleOfImpactRad * (180/Math.PI);
-
-        if (!(matchpoint.length === 0 || matchpoint.y === 0))
-        {
-          landscape.deformLandscape(matchpoint[0], angleOfImpact);
-        }
+        view.clearCanvas();
+        game.getLandscape().deformLandscape(shotpath);
 
         //drop the player position to match new landscape
-        this.#view.plotPlayers(this.#game.getPlayers());
-        this.#view.plotLandscape(this.#game.getLandscape());
-
-        
-        
+        view.plotPlayers(game.getPlayers());
+        view.plotLandscape(game.getLandscape());
 
         let hitStatus = shot.getHitStatus();
         console.log(`hit: ${hitStatus}`);
-        this.#game.cyclePlayer();
-        this.#view.setCurrentPlayer(this.#game.getCurrentPlayer());
-        this.#game.setRandomWind();
-        this.#view.setWind(this.#game.getWind());
+        game.cyclePlayer();
+        view.setCurrentPlayer(game.getCurrentPlayer());
+        game.setRandomWind();
+        view.setWind(game.getWind());
       }
+
+      view.plotShot(shot, playExplosion);
     }
 
     catch (error)
-    { this.#view.showMessage(error); }
+    { view.showMessage(error); }
   }
 
 }
