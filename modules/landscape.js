@@ -112,39 +112,38 @@ class Landscape
     let interceptpoints = [];
 
     //2. calculate points of circle about explosionpoint
-    for (let i = 0; i < 360; i ++)
-    {
-      let x = explosionpoint.x + (Math.cos(i * (Math.PI / 180)) * radius);
-      let y = explosionpoint.y + (Math.sin(i * (Math.PI / 180)) * radius);
-      circlepoints.push({ "x": x, "y": y });
-    }
-
-    // let i = 0;
-    // for (let x = explosionpoint.x - radius; x < explosionpoint.x + radius; x++)
+    // for (let i = 0; i < 360; i++)
     // {
-    //   let y = (Math.sin(Math.acos(i / x) * (Math.PI / 180)) * radius);
-    //   circlepoints.push({ "x": x, "ytop": y, "ybot": -y });
-    //   i++;
+    //   let x = explosionpoint.x + (Math.cos(i * (Math.PI / 180)) * radius);
+    //   let y = explosionpoint.y + (Math.sin(i * (Math.PI / 180)) * radius);
+    //   circlepoints.push({ "x": x, "y": y });
     // }
 
-    // console.log(circlepoints);
+    for (let i = 0; i <= radius; i++)
+    {
+      let y = (Math.sin(Math.acos(i / radius))) * radius;
+      circlepoints.push(y);
+    }
+
+    console.log(circlepoints);
 
     //3. find 2 points that intersect with landscape
-    circlepoints.forEach(circlepoint =>
-    {
-      landpoints.forEach(landpoint =>
-      {
-        if (Math.round(circlepoint.x) == Math.round(landpoint.x))
-        {
-          if (Math.round(circlepoint.y) == Math.round(landpoint.y))
-          {
-            interceptpoints.push(landpoint);
-          }
-        }
-      })
-    });
+    // landpoints.forEach(landpoint =>
+    // {
+    //   circlepoints.forEach(circlepoint =>
+    //   {
+    //     if (landpoint.x < (circlepoint.x + 1) && landpoint.x > (circlepoint.x - 1))
+    //     {
+    //       if (landpoint.y > (circlepoint.y - 1) && landpoint.y < (circlepoint.y + 1))
+    //       {
+    //         interceptpoints.push(landpoint);
+    //       }
 
-    console.log(interceptpoints);
+    //     }
+    //   })
+    // });
+
+    // console.log(interceptpoints);
 
 
 
