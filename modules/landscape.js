@@ -119,9 +119,29 @@ class Landscape
     //   circlepoints.push({ "x": x, "y": y });
     // }
 
+    let landscapeIndex = landpoints.findIndex(element => element.x == explosionpoint.x);
+    console.log(landscapeIndex);
+
+    let deltaY = landpoints[landscapeIndex].y - landpoints[landscapeIndex - 1].y;
+    let deltaX = landpoints[landscapeIndex].x - landpoints[landscapeIndex - 1].x;
+    let tangent = Math.atan(deltaY / deltaX);
+    console.log(tangent * (180/Math.PI));
+
+
+
     for (let i = 0; i <= radius; i++)
     {
-      let y = (Math.sin(Math.acos(i / radius))) * radius;
+      let y = 
+        (
+          Math.sin(Math.acos(i / radius)) * radius
+        )
+
+        +
+
+        (
+          Math.sin(Math.atan(tangent)) * (i / radius) * radius
+        );
+
       circlepoints.push(y);
     }
 
