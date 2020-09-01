@@ -164,19 +164,38 @@ class Landscape
 
 
     //4. remove section of landscape between 2 points
-    //need to boil down our intercept points to the two most popular points
-    let noDuplicates = [];
-    interceptpoints.forEach(point =>
+
+    //filter out duplicate entries
+    let duplicatesRemoved = [];
+    interceptpoints.forEach(interceptpoint =>
     {
       let duplicates = false;
-      noDuplicates.forEach(noDupesEntry =>
+      duplicatesRemoved.forEach(duplicatepoint =>
       {
-        if (point.x == noDupesEntry.x && point.y == noDupesEntry.y) duplicates = true;
+        if (interceptpoint.x == duplicatepoint.x && interceptpoint.y == duplicatepoint.y) duplicates = true;
       });
-      if (duplicates == false) noDuplicates.push(point);
+      if (duplicates == false) duplicatesRemoved.push(interceptpoint);
     });
 
+    console.log(duplicatesRemoved);
+    //for entries that differ by only 1 pixel of x, keep the extremes
+    //order array into numberical order by x values, then keep the first and last elements
+    let ordered = [];
 
+    for (let i = 0; i < duplicatesRemoved.length; i++)
+    {
+      let slice = duplicatesRemoved.slice(i, duplicatesRemoved.length - 1);
+
+      //with the slice find the highest number, and unshift it to ordered
+      let start = 0;
+      slice.forEach(entry => {
+        if (entry.x > start) start = entry;
+      });
+      console.log(`highest number is ${start}`);
+      ordered.push(start);
+    }
+
+    console.log(ordered);
 
     //5. write portion of circle back to landscape
   }
