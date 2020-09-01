@@ -108,79 +108,37 @@ class Landscape
     let landpoints = this.#allpoints;
     let explosionpoint = shotpath[shotpath.length - 1];
     let radius = 20;
-    let newYPoints = [];
     let interceptpoints = [];
+    let circlepoints = [];
 
+    //FIX UP, COSINE OF 90 DEG or 1/4*2pi AND 270deg or 3/4*2pi NEED TO BE ROUNDED
     //2. calculate points of circle about explosionpoint
-    // for (let i = 0; i < 360; i++)
-    // {
-    //   let x = explosionpoint.x + (Math.cos(i * (Math.PI / 180)) * radius);
-    //   let y = explosionpoint.y + (Math.sin(i * (Math.PI / 180)) * radius);
-    //   circlepoints.push({ "x": x, "y": y });
-    // }
-
-
-    let landscapeIndex = landpoints.findIndex(element => element.x == explosionpoint.x);
-    console.log(landscapeIndex);
-
-    if (landscapeIndex != -1)
+    for (let i = 0; i < 360; i++)
     {
-
-      let deltaY = landpoints[landscapeIndex].y - landpoints[landscapeIndex - 1].y;
-      let deltaX = landpoints[landscapeIndex].x - landpoints[landscapeIndex - 1].x;
-      let tangent = Math.atan(deltaY / deltaX);
-
-
-      for (let i = 0; i < radius; i++)
-      {
-        //y is altered by relative circular position plus offset of hillside slope
-        let y =
-          (
-            Math.sin(Math.acos(i / radius)) * radius
-          )
-
-          +
-          (
-            Math.sin(Math.atan(tangent)) * (i / radius) * radius
-          );
-
-        newYPoints.push(y);
-      }
-
-      //3. find 2 points that intersect with landscape
-      // landpoints.forEach(landpoint =>
-      // {
-      //   circlepoints.forEach(circlepoint =>
-      //   {
-      //     if (landpoint.x < (circlepoint.x + 1) && landpoint.x > (circlepoint.x - 1))
-      //     {
-      //       if (landpoint.y > (circlepoint.y - 1) && landpoint.y < (circlepoint.y + 1))
-      //       {
-      //         interceptpoints.push(landpoint);
-      //       }
-
-      //     }
-      //   })
-      // });
-
-
-      //4. remove section of landscape between 2 points
-      let j = 0;
-      for (let li = landscapeIndex + 20; li < landscapeIndex + 40; li++)
-      {
-        this.#allpoints[li].y -= newYPoints[j];
-        j++;
-      }
-
-      j = 19;
-      for (let li = landscapeIndex; li < landscapeIndex + 20; li++)
-      {
-        this.#allpoints[li].y -= newYPoints[j];
-        j--;
-      }
-
-
+      let x = (Math.cos(i * (Math.PI / 180)) * radius);
+      let y = (Math.sin(i * (Math.PI / 180)) * radius);
+      circlepoints.push({ "x": x, "y": y });
     }
+
+    //3. find 2 points that intersect with landscape
+    landpoints.forEach(landpoint =>
+    {
+      circlepoints.forEach(circlepoint =>
+      {
+        if (landpoint.x < (circlepoint.x + 1) && landpoint.x > (circlepoint.x - 1))
+        {
+          if (landpoint.y > (circlepoint.y - 1) && landpoint.y < (circlepoint.y + 1))
+          {
+            interceptpoints.push(landpoint);
+          }
+
+        }
+      })
+    });
+
+
+    //4. remove section of landscape between 2 points
+
     //5. write portion of circle back to landscape
   }
 }
