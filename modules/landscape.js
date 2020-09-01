@@ -164,6 +164,19 @@ class Landscape
 
 
     //4. remove section of landscape between 2 points
+    //need to boil down our intercept points to the two most popular points
+    let noDuplicates = [];
+    interceptpoints.forEach(point =>
+    {
+      let duplicates = false;
+      noDuplicates.forEach(noDupesEntry =>
+      {
+        if (point.x == noDupesEntry.x && point.y == noDupesEntry.y) duplicates = true;
+      });
+      if (duplicates == false) noDuplicates.push(point);
+    });
+
+
 
     //5. write portion of circle back to landscape
   }
