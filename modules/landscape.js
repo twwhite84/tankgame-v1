@@ -118,15 +118,15 @@ class Landscape
       {
         let x = 0 * radius;
         let y = 1 * radius;
-        circlepoints.push({ "x": x, "y": y });
+        circlepoints.push({ "x": explosionpoint.x + x, "y": explosionpoint.y + y });
         continue;
       }
 
       else if (i == 180)
       {
-        let x = 1 * radius;
+        let x = -1 * radius;
         let y = 0 * radius;
-        circlepoints.push({ "x": x, "y": y });
+        circlepoints.push({ "x": explosionpoint.x + x, "y": explosionpoint.y + y });
         continue;
       }
 
@@ -134,7 +134,7 @@ class Landscape
       {
         let x = 0 * radius;
         let y = -1 * radius;
-        circlepoints.push({ "x": x, "y": y });
+        circlepoints.push({ "x": explosionpoint.x + x, "y": explosionpoint.y + y });
         continue;
       }
 
@@ -142,7 +142,7 @@ class Landscape
       {
         let x = (Math.cos(i * (Math.PI / 180)) * radius);
         let y = (Math.sin(i * (Math.PI / 180)) * radius);
-        circlepoints.push({ "x": x, "y": y });
+        circlepoints.push({ "x": explosionpoint.x + x, "y": explosionpoint.y + y });
       }
     }
 
