@@ -111,13 +111,39 @@ class Landscape
     let interceptpoints = [];
     let circlepoints = [];
 
-    //FIX UP, COSINE OF 90 DEG or 1/4*2pi AND 270deg or 3/4*2pi NEED TO BE ROUNDED
     //2. calculate points of circle about explosionpoint
     for (let i = 0; i < 360; i++)
     {
-      let x = (Math.cos(i * (Math.PI / 180)) * radius);
-      let y = (Math.sin(i * (Math.PI / 180)) * radius);
-      circlepoints.push({ "x": x, "y": y });
+      if (i == 90)
+      {
+        let x = 0 * radius;
+        let y = 1 * radius;
+        circlepoints.push({ "x": x, "y": y });
+        continue;
+      }
+
+      else if (i == 180)
+      {
+        let x = 1 * radius;
+        let y = 0 * radius;
+        circlepoints.push({ "x": x, "y": y });
+        continue;
+      }
+
+      else if (i == 270)
+      {
+        let x = 0 * radius;
+        let y = -1 * radius;
+        circlepoints.push({ "x": x, "y": y });
+        continue;
+      }
+
+      else
+      {
+        let x = (Math.cos(i * (Math.PI / 180)) * radius);
+        let y = (Math.sin(i * (Math.PI / 180)) * radius);
+        circlepoints.push({ "x": x, "y": y });
+      }
     }
 
     //3. find 2 points that intersect with landscape
