@@ -108,42 +108,16 @@ class Landscape
     let landpoints = this.#allpoints;
     let explosionpoint = shotpath[shotpath.length - 1];
     let radius = 20;
-    let interceptpoints = [];
+    let resolution = 100000;
     let circlepoints = [];
+    let interceptpoints = [];
 
     //2. calculate points of circle about explosionpoint
-    for (let i = 0; i < 360; i++)
+    for (let i = 0; i < resolution; i++)
     {
-      if (i == 90)
-      {
-        let x = 0 * radius;
-        let y = 1 * radius;
-        circlepoints.push({ "x": explosionpoint.x + x, "y": explosionpoint.y + y });
-        continue;
-      }
-
-      else if (i == 180)
-      {
-        let x = -1 * radius;
-        let y = 0 * radius;
-        circlepoints.push({ "x": explosionpoint.x + x, "y": explosionpoint.y + y });
-        continue;
-      }
-
-      else if (i == 270)
-      {
-        let x = 0 * radius;
-        let y = -1 * radius;
-        circlepoints.push({ "x": explosionpoint.x + x, "y": explosionpoint.y + y });
-        continue;
-      }
-
-      else
-      {
-        let x = (Math.cos(i * (Math.PI / 180)) * radius);
-        let y = (Math.sin(i * (Math.PI / 180)) * radius);
-        circlepoints.push({ "x": explosionpoint.x + x, "y": explosionpoint.y + y });
-      }
+      let x = Math.cos((i / resolution) * (2 * Math.PI)) * radius;
+      let y = Math.sin((i / resolution) * (2 * Math.PI)) * radius;
+      circlepoints.push({ "x": explosionpoint.x + x, "y": explosionpoint.y + y });
     }
 
     //3. find 2 points that intersect with landscape
@@ -151,9 +125,10 @@ class Landscape
     {
       circlepoints.forEach(circlepoint =>
       {
-        if (landpoint.x < (circlepoint.x + 1) && landpoint.x > (circlepoint.x - 1))
+        if (landpoint.x == Math.round(circlepoint.x))
         {
-          if (landpoint.y > (circlepoint.y - 1) && landpoint.y < (circlepoint.y + 1))
+          //shots are allowed to sink into ground by 2px, see shot class
+          if (landpoint.y < (circlepoint.y + 1) && landpoint.y > (circlepoint.y - 4))
           {
             interceptpoints.push(landpoint);
           }
@@ -177,25 +152,28 @@ class Landscape
       if (duplicates == false) duplicatesRemoved.push(interceptpoint);
     });
 
-    console.log(duplicatesRemoved);
-    //for entries that differ by only 1 pixel of x, keep the extremes
-    //order array into numberical order by x values, then keep the first and last elements
     let ordered = [];
 
     for (let i = 0; i < duplicatesRemoved.length; i++)
     {
-      let slice = duplicatesRemoved.slice(i, duplicatesRemoved.length - 1);
+      let slice = duplicatesRemoved.slice(i, duplicatesRemoved.length);
 
       //with the slice find the highest number, and unshift it to ordered
       let start = 0;
-      slice.forEach(entry => {
+      slice.forEach(entry =>
+      {
         if (entry.x > start) start = entry;
       });
-      console.log(`highest number is ${start}`);
       ordered.push(start);
     }
 
-    console.log(ordered);
+    //get the lowest and highest values from the ordered array
+    if (ordered.length != 0)
+    {
+      console.log(`${ordered[0].x}, ${ordered[0].y}`);
+      console.log(`${ordered[ordered.length-1].x}, ${ordered[ordered.length-1].y}`);
+    }
+    
 
     //5. write portion of circle back to landscape
   }
