@@ -157,7 +157,7 @@ class Landscape
     {
       let slice = duplicatesRemoved.slice(i, duplicatesRemoved.length);
 
-      //with the slice find the highest number, and unshift it to ordered
+      //with the slice find the highest number, and push it to ordered
       let start = 0;
       slice.forEach(entry =>
       {
@@ -173,15 +173,9 @@ class Landscape
       console.log(`${ordered[ordered.length-1].x}, ${ordered[ordered.length-1].y}`);
       let first = ordered[0];
       let last = ordered[ordered.length-1];
-      let difference = last.x - first.x;
-      console.log(difference);
-      for (let i = first.x; i < difference; i++)
+      for (let i = first.x; i < last.x; i++)
       {
         // this.#allpoints[i] = ordered[i];
-        //NEED TO MAP CALCULATED CIRCLEPOINTS BACK TO ALLPOINTS
-        //DIVIDE CIRCLEPOINTS INTO THE NUMBER OF X UNITS I NEED AND USE RELEVANT Y POSITIONS
-
-        //
 
       }
     }
