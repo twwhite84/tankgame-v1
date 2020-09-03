@@ -52,12 +52,16 @@ class Player
     let y = this.#position.y;
     let obj = { "x": x, "y": y };
     let index = allpoints.findIndex(element => element.x === obj.x);
-    let prevPoint = allpoints[index - 1];
-    let nextPoint = allpoints[index + 1];
-    let deltaX = nextPoint.x - prevPoint.x;
-    let deltaY = nextPoint.y - prevPoint.y;
-    let rotRad = Math.atan(deltaY/deltaX);
-    this.#rotation = rotRad;
+    if (index > 0)
+    {
+      let prevPoint = allpoints[index - 1];
+      let nextPoint = allpoints[index + 1];
+      let deltaX = nextPoint.x - prevPoint.x;
+      let deltaY = nextPoint.y - prevPoint.y;
+      let rotRad = Math.atan(deltaY/deltaX);
+      this.#rotation = rotRad;
+    }
+    
   }
 
 }

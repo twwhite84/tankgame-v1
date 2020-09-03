@@ -140,22 +140,22 @@ class Landscape
     //4. remove section of landscape between 2 points
 
     //filter out duplicate entries
-    let duplicatesRemoved = [];
+    let interceptsNoDuplicates = [];
     interceptpoints.forEach(interceptpoint =>
     {
       let duplicates = false;
-      duplicatesRemoved.forEach(duplicatepoint =>
+      interceptsNoDuplicates.forEach(duplicatepoint =>
       {
         if (interceptpoint.x == duplicatepoint.x && interceptpoint.y == duplicatepoint.y) duplicates = true;
       });
-      if (duplicates == false) duplicatesRemoved.push(interceptpoint);
+      if (duplicates == false) interceptsNoDuplicates.push(interceptpoint);
     });
 
-    let ordered = [];
+    let interceptsNoDuplicatesOrdered = [];
 
-    for (let i = 0; i < duplicatesRemoved.length; i++)
+    for (let i = 0; i < interceptsNoDuplicates.length; i++)
     {
-      let slice = duplicatesRemoved.slice(i, duplicatesRemoved.length);
+      let slice = interceptsNoDuplicates.slice(i, interceptsNoDuplicates.length);
 
       //with the slice find the highest number, and push it to ordered
       let start = 0;
@@ -163,20 +163,18 @@ class Landscape
       {
         if (entry.x > start) start = entry;
       });
-      ordered.push(start);
+      interceptsNoDuplicatesOrdered.push(start);
     }
 
-    //get the lowest and highest values from the ordered array
-    if (ordered.length != 0)
+    if (interceptsNoDuplicatesOrdered.length != 0)
     {
-      console.log(`${ordered[0].x}, ${ordered[0].y}`);
-      console.log(`${ordered[ordered.length-1].x}, ${ordered[ordered.length-1].y}`);
-      let first = ordered[0];
-      let last = ordered[ordered.length-1];
-      for (let i = first.x; i < last.x; i++)
-      {
-        // this.#allpoints[i] = ordered[i];
+      let first = interceptsNoDuplicatesOrdered[0];
+      let last = interceptsNoDuplicatesOrdered[interceptsNoDuplicatesOrdered.length-1];
 
+      for (let x = first.x; x < last.x; x++)
+      {
+        let circlestep = landpoints.findIndex(value => value.x == Math.floor(circlepoints[x].x));
+        landpoints[x] = circlepoints[circlestep];
       }
     }
     
