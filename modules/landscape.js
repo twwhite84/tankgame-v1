@@ -108,7 +108,7 @@ class Landscape
     let landpoints = this.#allpoints;
     let explosionpoint = shotpath[shotpath.length - 1];
     let radius = 20;
-    let resolution = 100000;
+    let resolution = 10000;   //too high, takes ages. too low, misses intercepts
     let circlepoints = [];
     let interceptpoints = [];
 
@@ -132,7 +132,6 @@ class Landscape
           {
             interceptpoints.push(landpoint);
           }
-
         }
       })
     });
@@ -172,6 +171,19 @@ class Landscape
     {
       console.log(`${ordered[0].x}, ${ordered[0].y}`);
       console.log(`${ordered[ordered.length-1].x}, ${ordered[ordered.length-1].y}`);
+      let first = ordered[0];
+      let last = ordered[ordered.length-1];
+      let difference = last.x - first.x;
+      console.log(difference);
+      for (let i = first.x; i < difference; i++)
+      {
+        // this.#allpoints[i] = ordered[i];
+        //NEED TO MAP CALCULATED CIRCLEPOINTS BACK TO ALLPOINTS
+        //DIVIDE CIRCLEPOINTS INTO THE NUMBER OF X UNITS I NEED AND USE RELEVANT Y POSITIONS
+
+        //
+
+      }
     }
     
 
